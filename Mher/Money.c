@@ -1,8 +1,9 @@
 #include <stdio.h>
+#include <cs50.h>
 
 int main(void)
 {
-    int money = 78;
+    int money = get_int("Money: ");
     int coin=0;
     while(money>0)
     {

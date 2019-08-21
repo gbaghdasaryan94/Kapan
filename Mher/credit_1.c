@@ -1,9 +1,10 @@
 #include<stdio.h>
+#include<cs50.h>
 
 int main(void)
 {
+    long int n = get_long("Cart: ");
     int a=0;
-    long int n = 4033190012524262;
     
     while(n>0)
     {
@@ -17,7 +18,6 @@ int main(void)
         }
         else
         {
-            
             a+=n%10*2;
             n=n/10;
         }
