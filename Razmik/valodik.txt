@@ -1,3 +1,0 @@
-dd.py
-readme.md
-valodik.txt
