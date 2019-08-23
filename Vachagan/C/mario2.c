@@ -10,19 +10,14 @@ int main(){
     }while (n < 0);
     
     
-    for(int i = 1; i<=n; i++){  // for rows
-        for(int j = 0; j<n-i; j++){   // for cols " "
+    for(int i = 0; i<n; i++){  // for rows
+        for(int j = 0; j<n-i-1; j++){   // for cols " "
             printf(" ");
         }
-        for(int j = n-i-1; j<n; j++){  // for cols "#"
+        for(int j = 0; j<=i; j++){  // for cols "#"
             printf("#");
         }
-        printf("\n");
-    }
-
-        printf("\n");
-
-    for(int i = 1; i<=n; i++){  // for rows
+        printf(" ");
         for(int j = 0; j<=i; j++){  // for cols "#"
             printf("#");
         }
