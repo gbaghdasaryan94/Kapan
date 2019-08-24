@@ -30,10 +30,18 @@ int main(void)
             if(l>=97 && l<=122)
                 {
                     c=c+l-97;
+                    if(c>90)
+                    {
+                        c-=26;
+                    }
                 }
             else if(l>=65 && l<=90)
                 {
                     c=c+l-65;
+                    if(c>90)
+                    {
+                        c-=26;
+                    }
                 }
         }
         else if(c>=97 && c<=122)
@@ -41,10 +49,18 @@ int main(void)
             if(l>=97 && l<=122)
                 {
                     c=c+l-97;
+                    if(c>122)
+                    {
+                        c-=26;
+                    }
                 }
             else if(l>=65 && l<=90)
                 {
                     c=c+l-65;
+                    if(c>122)
+                    {
+                        c-=26;
+                    }
                 }
         }
         //For "Empty" space (Probel)...
