@@ -13,9 +13,9 @@ int main(){
     do{
         sum=get_float("How much change is owed?\n");
     } while(!sum);
-    sum=sum*100;
+    //sum=sum*100;
 
-   n = (int)sum;
+   n = sum*100;
 
 
     length = sizeof(coins)/ sizeof(coins[0]) ;
@@ -23,13 +23,13 @@ int main(){
 
 
     for(int i=0; i<length;i++){
-        while(n>=coins[i]){
-            n=n-coins[i];
-            quantity[i]++;
+        if(n>=coins[i]){            
+            quantity[i]=quantity[i]+n/coins[i];
+            n=n%coins[i];
         }
     }
 
-
+    printf("\n");
 
     for(int i = 0; i < length; i++) {
         if(quantity[i]>0){

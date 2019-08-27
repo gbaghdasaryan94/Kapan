@@ -1,4 +1,4 @@
-﻿import java.util.Scanner;
+import java.util.Scanner;
 
 public class GreedyCashier{
     
@@ -49,21 +49,25 @@ public class GreedyCashier{
          System.out.println("amboxjy esa _____ " + total);
         
              for(int i=0; i<coins.length; i++){
-                
-                while(total>=coins[i]){
-                    total = total - coins[i];
-                    quantity[i]++;
+              
+                if( total>=coins[i] ){            
+            	    quantity[i]=quantity[i]+total/coins[i];
+            	    total=total%coins[i];
+        	}
                    
-                }
+                
                 
              }
              
             
              for (int i =0 ; i < quantity.length; i++) {
+                 
+                 if(quantity[i] !=0){
                   
                   System.out.println(coins[i]+" cent pieces given = " + quantity[i]);
                   
                   quan = quan+quantity[i];
+                 }
                 }
             System.out.println("totaly given = " + quan);
           
