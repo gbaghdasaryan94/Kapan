@@ -9,6 +9,5 @@ int main(){
         coins = round(get_float("Change owed: ")*100);
     }while (coins  >= 100 || coins <= 0);
 
-    printf("%i\n",coins/25 + (coins%25)/10 + ((coins%25)%10)/5 + ((coins%25)%10)%5);
-        
+    printf("%i\n",coins/25 + (coins%25)/10 + ((coins%25)%10)/5 + ((coins%25)%10)%5);       
 }
