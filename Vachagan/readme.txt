@@ -1,5 +1,8 @@
-total 0
-drwxrwxrwx 1 vachagan vachagan 512 Jun  3 20:48 .
-drwxrwxrwx 1 vachagan vachagan 512 Jun  3 20:53 ..
-drwxrwxrwx 1 vachagan vachagan 512 Jun  3 20:50 Python
--rwxrwxrwx 1 vachagan vachagan   0 Jun  3 21:00 readme.txt
+total 16
+drwxrwxr-x  4 user user 4096 Օգս 21 10:39 .
+drwxrwxr-x 19 user user 4096 Օգս 21 10:00 ..
+drwxr-xr-x  2 user user 4096 Օգս 21 10:40 C
+drwxrwxr-x  3 user user 4096 Օգս 21 10:00 Python
+-rw-rw-r--  1 user user    0 Օգս 21 10:40 readme.txt
+
+New update
