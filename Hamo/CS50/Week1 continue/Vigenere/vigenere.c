@@ -52,7 +52,7 @@ string vigenere (string str, string key)
             k=keyNum(key);
             code[i]=(str[i]+k-97)%26+97;
         }
-        else if ((str[i]>64) && (str[i]<91)){
+        if ((str[i]>64) && (str[i]<91)){
             k=keyNum(key);
             code[i]=(str[i]+k-65)%26+65;
         }
@@ -75,7 +75,7 @@ int keyNum (string key){
             k =(key[j]-97)%26;
             j++;
     } 
-    else if((key[j]>64) && (key[j]<91)){
+    if( (key[j]>64) && (key[j]<91) ){
         k =(key[j]-65)%26;
         j++;
     }
