@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 int main (void){
-    int number = 890;
+    int number = 97;
     int q=0;
 
     q=q+number/25;
