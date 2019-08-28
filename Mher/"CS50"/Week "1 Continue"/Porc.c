@@ -7,17 +7,18 @@
 int main(void)
 {
     string n = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghiklmnopqrstuvwxyz";
-    char word[5];
-    string pass = "50cNRQBJJ3FXI";
+    char word[3];
+    string pass = "50R.6FuTGui8U";
+    int a=strlen(n);
 
-    for(int i=0,a=strlen(n); i<a; i++)
+    for(int i=0; i<a; i++)
     {
         word[0]=n[i];
         string key = crypt(word,"50");
        
         if(strcmp(key,pass)==0)
         {
-            printf("%c\n",word[0]);
+            printf("%s\n",word);
         }
         
         for(int j=0; j<a; j++)
@@ -27,7 +28,7 @@ int main(void)
 
             if(strcmp(key,pass)==0)
             {
-                printf("%c\n",word[0]);
+                printf("%s\n",word);
             }
 
             for(int r=0; r<a; r++)
@@ -37,7 +38,7 @@ int main(void)
 
                 if(strcmp(key,pass)==0)
                 {
-                    printf("%c\n",word[0]);
+                    printf("%s\n",word);
                 }
             }
         }
