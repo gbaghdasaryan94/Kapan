@@ -6,9 +6,9 @@
 
 int main(void)
 {
-    string n = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghiklmnopqrstuvwxyz";
+    string n = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     char word[5];
-    string pass = "50HiFVbom/a2E";
+    string pass = "5014xsoHxuiFs";
     int a=strlen(n);
 
     for(int i=0; i<a; i++)
