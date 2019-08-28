@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+﻿import java.util.Scanner;
+=======
 import java.util.Scanner;
+>>>>>>> 18537d8cfa3a04b59b76d2403e1c6704c3581f0a
 
 public class GreedyCashier{
     
@@ -49,6 +53,14 @@ public class GreedyCashier{
          System.out.println("amboxjy esa _____ " + total);
         
              for(int i=0; i<coins.length; i++){
+<<<<<<< HEAD
+                
+                while(total>=coins[i]){
+                    total = total - coins[i];
+                    quantity[i]++;
+                   
+                }
+=======
               
                 if( total>=coins[i] ){            
             	    quantity[i]=quantity[i]+total/coins[i];
@@ -56,18 +68,25 @@ public class GreedyCashier{
         	}
                    
                 
+>>>>>>> 18537d8cfa3a04b59b76d2403e1c6704c3581f0a
                 
              }
              
             
              for (int i =0 ; i < quantity.length; i++) {
+<<<<<<< HEAD
+=======
                  
                  if(quantity[i] !=0){
+>>>>>>> 18537d8cfa3a04b59b76d2403e1c6704c3581f0a
                   
                   System.out.println(coins[i]+" cent pieces given = " + quantity[i]);
                   
                   quan = quan+quantity[i];
+<<<<<<< HEAD
+=======
                  }
+>>>>>>> 18537d8cfa3a04b59b76d2403e1c6704c3581f0a
                 }
             System.out.println("totaly given = " + quan);
           
@@ -79,4 +98,8 @@ public class GreedyCashier{
         
         userInp();
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 18537d8cfa3a04b59b76d2403e1c6704c3581f0a
