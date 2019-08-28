@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <cs50.h>
+#include<math.h>
 
 int main(){
     float coin_f ;
@@ -9,7 +10,7 @@ int main(){
     coin_f=get_float("Input dollars and cents ");
     } while (coin_f<0);
     
-    coin_i=coin_f*100;
+    coin_i=round(coin_f*100);
     printf("cents %i \n", coin_i);
     
     count1=coin_i /25;
