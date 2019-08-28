@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 int main (void){
-    int number = 97;
+    long number = get_long("Enter a number: ");
     int q=0;
 
     q=q+number/25;
@@ -17,6 +17,6 @@ int main (void){
     q=q+number/1;
     number=number%1;
 
-    printf(q);
+    printf("%d", q);
 
 }
