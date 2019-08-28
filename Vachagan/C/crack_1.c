@@ -7,7 +7,7 @@ int main(int argc, string argv[])
 {
 
     if(argc != 2){  
-        printf("Usage: ./crack usage\n");
+        printf("Usage: ./crack hash\n");
         return 1;
     }
     
@@ -15,7 +15,8 @@ int main(int argc, string argv[])
     string letter = "\0abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     
     string hash = argv[1];
-    char a[2] = {hash[0], hash[1]};
+    char a[3] = {hash[0], hash[1],'\0'};
+    // char key[6] = "\0\0\0\0\0\0";
 
     // one two three four five
     for (int five = 0; five < letter_count; five++)
@@ -28,12 +29,13 @@ int main(int argc, string argv[])
                 {
                     for (int one = 0; one < letter_count; one++)
                     {
-                        char key[5] = {
+                        char key[6] = {
                             letter[one],
                             letter[two],
                             letter[three],
                             letter[four],
-                            letter[five]
+                            letter[five],
+                            '\0'
                         };
                         printf("%s \n", key);
 
