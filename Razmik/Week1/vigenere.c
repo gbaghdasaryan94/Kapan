@@ -7,7 +7,7 @@
 int main(int argc, string argv[])
 {
     if (argc!=2) {
-        printf("Please enter a valid key!     Example: ./[program name] [key]\n");
+        printf("Please enter a valid key!     Example: ./[program name] [non-negative integer key]\n");
     return 1;
     }
     string key = argv[1];
@@ -21,14 +21,7 @@ int main(int argc, string argv[])
         if (isalpha(plain[i]))
         {
             int k = (int)key[j%strlen(key)]-97;
-            if (isalpha(plain[i]+k))
-            {
-                printf("%c",plain[i]+k);
-            }
-            else
-            {
-                printf("%c", plain[i]+k-26);
-            }
+            printf("%c",(plain[i]/32)*32+((plain[i]-(plain[i]/32)*32+k)%26));
             j++;
         }
         else

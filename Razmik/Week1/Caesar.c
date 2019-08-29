@@ -17,14 +17,7 @@ int main(int argc, string argv[])
     {
         if (isalpha(plain[i]))
         {
-            if (isalpha(plain[i]+k))
-            {
-                printf("%c",plain[i]+k);
-            }
-            else
-            {
-                printf("%c", plain[i]+k-26);
-            }
+            printf("%c",(plain[i]/32)*32+((plain[i]-(plain[i]/32)*32+k)%26));
         }
         else
         {
