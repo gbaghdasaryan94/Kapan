@@ -15,8 +15,8 @@ for (int i=0; i<strlen(plaintext); i++){
     key[i]=tolower(key[i]);
     if(isalpha(plaintext[i])){
     plaintext[i] = plaintext[i]+(key[j]-97);
-    if (plaintext[i]>122){
-        plaintext[i]= plaintext[i]-25;
+    if ((plaintext[i] >90&&plaintext[i]<97 )|| plaintext[i]>122){
+        plaintext[i]= plaintext[i]-26;
     }
     j++;
 }
