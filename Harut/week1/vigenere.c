@@ -1,57 +1,60 @@
 #include <stdio.h>
 #include <cs50.h>
-#include <string.h>
 #include <ctype.h>
+#include <string.h>
 
-int shift(char c);
+int alpha(char cc);
 
 int main(int c, string v[])
 {
-    int lv=strlen(v[1]);
-    char k[lv];
+    string k=v[1];
+    string t=get_string("text:");
+    int lt=strlen(t), lk=strlen(k);
 
-    for(int i=0; i<lv; i++)
-    {
-        if(isalpha(v[1][i]))
-        {
-            k[i]=v[1][i];
-        }
-
-        else printf("wrong keyword!\n");
-    }
-
-    printf("type the text\n");
-    string t=get_string();
-    int lt=strlen(t); char ./res[lt];
-
-//bazhanum e xmberi
     for(int i=0; i<lt; i++)
     {
-        for(int j=0; j<lv; j++)
+        if(!isspace(t[i]))
         {
-            if(i%lv==j)
+
+        for(int j=0; j<lk; j++)
+        {
+            if(i%lk==j)
             {
-                res[i]=t[i]+shift(k[j]);
+                if(isupper(t[i]))
+                {
+                    t[i]=(alpha(t[i])+alpha(k[j]))%26+'A';
+                }
+
+                else
+                if(islower(t[i]))
+                {
+                    t[i]=(alpha(t[i])+alpha(k[j]))%26+'a';
+                }
             }
         }
+        }
     }
-
-printf("%s\n", res);
+printf("code:%s\n", t);
 }
 
-//////////functon shift lower///////////////
-int shift(char c)
+//-----------function alpha------------
+
+int alpha(char cc)
 {
-    int sh=0;
-    if(isalpha(c) && islower(c))
+    int al=0;
+
+    if(islower(cc))
     {
-        sh=c-'a';
+        al=cc-'a';
     }
+
     else
 
-    if(isalpha(c) && isupper(c))
+    if(isupper(cc))
     {
-        sh=c-'A';
+        al=cc-'A';
     }
-    return sh;
+
+    return al;
 }
+

@@ -11,6 +11,7 @@ int main(int argc, string argv[]){
     }
     
     string keyword = argv[1];
+    // printf("%s\n", argv[]);
     int keylength = strlen(keyword);
     for (int i = 0; i < keylength; i++) {
         if(tolower(keyword[i]) < 'A' || tolower(keyword[i]) > 'z' || (tolower(keyword[i]) > 'Z' && tolower(keyword[i]) < 'a')){

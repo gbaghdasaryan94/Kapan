@@ -5,6 +5,6 @@
 
 int main(void)
 {
-    string a = crypt("ZhYtA","50");
+    string a = crypt("AcbG","50");
     printf("%s\n",a);
 }
