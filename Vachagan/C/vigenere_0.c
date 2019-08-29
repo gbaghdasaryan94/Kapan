@@ -13,7 +13,7 @@ int main(int argc, string argv[]){
     string keyword = argv[1];
     int keylength = strlen(keyword);
     for (int i = 0; i < keylength; i++) {
-        if(tolower(keyword[i]) < 'A' || tolower(keyword[i]) > 'z' || (tolower(keyword[i]) > 'Z' && tolower(keyword[i]) < 'a')){
+        if(!isalpha(keyword[i])){
             printf("Please enter valid [KEY], KEY only can alpha \n");
             return 1;
         }
@@ -25,17 +25,12 @@ int main(int argc, string argv[]){
     int len = strlen(sentence);
     
     printf("ciphertext : ");
-    for (int i = 0; i < len; i++){
-        if(sentence[i] >= 'A' && sentence[i] <= 'Z'){
-            sentence[i] = (char)(sentence[i] + tolower(keyword[key++])-'a');
-            if (sentence[i] > 'Z')
-                sentence[i] = (char)(sentence[i] - 26);
-        }else if (sentence[i] >= 'a' && sentence[i] <= 'z'){
-            sentence[i] = (char)(sentence[i] + tolower(keyword[key++])-'a');
-            if (sentence[i] > 'z')
-                sentence[i] = (char)(sentence[i] - 26);
+    for (int i = 0; i < len; i++) {
+        if(isalpha(sentence[i])){
+            int ascii = (sentence[i] < 97) ? 65 : 97;
+            sentence[i] = (char)((sentence[i] - ascii + tolower(keyword[key++])-'a')%26 + ascii);
         }
-        printf("%c",sentence[i]);
+        printf("%c", sentence[i]);
         if (key == keylength)
             key = 0;
     }
