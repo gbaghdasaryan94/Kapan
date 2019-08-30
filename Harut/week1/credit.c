@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <cs50.h>
+#include <string.h>
+#include <ctype.h>
 
 long long mypow();
 
@@ -7,9 +9,9 @@ int main(void)
 {
 
 printf("Please input Credit Card Number: ");
-long long c=get_long_long();
+long c=get_long("");
 
-int t, t2, s=0, s2=0, ss;
+int t, t2, s=0, s2=0;
 
     for(int i=1; i<16; i+=2)
     {
@@ -20,17 +22,25 @@ int t, t2, s=0, s2=0, ss;
         {
         t2=t2/10+t2%10;
         }
-1
+
         s2+=t2;
         s+=t;
     }
 
-ss=s+s2;
-printf("%i\n", ss);
+if((s+s2)%10==0)
+    {
+        printf("your card is valid\n");
+    }
+else
+    {
+        printf("your card is invalid\n");
+    }
+
 }
 
-//-------------------------------------------
+//____________________________________________
 //mypow function-y hashvum e x-i n astichan
+
 long long mypow(int x, int n)
 {
 
