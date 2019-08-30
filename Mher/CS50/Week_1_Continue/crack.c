@@ -6,9 +6,14 @@
 
 int main(void)
 {
-    //test base...
+
+   
+
+    string o =crypt("AcbG","50");
     string n = "\0ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    string pass = get_string("Encrypted phrase: ");
+    // string pass = "50VxqXoSfyiuc";
+    string pass = o;
+    printf("%s\n", pass);
     int a=53;
 
     for(int i=0; i<a; i++)
@@ -19,16 +24,17 @@ int main(void)
             {
                 for(int q=0; q<a; q++)
                 {
-                    //encrypt elements of test base...
-                    char word[5] = {n[q],n[t],n[j],n[i]};
-                    string key = crypt(word,"50");
-                    printf("%s\n",word);
-
-                    //compare with input ...
-                    if(strcmp(key,pass)==0)
+                    for(int x=0; x<a; x++)
                     {
+                        char word[5] = {n[x],n[q],n[t],n[j],n[i]};
+                        string key = crypt(word,"50");
                         printf("%s\n",word);
-                        return 0;
+                    
+                        if(strcmp(key,pass)==0)
+                        {
+                            printf("%s\n",word);
+                            return 0;
+                        }
                     }
                 } 
             }

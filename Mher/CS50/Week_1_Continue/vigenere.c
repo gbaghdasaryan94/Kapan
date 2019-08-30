@@ -8,7 +8,7 @@ int main(void)
     string word = get_string("Word: ");
     int s = strlen(word);
 
-    //get "key" word...
+    //get "key" word...z
     string key = get_string("Key Word: ");
     int v = strlen(key);
     int y=0;

@@ -3,9 +3,6 @@
 #include <string.h>
 #include <crypt.h>
 
-
-//For check "crack.c"...
-
 int main(void)
 {
     string a = crypt("AcbG","50");
