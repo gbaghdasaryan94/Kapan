@@ -3,13 +3,13 @@
 #include <crypt.h>
 #include <string.h>
 
-int generate(char* arr, int i, string str, int len, string hash) 
+int generate(char* arr, int i, string str, int len, string hash, char* a) 
 {  
     if (i == 0)
     {   
         printf("%s\n", str);
-        if (!strcmp(crypt(str,"50"),hash)){
-            printf("%s\n", str);
+        if (!strcmp(crypt(str, a),hash)){
+            printf("Success / %s / crypt = %s <=> hash = %s\n", str,crypt(str, a),hash);
             exit(0);
         }
         return 0; 
@@ -22,16 +22,16 @@ int generate(char* arr, int i, string str, int len, string hash)
         str2[0] = arr[j];
         strcat(str2, str);
         str2[slen] = '\0';
-        generate(arr, i - 1, str2, len, hash); 
+        generate(arr, i - 1, str2, len, hash, a); 
     }
   
     return 0; 
 } 
   
-int crack(char* arr, int len, string hash) 
+int crack(char* arr, int len, string hash, char* a) 
 { 
     for (int i = 1; i <= len; i++) { 
-        generate(arr, i, "\0", len, hash);
+        generate(arr, i, "\0", len, hash, a);
     } 
     return 0;
 } 
@@ -47,8 +47,9 @@ int main(int argc, string argv[])
     string letter = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     
     string hash = argv[1];
+    char a[3] = {hash[0], hash[1],'\0'};
 
-    crack(letter, letter_count, hash); 
+    crack(letter, letter_count, hash, a); 
   
     return 1; 
 } 
