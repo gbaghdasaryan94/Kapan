@@ -9,7 +9,7 @@ int duration(string nota);
 
 int main(void)
 {
-    string nota = "D#4@1/2";
+    string nota = "Db4@1/2";
     frequnce(nota);
     
 }
@@ -38,10 +38,11 @@ int frequnce(string nota)
     string base[12] = {"C4","C#4","D4","D#4","E4","F4","F#4","G4","G#4","A4","A#4","B4"};
     if(n==6)
     {
+        char skizb[3];
+        strncpy(skizb,nota,2);
         for(int i=0;i<12;i++)
-        {
-            string a ="A4";   
-            if(base[i]==a)
+        { 
+            if(strcmp(base[i],skizb)==0)
             {
                 if(i<9)
                 {
@@ -65,10 +66,12 @@ int frequnce(string nota)
     }
     else if(n==7)
     {
+        char skizb[4];
+        strncpy(skizb,nota,3);
+        skizb[1]='#';
         for(int i=0;i<12;i++)
         {
-            string a ="A#4"; 
-            if(base[i]==a)
+            if(strcmp(base[i],skizb)==0)
             {
                 if(i<9)
                 {
@@ -90,11 +93,6 @@ int frequnce(string nota)
             }
         }
     }
-
-    
-
-
-
 
     return 0;
 }
