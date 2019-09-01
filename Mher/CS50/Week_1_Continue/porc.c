@@ -9,7 +9,7 @@ int duration(string nota);
 
 int main(void)
 {
-    string nota = "Db4@1/2";
+    string nota = "D#4@1/2";
     frequnce(nota);
     
 }
@@ -36,6 +36,7 @@ int frequnce(string nota)
 {
     int n = strlen(nota);
     string base[12] = {"C4","C#4","D4","D#4","E4","F4","F#4","G4","G#4","A4","A#4","B4"};
+    string base1[12]= {"C4","Db4","D4","Eb4","E4","F4","Gb4","G4","Ab4","A4","Bb4","B4"};
     if(n==6)
     {
         char skizb[3];
@@ -68,7 +69,13 @@ int frequnce(string nota)
     {
         char skizb[4];
         strncpy(skizb,nota,3);
-        skizb[1]='#';
+        if(skizb[1]=='b')
+        {
+            for(int j=0; j<12; j++)
+            base[j]=base1[j];
+        }
+    
+
         for(int i=0;i<12;i++)
         {
             if(strcmp(base[i],skizb)==0)
