@@ -5,15 +5,14 @@
 #include <ctype.h>
 
 int frequnce(string nota);
+int duration(string nota);
 
 int main(void)
 {
-    string nota = "D4@1/2";
+    string nota = "D#4@1/2";
     frequnce(nota);
     
 }
-
-
 
 int duration(string nota)
 {
@@ -36,24 +35,71 @@ int duration(string nota)
 int frequnce(string nota)
 {
     int n = strlen(nota);
-    string base[12] = {"C","C#","D","D#","E","F","F#","G","G#","A","A#","B"};
+    string base[12] = {"C4","C#4","D4","D#4","E4","F4","F#4","G4","G#4","A4","A#4","B4"};
+    string base1[12]= {"C4","Db4","D4","Eb4","E4","F4","Gb4","G4","Ab4","A4","Bb4","B4"};
     if(n==6)
     {
+        char skizb[3];
+        strncpy(skizb,nota,2);
         for(int i=0;i<12;i++)
-        {
-            char o[1];
-            strncpy(o,nota,1);
-            printf("%s",o);
-            printf("%s",base[i]);
-            if(base[i]==o)
+        { 
+            if(strcmp(base[i],skizb)==0)
             {
-                printf("%s",base[i]);
+                if(i<9)
+                {
+                    float count =pow(2,(9-i)/12.0);
+                    int print = round(440.0/count);
+                    printf("%i",print);
+                }
+                else if (i>9)
+                {
+                    float count =pow(2,(i-9)/12.0);
+                    int print = round(440.0*count);
+                    printf("%i",print);
+                }
+                else if(i==9)
+                {
+                    int print = 440;
+                    printf("%i",print);
+                }
             }
         }
     }
+    else if(n==7)
+    {
+        char skizb[4];
+        strncpy(skizb,nota,3);
+        if(skizb[1]=='b')
+        {
+            for(int j=0; j<12; j++)
+            base[j]=base1[j];
+        }
+    
 
-
-
+        for(int i=0;i<12;i++)
+        {
+            if(strcmp(base[i],skizb)==0)
+            {
+                if(i<9)
+                {
+                    float count =pow(2,(9-i)/12.0);
+                    int print = round(440.0/count);
+                    printf("%i",print);
+                }
+                else if (i>9)
+                {
+                    float count =pow(2,(i-9)/12.0);
+                    int print = round(440.0*count);
+                    printf("%i",print);
+                }
+                else if(i==9)
+                {
+                    int print = 440;
+                    printf("%i",print);
+                }
+            }
+        }
+    }
 
     return 0;
 }
