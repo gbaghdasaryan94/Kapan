@@ -30,7 +30,7 @@ int main(void) {
                     c = (int)sentence[i];
                 }
             }
-            if( j == m - 1) {    
+            if( j == m) {    
                 j = 0;
             } 
            sentence[i] = (char)c;
