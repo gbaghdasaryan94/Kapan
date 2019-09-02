@@ -3,6 +3,15 @@
 #include <crypt.h>
 #include <string.h>
 
+/**
+ *    1 2 3 4 5 6
+ * 1) X\0\0\0\0\0
+ * 2) X X\0\0\0\0
+ * 3) X X X\0\0\0
+ * 4) X X X X\0\0
+ * 5) X X X X X\0
+ */
+
 int main(int argc, string argv[])
 {
 
@@ -53,3 +62,14 @@ int main(int argc, string argv[])
     return 2; 
 
 }
+
+// anushree:50xcIMJ0y.RXo => YES
+// brian:50mjprEcqC/ts => CA
+// bjbrown:50GApilQSG3E2 => UPenn
+// lloyd:50n0AAUD.pL8g => lloyd
+// malan:50CcfIk1QrPr6 => maybe
+// maria:509nVI8B9VfuA => TF
+// natmelo:50JIIyhDORqMU => nope
+// rob:50JGnXUgaafgc => ROFL
+// stelios:51u8F0dkeDSbY => NO
+// zamyla:50cI2vYkF0YU2 => LOL

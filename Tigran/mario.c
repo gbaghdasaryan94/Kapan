@@ -1,5 +1,8 @@
 #include <stdio.h>
+#include <cs50.h>
+
 int main()
+
 {
     int height;
     printf("Enter a height: ");
@@ -9,7 +12,7 @@ int main()
         if(height>23) printf("Please enter the height less than 23\n");
         scanf("%d", &height); 
     }
-        for(int i=1; i <height; i++)
+        for(int i=1; i <=height; i++)
         {
             for(int j =0; j< height-i; j++)
             printf(" ");
