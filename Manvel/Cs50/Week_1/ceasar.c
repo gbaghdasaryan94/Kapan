@@ -16,7 +16,7 @@ for(int i=0;i<strlen(word);i++){
 if((final>90 && final<97) || final>122){
     final=final-26;
 }
-printf("%c",final);
+printf("%c\n",final);
 }
 }
 
