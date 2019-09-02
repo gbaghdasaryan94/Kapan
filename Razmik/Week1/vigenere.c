@@ -7,34 +7,23 @@
 int main(int argc, string argv[])
 {
     if (argc!=2) {
-        printf("Please enter a valid key!     Example: ./[program name] [key]\n");
-    return 1;
+        printf("Please enter a valid key!     Example: ./[program name] [non-negative integer key]\n");
+        return 1;
     }
     string key = argv[1];
-    for (int i=0; i < strlen(key); i++)
-        key[i]=tolower(key[i]);
+    int len = strlen(key);
+    for (int i=0; i < len; i++)
+        key[i]=tolower(key[i])-97;
     int j = 0;
     string plain = get_string("plaintext:  ");
-    printf("ciphertext: ");
-    for (int i = 0; i < strlen(plain); i++)
+    int plen = strlen(plain);
+    for (int i = 0; i < plen; i++)
     {
         if (isalpha(plain[i]))
         {
-            int k = (int)key[j%strlen(key)]-97;
-            if (isalpha(plain[i]+k))
-            {
-                printf("%c",plain[i]+k);
-            }
-            else
-            {
-                printf("%c", plain[i]+k-26);
-            }
-            j++;
-        }
-        else
-        {
-            printf("%c", plain[i]);
+            int k = (int)key[j++%len];
+            plain[i] = (plain[i]/32)*32+((plain[i]-(plain[i]/32)*32+k)%26);
         }
     }
-    printf("\n");
+    printf("ciphertext: %s\n", plain);
 }

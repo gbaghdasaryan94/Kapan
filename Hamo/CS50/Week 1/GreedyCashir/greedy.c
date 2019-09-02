@@ -6,12 +6,12 @@ int main(){
     int coins[]  = {50,25,10,5,1};
     int quantity[]={0,0,0,0,0};
     int total=0;
-    float sum;
+    double sum;
     int length = 0;
     int n;
 
     do{
-        sum=get_float("How much change is owed?\n");
+        sum=get_double("How much change is owed?\n");
     } while(!sum);
     //sum=sum*100;
 

@@ -12,24 +12,12 @@ int main(int argc, string argv[])
     }
     int k = atoi(argv[1])%26;
     string plain = get_string("plaintext:  ");
-    printf("ciphertext: ");
     for (int i = 0; i < strlen(plain); i++)
     {
         if (isalpha(plain[i]))
         {
-            if (isalpha(plain[i]+k))
-            {
-                printf("%c",plain[i]+k);
-            }
-            else
-            {
-                printf("%c", plain[i]+k-26);
-            }
-        }
-        else
-        {
-            printf("%c", plain[i]);
+            plain[i] = (plain[i]/32)*32+((plain[i]-(plain[i]/32)*32+k)%26);
         }
     }
-    printf("\n");
+    printf("ciphertext: %s\n", plain);
 }

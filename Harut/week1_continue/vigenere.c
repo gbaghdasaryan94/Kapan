@@ -15,23 +15,22 @@ int main(int c, string v[])
     {
         if(!isspace(t[i]))
         {
-
-        for(int j=0; j<lk; j++)
-        {
-            if(i%lk==j)
+            for(int j=0; j<lk; j++)
             {
-                if(isupper(t[i]))
+                if(i%lk==j)
                 {
-                    t[i]=(alpha(t[i])+alpha(k[j]))%26+'A';
-                }
+                    if(isupper(t[i]))
+                    {
+                        t[i]=(alpha(t[i])+alpha(k[j]))%26+'A';
+                    }
 
-                else
-                if(islower(t[i]))
-                {
-                    t[i]=(alpha(t[i])+alpha(k[j]))%26+'a';
+                    else
+                    if(islower(t[i]))
+                    {
+                        t[i]=(alpha(t[i])+alpha(k[j]))%26+'a';
+                    }
                 }
             }
-        }
         }
     }
 printf("code:%s\n", t);
