@@ -4,7 +4,7 @@
 
 int main (void)
 {
-string s = get_string ("input sentance: ");
+string s = get_string ("input sentence: ");
 string key = get_string ("input key: ");
 int i;
 int j=0;
@@ -19,7 +19,7 @@ for(i=0;i<n;i++)
 
     if((int)s[i]>=65 && (int)s[i]<=90)
     {
-        o=((int)s[i] + p) -97 ;
+        o=(int)s[i] + p -97 ;
         j++; 
 
         if(o>90)
@@ -44,7 +44,7 @@ for(i=0;i<n;i++)
         }
     }
 
-    if(j==m)
+    if(j==m-1)
 
     {
         j=0;
