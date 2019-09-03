@@ -30,5 +30,7 @@ def main():
 # hash = crypt.crypt("vachagan", "50")#"50JGnXUgaafgc"
 # crack(arr, len, hash)
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
+
+print(crypt.crypt("vachagan", "50"))

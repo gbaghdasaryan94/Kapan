@@ -47,6 +47,7 @@ int main(int argc, string argv[])
     string letter = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     
     string hash = argv[1];
+    
     char a[3] = {hash[0], hash[1],'\0'};
 
     crack(letter, letter_count, hash, a); 
