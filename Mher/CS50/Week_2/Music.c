@@ -43,9 +43,8 @@ int frequency(string note)
         }
         
     }
+
     skizb[n-1]='4';
-    
-    
      
     for(int i=0;i<12;i++)
     {
@@ -63,7 +62,6 @@ int frequency(string note)
             }
         }
     }
-
     if(tiv>4)
     {
         print *= tiv-3;
@@ -72,7 +70,7 @@ int frequency(string note)
     {
         print /= 5-tiv;
     }
-
+    
     return print;
 }
 

@@ -9,44 +9,35 @@ int duration(string nota);
 
 int main(void)
 {
-    string nota = "D#5@1/2";
-    frequnce(nota); 
+    string note = "D#3@1/2";
+    frequnce(note); 
 }
 
-int duration(string nota)
+int duration(string fraction)
 {
-    int n = strlen(nota);
-    if(nota[n-1]==56 )
-    {
-        printf("%i\n",(int)nota[n-3]-48);
-    }
-    else if(nota[n-1]==52)
-    {
-        printf("%i\n",2);
-    }
-    else if(nota[n-1]==50)
-    {
-        printf("%i\n",4);
-    }
-    return 0;
+    int x = fraction[0] - '0';
+    int y = fraction[2] - '0';
+    
+    return x * (8/y);
 }
 
-int frequnce(string nota)
+int frequnce(string note)
 {
-    int n = strlen(nota);
+    int n = strlen(note);
     string base[12] = {"C4","C#4","D4","D#4","E4","F4","F#4","G4","G#4","A4","A#4","B4"};
     string base1[12]= {"C4","Db4","D4","Eb4","E4","F4","Gb4","G4","Ab4","A4","Bb4","B4"};
 
+    int print = 440;
     int angam = 1;
     int stugel = 0;
     char skizb[4];
     if(n==6)
     {
-        strncpy(skizb,nota,2);  
+        strncpy(skizb,note,2);  
     }
     else if(n==7)
     {
-        strncpy(skizb,nota,3);
+        strncpy(skizb,note,3);
         if(skizb[1]=='b')
         {
             for(int j=0; j<12; j++)
@@ -79,7 +70,7 @@ int frequnce(string nota)
             if(i<9)
             {
                 float count =pow(2,(9-i)/12.0);
-                int print = round(440.0/count);
+                print = round(440.0/count);
                 if(stugel==1)
                 {
                     print*=angam;
@@ -93,7 +84,7 @@ int frequnce(string nota)
             else if (i>9)
             {
                 float count =pow(2,(i-9)/12.0);
-                int print = round(440.0*count);
+                print = round(440.0*count);
                 if(stugel==1)
                 {
                     print*=angam;
@@ -106,7 +97,6 @@ int frequnce(string nota)
             }
             else if(i==9)
             {
-                int print = 440;
                 if(stugel==1)
                 {
                     print*=angam;
