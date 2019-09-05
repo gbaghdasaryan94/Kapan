@@ -8,8 +8,13 @@
 
 // Converts a fraction formatted as X/Y to eighths
 int duration(string fraction)
-{
-     string a = malloc(2);
+{   
+    if(strlen(fraction) == 1){
+    //printf("%i\n",8);
+    return 8;
+    }
+
+    string a = malloc(2);
     string b = malloc(2);
     a[0] = fraction[0];
     b[0] = fraction[2];
@@ -35,42 +40,34 @@ int frequency(string note)
         a[0] = note[1];
         m = atoi(a);
 
-        if(m > 4) //&& tact != "A" && tact != "B") 
+        if(m > 4) 
         {
             n = pow(2,(m - 4));
         }else {
-            if(m < 4)// && tact != "A" && tact != "B")
+            if(m < 4)
             {
                 n = n / pow(2,(4 - m));
             }
         }  
 
-        for(int i = 0; i < 12; i++){
+        for(int i = 0; i < 13; i++){
             string str = bazas[i];
             if(strcmp(tact,str) == 0){
                 index = i;
                 break;
             }
         }
-        // printf("%s\n",tact);
-        // printf("%i\n",index);
-        // printf("%i\n",m);
+
         if(index < 9){
             index = 9 - index;
             hz =round((n * hz) / (pow(2.0,index / 12.0)));
         } else {
             if(index > 9){
             index = index - 9;
-            hz =round((n * hz) / (pow(2.0,index / 12.0)));}        } 
-       // printf("%i\n",index);
-        
+            hz =round((n * hz) * (pow(2.0,index / 12.0)));}        
+            }    
 
-      
-        //printf("%i\n",index);
-        //printf("%i\n",hz);
         return(hz);   
-       // printf("%i\n",hz);                   
-
 
     } else {
         string a = malloc(2); 
@@ -87,7 +84,7 @@ int frequency(string note)
 
         strncpy(tact,note,2);
         
-        for(int i = 0; i < 12; i++){
+        for(int i = 0; i < 13; i++){
             string str = bazas[i];
             string str1 = bazab[i];
             if((strcmp(tact,str) == 0) || (strcmp(tact,str1) == 0)){
@@ -96,28 +93,18 @@ int frequency(string note)
             }
         }
 
-        //printf("%i\n",index);
-        //printf("%s\n",tact);
-        //printf("%i\n",m);
         if(index < 9){
             index = 9 - index;
             hz =round((n * hz) / (pow(2.0,index / 12.0)));
         } else {
             if(index > 9)
             index = index - 9;
-            hz =round((n * hz) / (pow(2.0,index / 12.0)));
+            hz =round((n * hz) * (pow(2.0,index / 12.0)));
         } 
 
-        return(hz);   
-       // printf("%i\n",hz);  
-                      
-
+        return(hz);                    
 
     }
-
-    // printf("%i\n",hz);
-    //  return 0;  
-
 }
 
 // Determines whether a string represents a rest
