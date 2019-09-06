@@ -77,13 +77,13 @@ int main(int argc, char *argv[])
     for (int i = 0; i < oldHeight; i++)
     {
         // temporary storage
-        RGBTRIPLE rgb[oldWidth];
+        RGBTRIPLE triple[oldWidth];
 
         // iterate over pixels in scanline
         for (int j = 0; j < oldWidth; j++)
         {
             // read RGB triple from infile
-            fread(&rgb[j], sizeof(RGBTRIPLE), 1, inptr);
+            fread(&triple[j], sizeof(RGBTRIPLE), 1, inptr);
         }
 
         for(int l = 0; l < n; l++){
@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
                 for(int z = 0; z < n; z++){
 
                     // write RGB triple to outfile
-                    fwrite(&rgb[m], sizeof(RGBTRIPLE), 1, outptr);   
+                    fwrite(&triple[m], sizeof(RGBTRIPLE), 1, outptr);   
                 }       
             }
              // then add it back (to demonstrate how)
