@@ -1,47 +1,53 @@
-#include <stdio.h>
-#include <string.h>
 #include <cs50.h>
+#include <stdio.h>
 #include <crypt.h>
+#include <string.h>
 
-int main(int argc, string argv[]){   
 
-    if(argc!=2){
-        printf("print the key next time \n");
-        return 1;
-    } 
 
-    string hash = argv[1];
+int main (int argc, string argv[]){
 
-    string str="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\n";
-    int len=strlen(str);
 
-    int i, j, k, l;
-    int b;
-  
+    argv[1]="50W9/ghfUb5j.";
 
-    for(i=0; i<len; i++){
-       for(j=0; j<len; j++){
-           for(k=0; k<len; k++){
-               for(l=0; l<len;l++){
-                    
-                    char crack[5]={ str[i],str[j],str[k],str[l] };
-                    if( !strcmp(crypt(crack,"50"),hash) ){             
-                        printf("pass : %s \n",crack);
-                        return 0;
-                   }
-                    else 
-                   {
-                        for(b=0; b <2; b++)
-                            printf(" ");
-                        
-                        for(b=0;b<2;b++)
-                           printf("\b");
-                   }
-               }
-           }
-       }
-   }
-    
+        // if(argc!=2){
+//     printf("Usage: ./crack hash \n");
+//     return 1;
+// }
 
-    return 0;
+    char salt[2];
+    string str=malloc(6);
+    int n;
+
+    string hash=argv[1];
+
+    memcpy(salt,hash,2);
+    strcpy(str,"A");
+
+    while(strlen(str)<6) {
+
+        if ( !strcmp( hash, crypt(str,salt)) ){
+            printf("pass : %s \n",str);
+            return 0;
+        }
+        else {
+            str[0]++;
+            n=strlen(str);
+            for(int i = 0; i < n; i++) {
+                if (str[i] > 'Z' && str[i] < 'a' ) str[i]= 'a';
+
+                if (str[i] > 'z') {
+                    str[i] = 'A';
+                    if(str[i + 1] == '\0' ) str[i+1] = 'A';
+                        else str[i+1]++;
+                }
+            }
+        }
+    }
+
+    free(str);
+
 }
+
+
+

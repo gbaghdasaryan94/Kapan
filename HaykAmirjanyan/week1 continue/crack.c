@@ -21,7 +21,7 @@ int main(int argc, string argv[])
         {
         if (str[i] == '[' )
         {
-            str[i]= 'a';
+            str[i] = 'a';
         }
         if (str[i] == '{')
         {
