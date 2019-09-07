@@ -9,7 +9,7 @@ int duration(string nota);
 
 int main(void)
 {
-    string nota = "D#5@1/2";
+    string nota = "Eb3@1/2";
     frequnce(nota); 
 }
 
