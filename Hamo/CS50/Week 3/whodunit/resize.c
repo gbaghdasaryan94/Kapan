@@ -67,57 +67,48 @@ int main(int argc, char *argv[])
     n_bi.biWidth=n*bi.biWidth;
     n_bi.biHeight=n*bi.biHeight;
     int n_padding = (4 - (n_bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
+    
+     // determine padding for scanlines
+    int padding = (4 - (bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
+    
     n_bi.biSizeImage=( (n_bi.biWidth*sizeof(RGBTRIPLE))+n_padding)*abs(n_bi.biHeight);
     n_bf.bfSize=n_bi.biSizeImage+sizeof(BITMAPFILEHEADER)+sizeof(BITMAPINFOHEADER);
 
-    // write outfile's BITMAPFILEHEADER
+ // write outfile's BITMAPFILEHEADER
     fwrite(&n_bf, sizeof(BITMAPFILEHEADER), 1, outptr);
 
     // write outfile's BITMAPINFOHEADER
     fwrite(&n_bi, sizeof(BITMAPINFOHEADER), 1, outptr);
 
-    // determine padding for scanlines
-    int padding = (4 - (bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
-
-
-
+    RGBTRIPLE zangvac[n_bi.biWidth];     
+    
     // iterate over infile's scanlines
     for (int i = 0, biHeight = abs(bi.biHeight); i < biHeight; i++)
-    {
-
-       for (int j = 0; j < n; j++ ){
-        
+    {    
+          
+         
         // iterate over pixels in scanline
         for (int j = 0; j < bi.biWidth; j++)
-        {
-            // temporary storage
-            RGBTRIPLE triple;
-
-            // read RGB triple from infile
-            fread(&triple, sizeof(RGBTRIPLE), 1, inptr);
-
-             for (int j = 0; j < n; j++ )
-        {
-                // write RGB triple to outfile
-                fwrite(&triple, sizeof(RGBTRIPLE), 1, outptr);      
-        }    
+            // read RGB triple from infile            
+            fread(&zangvac[j], sizeof(RGBTRIPLE), 1, inptr);
             
-        } 
-          
-
-        // then add it back (to demonstrate how)
-        for (int k = 0; k < padding; k++)
+        for(int r2 =0; r2<n; r2++)
         {
-            fputc(0x00, outptr);
-        }
-
-       }
-          // skip over padding, if any
-        fseek(inptr, padding, SEEK_CUR);
-       
-        
-       
-        
+            for (int j = 0; j < bi.biWidth; j++)
+            {
+                for ( int z = 0; z < n; z++)
+                    {                     
+                        // write RGB triple to outfile
+                        fwrite(&zangvac[j], sizeof(RGBTRIPLE), 1, outptr);      
+                    }    
+            }
+        for (int k = 0; k < n_padding; k++)
+            {
+                fputc(0x00, outptr);
+            }     
+        }        
+        // skip over padding, if any
+        fseek(inptr, padding, SEEK_CUR); 
     }
 
     // close infile
@@ -129,3 +120,4 @@ int main(int argc, char *argv[])
     // success
     return 0;
 }
+
