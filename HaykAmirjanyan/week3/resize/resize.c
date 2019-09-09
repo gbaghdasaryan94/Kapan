@@ -87,18 +87,20 @@ int main(int argc, char *argv[])
         }
 
         for(int l = 0; l < n; l++){
+
             for(int m = 0; m < oldWidth; m++){
+
                 for(int z = 0; z < n; z++){
 
                     // write RGB triple to outfile
                     fwrite(&triple[m], sizeof(RGBTRIPLE), 1, outptr);   
                 }       
             }
-             // then add it back (to demonstrate how)
-                for (int k = 0; k < newPadding; k++)
-                {
-                    fputc(0x00, outptr);
-                 }
+            // then add it back (to demonstrate how)
+            for (int k = 0; k < newPadding; k++)
+            {
+                fputc(0x00, outptr);
+            }
         }
 
           // skip over padding, if any
