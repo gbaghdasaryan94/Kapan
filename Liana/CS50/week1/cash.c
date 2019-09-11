@@ -18,25 +18,25 @@ int main(void)
     {
     c=c+1;
     n=n-0.25;
-    printf ("%f\n", n);
+    // printf ("%f\n", n);
     }   
     while (n>=0.1)
     {
     c=c+1;
     n=n-0.1;    
-    printf ("%f\n", n);
+    // printf ("%f\n", n);
     }
     while (n>= 0.05)
     {
     c=c+1;
     n=n-0.05;  
-    printf ("%f\n", n);  
+    // printf ("%f\n", n);  
     }
     while (n>=0.0099)
     {
     c=c+1;
     n=n-0.01;    
-    printf ("%f\n", n); 
+    // printf ("%f\n", n); 
     }
     printf ("%i\n",c);
 }

@@ -21,7 +21,7 @@ int main(int argc, string argv[])
         {
         if (str[i] == '[' )
         {
-            str[i]= 'a';
+            str[i] = 'a';
         }
         if (str[i] == '{')
         {
@@ -36,5 +36,5 @@ int main(int argc, string argv[])
         
     }
     } while (strlen(str) < 6);
-    printf("%s\n",str);
+    printf("%s\n","No muching password");
 }
