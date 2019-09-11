@@ -10,21 +10,17 @@
 // Converts a fraction formatted as X/Y to eighths
 int duration(string fraction)
 {
-    string a=malloc(2),b=malloc(2);
-    b[0]=fraction[0];
-    a[0]=fraction[2];
-   return 8/atoi(a)*atoi(b);
+   return 8/atoi(&fraction[2])*atoi(&fraction[0]);
 }
 
 // Calculates frequency (in Hz) of a note
 int frequency(string note)
 {
-    int len = strlen(note);
     string notes[] = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
     string nnote = malloc(3);
     int nnumb=9;
     int octav;
-    if (len > 2)
+    if (strlen(note) > 2)
     {
         nnote[0]=note[0];
         nnote[1]=note[1];
@@ -48,8 +44,8 @@ int frequency(string note)
             }
     }
     nnumb = 9-nnumb;
-    double n = 12*(4-octav)-nnumb;   
-    return pow(2,n/12)*440;
+    int n = 12*(octav-4)-nnumb;   
+    return pow(2,n/12.0)*440;
 }
 
 // Determines whether a string represents a rest
