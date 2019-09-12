@@ -1,7 +1,7 @@
 
-typedef struct 
+typedef struct variable
 {
-    string name;
-    int room;
+    int a;
+    struct variable* ptr;
 }
 myvariable;

@@ -6,23 +6,37 @@
 int main(void)
 {
     int length = get_int("Length: ");
-    myvariable n[length];
+
+    myvariable *next, *prev, *list;
+
+    list = NULL;
 
     for(int i=0; i<length; i++)
     {
-        n[i].name = get_string("Name: ");
-        n[i].room = get_int("Room: ");
+        next = malloc(sizeof(myvariable));
+        next->a = get_int("Enter a: ");
+        next->ptr = NULL;
+
+        if(list == NULL)
+        {
+            list = next;
+        }
+        else
+        {
+            prev->ptr = next;
+        }
+        prev=next;        
     }
 
-    for(int i=0; i<length; i++)
+    int n = get_int("Test: ");
+
+    for (myvariable *ptr = list; ptr != NULL; ptr = ptr->ptr)
     {
-        printf("%s is in %i.\n",n[i].name,n[i].room);
+        if(ptr->a==n)
+        {
+            printf("%i\n",ptr->a);
+            break;
+        }
     }
 
-    FILE *file = fopen("Student.txt","w");
-    for(int i=0; i<length; i++)
-    {
-        fprintf(file,"%s,%i\n",n[i].name, n[i].room);
-    }
-    fclose(file);
 }
