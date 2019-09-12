@@ -5,18 +5,17 @@
 
 typedef struct newlist
 {
-    int a;
-    char ch;
+    char * word;
     struct newlist *ptr; 
 }
 newnode;
 
-void append(newnode** list, int data){
+void append(newnode** list, char * data){
     newnode* node = malloc(sizeof(newnode));
 
     newnode* prev = *list;
 
-    node->a = data;
+    node->word = data;
 
     node->ptr = NULL;
 
@@ -31,22 +30,12 @@ void append(newnode** list, int data){
     return;    
 }
 
-int main(){
-
-    newnode *list; 
-
-    list = NULL;
-
-    append(&list, 98);
-    append(&list, 15);
-    append(&list, 16);
-    append(&list, 79);
+void printList(newnode * list){
 
     while (list != NULL)  
     {  
-        printf("%i  %c\n",list->a,list->ch);
+        printf("%s \t",list->word);
         list = list->ptr;  
     }  
-
-
+    printf("\n");
 }
