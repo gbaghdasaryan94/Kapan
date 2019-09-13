@@ -1,42 +1,49 @@
 #include <string.h>
 #include <stdio.h>
 #include <cs50.h>
-#include "myvariable.h"
+
+
+typedef struct node
+{
+    char word1[10];
+    struct node* next;
+}
+node;
 
 int main(void)
 {
     int length = get_int("Length: ");
-
-    myvariable *next, *prev, *list;
+    node *nextt, *prev, *list;
 
     list = NULL;
 
     for(int i=0; i<length; i++)
     {
-        next = malloc(sizeof(myvariable));
-        next->a = get_int("Enter a: ");
-        next->ptr = NULL;
+        nextt = malloc(sizeof(node));
+        *nextt->word1 = '\0';
+        nextt->next = NULL;
 
         if(list == NULL)
         {
-            list = next;
+            list = nextt;
         }
         else
         {
-            prev->ptr = next;
+            prev->next = nextt;
         }
-        prev=next;        
-    }
+        prev=nextt;        
+    }        
+    
 
-    int n = get_int("Test: ");
+    // int n = get_int("Test: ");
 
-    for (myvariable *ptr = list; ptr != NULL; ptr = ptr->ptr)
-    {
-        if(ptr->a==n)
-        {
-            printf("%i\n",ptr->a);
-            break;
-        }
-    }
+    // for (myvariable *new = list; new != NULL; new = new->ptr)
+    // {
+    //     if(new->a==n)
+    //     {
+    //         printf("%i\n",new->a);
+    //         break;
+    //     }
+    // }
 
 }
