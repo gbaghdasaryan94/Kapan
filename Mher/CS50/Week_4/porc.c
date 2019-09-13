@@ -30,13 +30,21 @@ int main(void)
 
     int n = get_int("Test: ");
 
-    for (myvariable *ptr = list; ptr != NULL; ptr = ptr->ptr)
+    bool j =true;
+    for (myvariable *new = list; new != NULL; new = new->ptr)
     {
-        if(ptr->a==n)
+        if(n<new->a && j)
         {
-            printf("%i\n",ptr->a);
-            break;
+            
+
+            j=false;
         }
+
+    }
+
+    for (myvariable *new = list; new != NULL; new = new->ptr)
+    {
+        printf("%i\n",new->a);
     }
 
 }
