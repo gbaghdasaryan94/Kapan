@@ -1,5 +1,5 @@
 
-typedef struct variable
+typedef struct myvariable
 {
     int a;
     struct variable* ptr;

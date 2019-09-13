@@ -1,20 +1,26 @@
 #include <string.h>
 #include <stdio.h>
 #include <cs50.h>
-#include "myvariable.h"
+
+
+typedef struct node
+{
+    char word1[10];
+    struct node* ptr;
+}
+node;
 
 int main(void)
 {
     int length = get_int("Length: ");
-
-    myvariable *next, *prev, *list;
+    node *next, *prev, *list;
 
     list = NULL;
 
     for(int i=0; i<length; i++)
     {
-        next = malloc(sizeof(myvariable));
-        next->a = get_int("Enter a: ");
+        next = malloc(sizeof(node));
+        *next->word1 = *get_string("word: ");
         next->ptr = NULL;
 
         if(list == NULL)
@@ -28,23 +34,9 @@ int main(void)
         prev=next;        
     }
 
-    int n = get_int("Test: ");
-
-    bool j =true;
-    for (myvariable *new = list; new != NULL; new = new->ptr)
+    for (node *new = list; new != NULL; new = new->ptr)
     {
-        if(n<new->a && j)
-        {
-            
-
-            j=false;
-        }
-
-    }
-
-    for (myvariable *new = list; new != NULL; new = new->ptr)
-    {
-        printf("%i\n",new->a);
+        printf("%s\n",new->word1);
     }
 
 }
