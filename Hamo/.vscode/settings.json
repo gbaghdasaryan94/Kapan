@@ -1,6 +1,7 @@
 {
     "C_Cpp.errorSquiggles": "Disabled",
     "files.associations": {
-        "cs50.h": "c"
+        "cs50.h": "c",
+        "stdlib.h": "c"
     }
 }

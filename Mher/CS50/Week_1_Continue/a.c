@@ -9,8 +9,8 @@ int duration(string nota);
 
 int main(void)
 {
-    string note = "D#3@1/2";
-    frequnce(note); 
+    string nota = "Eb3@1/2";
+    frequnce(nota); 
 }
 
 int duration(string fraction)
