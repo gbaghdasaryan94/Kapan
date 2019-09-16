@@ -11,5 +11,6 @@
         "thread": "c",
         "typeindex": "c",
         "memory": "c"
-    }
+    },
+    "python.pythonPath": "env/bin/python3.6"
 }
