@@ -84,7 +84,7 @@ unsigned int size(void)
         {
             if ((strlen(cursor->word)) > LENGTH + 1)
             {
-                printf("Size error: word bigger than LENGTH");
+                printf("Error: Word > LENGTH");
                 return 4;
             }
 
