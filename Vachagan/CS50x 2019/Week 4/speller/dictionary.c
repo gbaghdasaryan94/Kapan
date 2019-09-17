@@ -10,10 +10,11 @@
 #include "dictionary.h"
 
 node *hashtable[N];
+int totalWords = 0;
 
 unsigned int hash(const char *word)
 {
-    return (word[0] == '\'' ? 26 : tolower(word[0]) - 'a');
+    return tolower(word[0]) - 'a';
 }
 
 // Returns true if word is in dictionary else false
@@ -49,13 +50,9 @@ bool load(const char *dictionary)
     char word[LENGTH + 1];
 
     while (fscanf(file, "%s", word) != EOF)
-    {
+    {   
+        totalWords++;
         node *new_node = malloc(sizeof(node));
-        if (!new_node)
-        {
-            unload();
-            return false;
-        }
 
         strcpy(new_node->word, word);
 
@@ -73,26 +70,6 @@ bool load(const char *dictionary)
 // Returns number of words in dictionary if loaded else 0 if not yet loaded
 unsigned int size(void)
 {
-    int totalWords = 0;
-
-    for (int i = 0; i < N; i++)
-    {
-
-        node *cursor = hashtable[i];
-
-        while (cursor)
-        {
-            if ((strlen(cursor->word)) > LENGTH + 1)
-            {
-                printf("Error: Word > LENGTH");
-                return 4;
-            }
-
-            totalWords++;
-            cursor = cursor->next;
-        }
-    }
-
     return totalWords;
 }
 
