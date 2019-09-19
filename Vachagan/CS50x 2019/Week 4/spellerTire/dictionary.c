@@ -23,7 +23,7 @@ unsigned int hash(const char letter)
 node *create(void)
 {
     node *newNode = malloc(sizeof(node));
-   
+
     for (int i = 0; i < N; i++)
     {
         newNode->children[i] = NULL;
@@ -101,14 +101,14 @@ bool check(const char *word)
 bool unload(void)
 {
     node *temp = root;
-    for (int i = 0; i < N; i++)
+    if (temp)
     {
-        if (temp)
+        for (int i = 0; i < N; i++)
         {
             root = root->children[i];
             unload();
+            root = temp;
         }
-        root = temp;
     }
     free(temp);
     return true;
