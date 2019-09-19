@@ -9,7 +9,7 @@
 // (e.g., pneumonoultramicroscopicsilicovolcanoconiosis)
 #define LENGTH 45
 
-#define N 26
+#define N 27
 
 // Represents a node in a trie
 typedef struct node

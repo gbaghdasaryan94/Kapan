@@ -22,15 +22,7 @@ unsigned int hash(const char letter)
 
 node *create(void)
 {
-    node *newNode = malloc(sizeof(node));
-
-    for (int i = 0; i < N; i++)
-    {
-        newNode->children[i] = NULL;
-    }
-
-    newNode->is_word = false;
-    return newNode;
+    return (node *)calloc(1, sizeof(node));
 }
 
 // Loads dictionary into memory, returning true if successful else false
@@ -44,7 +36,7 @@ bool load(const char *dictionary)
     }
 
     root = create();
-
+    
     // Buffer for a word
     char word[LENGTH];
 
