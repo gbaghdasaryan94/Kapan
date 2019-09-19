@@ -14,35 +14,23 @@ node *root = NULL;
 
 int total = 0;
 
-
 unsigned int hash(const char letter)
 {
-    return (letter == '\'' ? N-1 : tolower(letter) - 'a');
+    return (letter == '\'' ? N - 1 : tolower(letter) - 'a');
+    // return (isalpha(letter) ? tolower(letter) - 'a' : N - 1);
 }
 
 node *create(void)
 {
     node *newNode = malloc(sizeof(node));
-    if(newNode==NULL)
+   
+    for (int i = 0; i < N; i++)
     {
-        unload();
-        return false;
+        newNode->children[i] = NULL;
     }
+
     newNode->is_word = false;
     return newNode;
-}
-
-void freeRoot(node *temp)
-{
-    for(int i = 0; i < N; i++)
-    {
-        if (!temp -> children[i])
-        {
-            freeRoot(temp -> children[i]);
-        }
-    }
-    free(temp);
-    return;
 }
 
 // Loads dictionary into memory, returning true if successful else false
@@ -54,34 +42,29 @@ bool load(const char *dictionary)
     {
         return false;
     }
-   
+
     root = create();
 
     // Buffer for a word
     char word[LENGTH];
-    
+
     // Insert words into trie
     while (fscanf(file, "%s", word) != EOF)
     {
         node *newNode = root;
-        
-        for (int i = 0; word[i] != '\0'; i++){
-            int idx = hash(word[i]); 
-            
-            if (!newNode->children[idx]){
+        total++;
+
+        for (int i = 0; word[i] != '\0'; i++)
+        {
+            int idx = hash(word[i]);
+
+            if (!newNode->children[idx])
+            {
                 newNode->children[idx] = create();
             }
             newNode = newNode->children[idx];
-
-            if (!newNode)
-            {
-                unload();
-                fclose(file);
-                return true;
-            }
         }
         newNode->is_word = true;
-        total++;
     }
 
     // Close dictionary
@@ -105,7 +88,6 @@ bool check(const char *word)
     for (int i = 0; word[i] != '\0'; i++)
     {
         cursor = cursor->children[hash(word[i])];
-
         if (!cursor)
         {
             return false;
@@ -116,17 +98,18 @@ bool check(const char *word)
 }
 
 // Unloads dictionary from memory, returning true if successful else false
-bool unload(void){
-    // node *cursor;// = root;
-    // for (int i = 0; i < N; i++)
-    // {
-    //     cursor = root->children[i];
-    //     if (cursor){
-    //         unload();
-    //     }
-            
-    // }
-    // free(cursor);
-    freeRoot(root);
+bool unload(void)
+{
+    node *temp = root;
+    for (int i = 0; i < N; i++)
+    {
+        if (temp)
+        {
+            root = root->children[i];
+            unload();
+        }
+        root = temp;
+    }
+    free(temp);
     return true;
 }

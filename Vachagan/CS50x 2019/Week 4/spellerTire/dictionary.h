@@ -9,15 +9,14 @@
 // (e.g., pneumonoultramicroscopicsilicovolcanoconiosis)
 #define LENGTH 45
 
-#define N 27
+#define N 26
 
 // Represents a node in a trie
 typedef struct node
 {
     bool is_word;
     struct node *children[N];
-}
-node;
+} node;
 
 // Prototypes
 bool load(const char *dictionary);
