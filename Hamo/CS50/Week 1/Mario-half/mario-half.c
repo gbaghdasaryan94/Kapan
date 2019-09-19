@@ -9,7 +9,7 @@ int main(){
     } while(n<1 || n>23);
 
 
-    for(int i=1; i<n; i++){
+    for(int i=0; i<n; i++){
         for(int j=n-1; j>=0; j--){
             if(j>i){
                 printf(".");
