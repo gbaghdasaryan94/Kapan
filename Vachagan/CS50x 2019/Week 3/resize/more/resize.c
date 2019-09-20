@@ -76,8 +76,8 @@ int main(int argc, char *argv[])
     // write outfile's BITMAPINFOHEADER
     fwrite(&bi, sizeof(BITMAPINFOHEADER), 1, outptr);
 
-    double widthRatio = (double)oldWidth / (double)newWidth;
-    double heightRatio = (double)oldHeight / (double)newHeight;
+    double widthRatio = 1.0 / n;
+    double heightRatio = 1.0 / n;
 
     RGBTRIPLE scanline[oldWidth * sizeof(RGBTRIPLE)];
     int cachedScanline = -1;
