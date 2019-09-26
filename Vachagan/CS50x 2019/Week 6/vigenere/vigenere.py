@@ -19,7 +19,7 @@ def main(argv):
     # for lt in sentence:
     #     if lt.isalpha():
     #         case = ord(lt)%32
-    #         lt = chr((case + next(keyOrd)) % 26 +  ord(lt) - case)
+    #         lt = chr((case + next(keyOrd)) % 26 +   ord(lt) - case)
     #     print(lt, end='')
     # print()
     # exit(0)
