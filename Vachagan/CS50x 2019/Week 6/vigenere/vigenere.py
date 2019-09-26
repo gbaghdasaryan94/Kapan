@@ -1,36 +1,28 @@
 from sys import argv
 from cs50 import get_string
-
+from itertools import cycle 
 
 def main(argv):
 
     if (len(argv) != 2):
-        print("Please enter valid [KEY], ex. ./vigenere abc")
-        exit(1)
+        exit("Please enter valid [KEY], ex. ./vigenere abc")
     
-    keyword = argv[1]
-    for lt in keyword:
-        if not lt.isalpha():
-            print("Please enter valid [KEY], KEY only can alpha")
-            exit(1)
+    if not argv[1].isalpha():
+        exit("Please enter valid [KEY], KEY only can alpha")
 
     sentence = get_string("plaintext: ")
-
-    key = 0
-    keyLen = len(keyword)
-    
-    print("ciphertext: ", end='')
-    for lt in sentence:
-        if lt.isalpha():
-            ltAscii = 65 if ord(lt) < 97 else 97
-            lt = chr((ord(lt) - ltAscii + ord(keyword[key].lower()) - 97) % 26 + ltAscii)
-            key += 1
-        if (key == keyLen):
-            key = 0
-        print(lt, end='')
-    print()
-    exit(0)
-
+    keyOrd = cycle([ord(lt) - 97  for lt in argv[1].lower()])
+    sentence = ''.join([chr((ord(lt)%32 + next(keyOrd)) % 26 +  ord(lt) - ord(lt)%32) if lt.isalpha() else lt for lt in sentence])
+    print("ciphertext:", sentence)
+   
+    # print("ciphertext: ", end='')
+    # for lt in sentence:
+    #     if lt.isalpha():
+    #         case = ord(lt)%32
+    #         lt = chr((case + next(keyOrd)) % 26 +  ord(lt) - case)
+    #     print(lt, end='')
+    # print()
+    # exit(0)
 
 if __name__ == "__main__":
     main(argv)
