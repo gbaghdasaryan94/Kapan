@@ -5,12 +5,10 @@ from itertools import cycle
 def main(argv):
 
     if (len(argv) != 2):
-        print("Please enter valid [KEY], ex. ./vigenere abc")
-        exit(1)
+        exit("Please enter valid [KEY], ex. ./vigenere abc")
     
     if not argv[1].isalpha():
-        print("Please enter valid [KEY], KEY only can alpha")
-        exit(1)
+        exit("Please enter valid [KEY], KEY only can alpha")
 
     sentence = get_string("plaintext: ")
     keyOrd = cycle([ord(lt) - 97  for lt in argv[1].lower()])
@@ -24,7 +22,7 @@ def main(argv):
     #         lt = chr((case + next(keyOrd)) % 26 +  ord(lt) - case)
     #     print(lt, end='')
     # print()
-    exit(0)
+    # exit(0)
 
 if __name__ == "__main__":
     main(argv)
