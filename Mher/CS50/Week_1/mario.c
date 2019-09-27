@@ -1,21 +1,20 @@
 #include <stdio.h>
+#include<cs50.h>
 
 int main(void)
 {
-    int height=5;
-    
+    int height;
+    do{
+    height = get_int("Height: ");
+    }
+    while (height<1 || height>8);
+
     for (int i=0; i<height; i++) 
     {
-        for (int j=i; j<height; j++)
-        {
+        for (int j=i+1; j<height; j++)
             printf(" ");
-        }
-        
-        for (int n=1; n<=i; n++)
-        {
+        for (int n=0; n<=i; n++)
             printf("#");
-        }
-        
-        printf("\n");
+    printf("\n");
     }
 }
