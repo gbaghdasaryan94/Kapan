@@ -9,9 +9,9 @@ def fact(n):
 
 def pascal(n):
     return [[fact(i)//(fact(j)*fact(i-j)) for j in range(i+1)] for i in range(n)]
-    
 
-n = 1000
+
+n = int(input("Enter n: "))
 
 pas = pascal(n)
 for i in range(n):
