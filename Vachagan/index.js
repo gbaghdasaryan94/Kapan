@@ -8,9 +8,13 @@ function maxX(arr) {
             sum = 0;
         }
     }
-    
+
     return x+1;
-} 
+}
+
+for (variable of iterable) {
+
+}
 
 console.log(maxX([-5,4,-2,3,1,-1,-6,-1,0,-5]));
 
