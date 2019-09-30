@@ -1,37 +1,41 @@
 #include <stdio.h>
 #include <cs50.h>
+#include <math.h>
 
-int main(void)
+int main()
 {
-    int money = get_int("Money: ");
-    int coin=0;
-    while(money>0)
+    float money1;
+    do
     {
-        if(money>=50)
+        money1 = get_float("Money: ");
+    }
+    while (money1 < 0);
+    
+    int money = round(money1 * 100);
+    printf("%i", money);
+    int coin = 0;
+    while (money > 0)
+    {
+        if (money >= 25)
         {
-            coin=coin + money/50;
-            money=money % 50;
+            coin += money / 25;
+            money = money % 25;
         }
-        if(money>=25)
+        else if (money >= 10)
         {
-            coin+=money/25;
-            money=money % 25;
+            coin += money / 10;
+            money = money % 10;
         }
-        else if(money>=10)
+        else if (money >= 5)
         {
-            coin+=money/10;
-            money=money % 10;
+            coin += money / 5;
+            money = money % 5;
         }
-        else if(money>=5)
+        else if (money <= 5)
         {
-            coin+=money/5;
-            money=money % 5;
-        }
-        else if(money<=5)
-        {
-            coin=coin+money;
-            money=0;
+            coin = coin + money;
+            money = 0;
         }  
     }   
-    printf("My coins = %i \n",coin);
+    printf("My coins = %i \n", coin);
 }
