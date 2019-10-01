@@ -9,11 +9,12 @@ def index():
 @app.route("/register", methods=["POST"])
 def register():
     name = request.form.get("name")
-    dorm = request.form.get("dorm")
-    if not name or not dorm:
+    city = request.form.get("city")
+    gender = request.form.get("gender")
+    if not name or not city or not gender:
         return "failure"
-    File = open("test.txt","a")
-    File.write(name + " from " + dorm +'\n')
+    File = open("test.csv","a")
+    File.write(name + "," + city + "," + gender + '\n')
     File.close()
     return render_template("success.html")
 
