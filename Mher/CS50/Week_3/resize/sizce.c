@@ -47,12 +47,12 @@ int main(int argc, char *argv[])
     int oldw = bi.biWidth;
     int oldh = bi.biHeight;
     int padding = (4 - (bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
-    
+
     bi.biWidth = bi.biWidth * n;
     bi.biHeight = bi.biHeight * n;
     int newp = (4 - (bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
-    bi.biSizeImage = ((sizeof(RGBTRIPLE)* bi.biWidth)+ newp)*abs(bi.biHeight);
-    bf.bfSize = (sizeof(BITMAPFILEHEADER)+sizeof(BITMAPINFOHEADER)+ bi.biSizeImage);
+    bi.biSizeImage = ((sizeof(RGBTRIPLE) * bi.biWidth) + newp) * abs(bi.biHeight);
+    bf.bfSize = (sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + bi.biSizeImage);
 
     // ensure infile is (likely) a 24-bit uncompressed BMP 4.0
     if (bf.bfType != 0x4d42 || bf.bfOffBits != 54 || bi.biSize != 40 ||
@@ -71,37 +71,33 @@ int main(int argc, char *argv[])
     fwrite(&bi, sizeof(BITMAPINFOHEADER), 1, outptr);
 
     // determine padding for scanlines
-    
 
     // iterate over infile's scanlines
     for (int i = 0, olh = abs(oldh); i < olh; i++)
     {
         RGBTRIPLE arr[oldw];
         // iterate over pixels in scanline
-        for (int j = 0; j < oldw ; j++)
+        for (int j = 0; j < oldw; j++)
         {
-                        // read RGB triple from infile
+            // read RGB triple from infile
             fread(&arr[j], sizeof(RGBTRIPLE), 1, inptr);
         }
- 
-        for(int q=0; q<n; q++)
-        {  
-            for(int h=0; h<oldw; h++)
+
+        for (int q = 0; q < n; q++)
+        {
+            for (int h = 0; h < oldw; h++)
             {
-                for(int g=0; g<n; g++)
+                for (int g = 0; g < n; g++)
                 {
                     fwrite(&arr[h], sizeof(RGBTRIPLE), 1, outptr);
                 }
             }
 
-        
-
-        // then add it back (to demonstrate how)
-        for (int k = 0; k < newp; k++)
-        {
-            fputc(0x00, outptr);
-        }
-
+            // then add it back (to demonstrate how)
+            for (int k = 0; k < newp; k++)
+            {
+                fputc(0x00, outptr);
+            }
         }
         // skip over padding, if any
         fseek(inptr, padding, SEEK_CUR);

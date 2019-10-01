@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <cs50.h>
 #include <string.h>
+#include <ctype.h>
 
 int main(int argc, string argv[])
 {
@@ -8,6 +9,7 @@ int main(int argc, string argv[])
     {
         return 1;
     }
+<<<<<<< HEAD
     //get Word...
     string word = get_string("Word: ");
     int s = strlen(word);
@@ -16,11 +18,29 @@ int main(int argc, string argv[])
     string key = argv[1];
     int v = strlen(key);
     int y = 0;
+=======
+    int len = strlen(argv[1]);
+    for (int i = 0; i < len; i++)
+    {
+        if (!isalpha(argv[1][i]))
+        {
+            return 1;
+        }
+    }
+    string word = get_string("Word: ");
+    int s = strlen(word);
+
+    string key = argv[1];
+    int v = strlen(key);
+    int y = 0;
+    char n[s + 1];
+>>>>>>> 95ff23b9b589ed69911f0bc746e0b79fac46ab74
 
     for (int j = 0; j < s; j++)
     {
         //For short "key" word...repeat again...
         int c = (int)word[j];
+<<<<<<< HEAD
         int l = (int)key[y];
         y++;
         if (y >= v)
@@ -28,6 +48,17 @@ int main(int argc, string argv[])
             y = 0;
         }
 
+=======
+        int l = (int)key[y % v];
+
+        //For "Empty" space (Probel)...
+        if (!isalpha(word[j]))
+        {
+            n[j] = word[j];
+            continue;
+        }
+        y++;
+>>>>>>> 95ff23b9b589ed69911f0bc746e0b79fac46ab74
         // SCORE //
         if (c >= 65 && c <= 90)
         {
@@ -67,6 +98,7 @@ int main(int argc, string argv[])
                 }
             }
         }
+<<<<<<< HEAD
         //For "Empty" space (Probel)...
         if (word[j] == ' ')
         {
@@ -79,4 +111,11 @@ int main(int argc, string argv[])
         }
     }
     printf("%s\n", save);
+=======
+
+        n[j] = c;
+    }
+    n[s] = '\0';
+    printf("ciphertext: %s\n", n);
+>>>>>>> 95ff23b9b589ed69911f0bc746e0b79fac46ab74
 }

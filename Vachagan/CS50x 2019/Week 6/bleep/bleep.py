@@ -1,22 +1,23 @@
-from cs50 import get_string
 from sys import argv
-
 
 def main():
 
     if len(argv) != 2:
-        print("Usage: python bleep.py dictionary")
-        exit(1)
+        exit("Usage: python bleep.py dictionary")
     
-    text = input("What message would you like to censor?")
-
+    text = input("What message would you like to censor?\n").split()
     file = open(argv[1], "r")
+    dictionary = file.read().split()
+    file.close()
     
-    dictionary = file.readlines()
+    text = ['*' * len(word) if word.lower() in dictionary else word for word in text]
+    print(' '.join(text))
+    
 
-    print(text, dictionary)
-
-    # TODO
+    # for i in range(len(text)):
+    #     if text[i].lower() in dictionary:
+    #         text[i] = '*' * len(text[i])
+    
 
 
 if __name__ == "__main__":
