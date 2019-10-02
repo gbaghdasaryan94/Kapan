@@ -1,10 +1,16 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
+
+students = []
 
 @app.route('/')
 def index():
     return render_template("index.html")
+
+@app.route('/registrants')
+def registrants():
+    return render_template("success.html", students = students)
 
 @app.route("/register", methods=["POST"])
 def register():
@@ -16,7 +22,8 @@ def register():
     File = open("test.csv","a")
     File.write(name + "," + city + "," + gender + '\n')
     File.close()
-    return render_template("success.html")
+    students.append(f"{name} from {city} is {gender}")
+    return redirect("/registrants")
 
 if __name__ == "__main__":
     app.run(debug = True)

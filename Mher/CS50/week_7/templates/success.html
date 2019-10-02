@@ -7,6 +7,12 @@
     <title>Document</title>
 </head>
 <body>
-    Success!
+    <td>
+        {%for student in students %}
+        <tr>
+            {{student}}
+        </tr>
+        {% endfor %}
+    </td>
 </body>
 </html>
