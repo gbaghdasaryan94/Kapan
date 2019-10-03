@@ -11,7 +11,7 @@ def register():
     name = request.form.get("name")
     dorm = request.form.get("dorm")
     if not name or not dorm:
-        return "failure"
+        return render_template("success.html")
     File = open("test.txt","a")
     File.write(name + " from " + dorm +'\n')
     File.close()
