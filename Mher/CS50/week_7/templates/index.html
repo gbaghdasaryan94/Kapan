@@ -7,11 +7,22 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Registration</h1>
+    <h1>Form</h1>
     <form action="/register" method="POST">
-        <input name='name' placeholder="Name" type="text">
-        <input name="dorm" placeholder="Place" type="text">
-        <input type="submit" value="Register">
+        <input name='name' placeholder="Name" type="text"><br><br>
+        <select name="city">
+            <option value="Erevan">Erevan</option>
+            <option value="Gyumri">Gyumri</option>
+            <option value="Kapan">Kapan</option>
+            <option value="Goris">Goris</option>
+            <option value="Vanadzor">Vanadzor</option>
+            <option value="Stepanakert">Stepanakert</option>
+        </select><br><br>
+        <form>
+            <input type="radio" name="gender" value="male" checked> Male<br><br>
+            <input type="radio" name="gender" value="female"> Female<br><br>
+            <input type="submit" value="Submit">
+        </form> 
     </form>
 </body>
 </html>

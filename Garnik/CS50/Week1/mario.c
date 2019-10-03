@@ -1,7 +1,10 @@
 #include <stdio.h>
+#include <ctype.h>
+#include <cs50.h>
 
 int main(void){
-    int height=6;
+
+    int height=get_int("Please enter a height of bricks: ");
     for (int i=1; i<=height; i++){
         for (int n=i; n<height; n++){
             printf(" ");
@@ -13,9 +16,7 @@ int main(void){
         for (int n=1; n<=i; n++){
             printf("#");
         }
-        
+
         printf("\n");
     }
-    
-    
 }
