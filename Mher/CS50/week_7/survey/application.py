@@ -9,6 +9,8 @@ app = Flask(__name__)
 # Reload templates when they are changed
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
+students = []
+
 
 @app.after_request
 def after_request(response):
@@ -35,13 +37,20 @@ def post_form():
     city = request.form.get("city")
     gender = request.form.get("gender")
     if not name or not city or not gender:
-        return render_template("error.html", message="Failure")
-    File = open("survey.csv","a")
+        return "failure"
+    File = open("survey.csv", "a")
     File.write(name + "," + city + "," + gender + '\n')
     File.close()
-    return render_template("success.html")
+    return redirect("/sheet")
 
 
 @app.route("/sheet", methods=["GET"])
 def get_sheet():
-    return render_template("error.html", message="TODO")
+    with open("survey.csv", "r") as File:
+        reader = csv.reader(File)
+        students = list(reader)
+    return render_template("success.html", students=students)
+
+
+if __name__ == "__main__":
+    app.run(debug=True)

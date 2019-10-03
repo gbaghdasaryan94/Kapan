@@ -30,11 +30,13 @@
             <th>City</th>
             <th>Sex</th>
         </tr>   
+        {%for student in students %}
         <tr>
-            {%for student in students %}
-                <td>{{student}}</td>
-            {% endfor %}
-        </tr>    
+            <td>{{student[0]}}</td>
+            <td>{{student[1]}}</td>
+            <td>{{student[2]}}</td>
+        </tr>
+        {% endfor %}   
     </table>
 </body>
 </html>
