@@ -1,0 +1,20 @@
+*
+{
+    margin-bottom: 20px;
+    margin-left: 40px;
+}
+#inname 
+{
+   height: 20px;
+   width: 80px;
+   padding: 4px; 
+}
+
+#selector
+{
+    background-color: white;
+    height: 20px;
+    width: 50px;
+    padding: 4px;
+    font-size: 14px;
+}
