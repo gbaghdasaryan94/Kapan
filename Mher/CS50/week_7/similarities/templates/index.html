@@ -4,26 +4,35 @@
 
     <div class="col">
         <form action="/compare" enctype="multipart/form-data" method="post">
-            <nav class="navbar navbar-expand fixed-top navbar-dark bg-dark">
-                    <a class="navbar-brand" href="/">Similarities</a>
-                    <ul class="navbar-nav">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/less">less <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/more">more</a>
-                        </li>
-                    </ul>
-                </nav>
-            <input type="file" name="myFile"><br><br>
-            <input type="file" name="myFile"><br><br>
-            <input type="radio" name="gender" value="Compare lines" checked>Compare lines<br>
-            <input type="radio" name="gender" value="Compare sentences">Compare sentences<br>
-            <input type="radio" name="gender" value="Compare substrings">Compare substrings<br>
-            <input name='name' placeholder="of length n" type="text"><br><br>
-            <button class="btn btn-primary" type="submit">Submit</button>
+            <div class="form-group">
+                <input class="form-control-file" name="file1" type="file">
+            </div>
+            <div class="form-group">
+                <input class="form-control-file" name="file2" type="file">
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" name="algorithm" type="radio" value="lines">
+                        Compare lines
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" name="algorithm" type="radio" value="sentences">
+                        Compare sentences
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" name="algorithm" type="radio" value="substrings">
+                        Compare substrings
+                        <input class="form-control form-control-sm" min="1" name="length" placeholder="of length n" type="number">
+                    </label>
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Compare</button>
         </form>
     </div>
 
-    
 {% endblock %}

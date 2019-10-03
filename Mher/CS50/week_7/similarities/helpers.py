@@ -1,11 +1,14 @@
-from nltk.tokenize import sent_tokenize
-# import nltk
-# nltk.download('punkt')
-
 def lines(a, b):
     """Return lines in both a and b"""
 
-    # TODO
+    a.split('/n')
+    b.split('/n')
+    
+    c = []
+    for i in a:
+        for j in b:
+            if i == j:
+
     return []
 
 
