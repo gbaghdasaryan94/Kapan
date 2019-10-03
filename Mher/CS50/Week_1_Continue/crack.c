@@ -6,13 +6,9 @@
 
 int main(void)
 {
-
-   
-
-    string o =crypt("AcbG","50");
     string n = "\0ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     // string pass = "50VxqXoSfyiuc";
-    string pass = o;
+    string pass = get_string("word: ");
     printf("%s\n", pass);
     int a=53;
 
