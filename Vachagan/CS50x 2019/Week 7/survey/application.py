@@ -24,16 +24,33 @@ def get_index():
     return redirect("/form")
 
 
-@app.route("/form", methods=["GET"])
-def get_form():
+@app.route("/form", methods=["GET", "POST"])
+def get_and_set_form():
+    if request.method == "POST":
+        name = request.form['name']
+        lastname = request.form['lastname']
+        city = request.form.get("city")
+        color = request.form.get("color")
+        if not name and not city and not color:
+            return render_template("error.html", message="Please enter all fields!")
+        with open("survey.csv", "a") as file:
+            writer = csv.DictWriter(
+                file, fieldnames=["name", "lastname", "city", "color"])
+            if file.tell() == 0:
+                writer.writeheader()
+            writer.writerow({"name": name, "lastname": lastname,
+                             "city": city, "color": color})
+        return redirect("/sheet")
     return render_template("form.html")
-
-
-@app.route("/form", methods=["POST"])
-def post_form():
-    return render_template("error.html", message="TODO")
 
 
 @app.route("/sheet", methods=["GET"])
 def get_sheet():
-    return render_template("error.html", message="TODO")
+    with open("survey.csv", "r") as file:
+        reader = csv.DictReader(file)
+        sheets = list(reader)
+    return render_template("sheet.html", sheets=sheets)
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
