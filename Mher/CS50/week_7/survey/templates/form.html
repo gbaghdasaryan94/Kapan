@@ -8,7 +8,17 @@
     <!-- http://getbootstrap.com/docs/4.1/components/forms/ -->
     <form action="/form" method="post">
 
-        <!-- TODO -->
+        <input name='name' placeholder="Name" type="text"><br><br>
+        <select name="city">
+            <option value="Erevan">Erevan</option>
+            <option value="Gyumri">Gyumri</option>
+            <option value="Kapan">Kapan</option>
+            <option value="Goris">Goris</option>
+            <option value="Vanadzor">Vanadzor</option>
+            <option value="Stepanakert">Stepanakert</option>
+        </select><br><br>
+            <input type="radio" name="gender" value="male" checked> Male<br><br>
+            <input type="radio" name="gender" value="female"> Female<br><br>
 
         <!-- http://getbootstrap.com/docs/4.1/components/buttons/ -->
         <button class="btn btn-primary" type="submit">Submit</button>
@@ -16,9 +26,13 @@
     </form>
 
     <script>
-
-        /* TODO */
-
+            document.querySelector('form').onsubmit = function() {
+            if(!document.querySelector('input').value){
+                alert('You must provide your name');
+                return false;
+            }
+            return true;
+        };
     </script>
 
 {% endblock %}
