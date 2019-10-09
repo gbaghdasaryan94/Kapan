@@ -45,7 +45,11 @@ if not os.environ.get("API_KEY"):
 @login_required
 def index():
     """Show portfolio of stocks"""
-    return apology("TODO")
+    if not session["user_id"]:
+        return redirect("/login")
+
+    rows = db.execute("SELECT cash FROM users WHERE id = %s", (session["user_id"],))[0]
+    return render_template("home.html", user=rows)
 
 
 @app.route("/buy", methods=["GET", "POST"])
@@ -71,7 +75,6 @@ def history():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
-
     # Forget any user_id
     session.clear()
 
@@ -128,7 +131,7 @@ def register():
         # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
 
-        username = request.form.get("username")
+        username = request.form.get("username").lower()
         password = request.form.get("password")
         confirmation = request.form.get("confirmation")
         # Ensure username was submitted
@@ -152,14 +155,15 @@ def register():
             return apology("password not equal", 403)
 
         # Query database for username
-        row = db.execute("INSERT INTO users (username, hash, cash) VALUES (%s, %s, %s)", (username, generate_password_hash(password), 1))
+        res = db.execute("INSERT INTO users (username, hash) VALUES (%s, %s)", (username, generate_password_hash(password)))
 
-        # # Ensure username exists and password is correct
-        # if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
-        #     return apology("invalid username and/or password", 403)
+        print(res)
+        # Ensure username exists and password is correct
+        if not res:
+            return apology("Somting wrong", 404)
 
-        # # Remember which user has logged in
-        # session["user_id"] = rows[0]["id"]
+        session["user_id"] = res
+        session["username"] = username 
 
         # Redirect user to home page
         return redirect("/")
@@ -189,4 +193,4 @@ for code in default_exceptions:
     app.errorhandler(code)(errorhandler)
 
 if __name__ == "__main__":
-    app.run(debug=True)    
+    app.run(debug=True)
