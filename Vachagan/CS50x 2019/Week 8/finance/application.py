@@ -1,5 +1,6 @@
 import os
 
+import requests
 from cs50 import SQL
 from flask import Flask, flash, jsonify, redirect, render_template, request, session
 from flask_session import Session
@@ -121,7 +122,24 @@ def logout():
 @login_required
 def quote():
     """Get stock quote."""
-    return apology("TODO")
+
+    if request.method == "POST":
+        symbol = request.form["symbol"]
+        data = lookup(symbol)
+        if not data:
+            return apology("missing symbol", 400)
+            
+        # URL = "https://cloud.iexapis.com/stable/stock/{0}/quote?token={1}".format(symbol, os.environ.get("API_KEY"))
+        # res = requests.get(url = URL)
+
+        # if res.status_code == 404:
+        #     return apology("invalid symbol", 400)
+        
+        # data = res.json()
+        print(data)
+        return render_template("quote.html", data=data)
+
+    return render_template("quote.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -164,7 +182,7 @@ def register():
 
         session["user_id"] = res
         session["username"] = username 
-
+        flash("Registered!")
         # Redirect user to home page
         return redirect("/")
 
