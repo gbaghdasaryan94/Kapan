@@ -22,7 +22,18 @@ Portfolio
             </tr>
         </tfoot>
         <tbody>
-            
+            {% if data %}
+                {% for task in data %}
+                    <tr>
+                        <td>{{ task.symbol }}</td>
+                        <td>{{ task.name }}</td>
+                        <td>{{ task.shares }}</td>
+                        <td>{{ task.price }}</td>
+                        <td>{{ (task.shares * task.price) | usd }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+               
             <tr>
                 <td colspan="4">CASH</td>
                 <td>{{ user.cash | usd }}</td>
