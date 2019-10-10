@@ -24,6 +24,7 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
+
 # Custom filter
 app.jinja_env.filters["usd"] = usd
 
@@ -36,7 +37,7 @@ Session(app)
 # Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///finance.db")
 
-os.environ.setdefault("API_KEY","pk_9f2f9e37df674e3e95dfe26704be7ebe")
+os.environ.setdefault("API_KEY", "pk_9f2f9e37df674e3e95dfe26704be7ebe")
 # Make sure API key is set
 if not os.environ.get("API_KEY"):
     raise RuntimeError("API_KEY not set")
@@ -49,7 +50,8 @@ def index():
     if not session["user_id"]:
         return redirect("/login")
 
-    rows = db.execute("SELECT cash FROM users WHERE id = %s", (session["user_id"],))[0]
+    rows = db.execute("SELECT cash FROM users WHERE id = %s",
+                      (session["user_id"],))[0]
     return render_template("home.html", user=rows)
 
 
@@ -57,7 +59,32 @@ def index():
 @login_required
 def buy():
     """Buy shares of stock"""
-    return apology("TODO")
+
+    if request.method == "POST":
+        symbol = request.form["symbol"]
+
+        if request.form["shares"].isdigit():
+            shares = int(request.form["shares"])
+            if shares <= 0:
+                return apology("shares can't be negative or zero")
+            data = lookup(symbol)
+            if not data:
+                return apology("invalid symbol", 400)
+
+            cash = db.execute("SELECT cash FROM users WHERE id = %s", (session["user_id"]))[
+                0]["cash"]
+
+            card = shares * data["price"]
+            if card > cash:
+               return apology("invalid cash", 400)
+            print("normala", cash, card, data)
+
+            if db.execute("INSERT INTO history (uid, shares, price) VALUES (%s, %s, %s)", (session["user_id"], shares, data["price"])) and db.execute("UPDATE users SET cash = %s WHERE id = %s", (cash - card, session["user_id"])):
+                flash("Bought!")
+
+            return redirect("/")
+        return apology("invalid shares", 400)
+    return render_template("buy.html")
 
 
 @app.route("/check", methods=["GET"])
@@ -127,14 +154,14 @@ def quote():
         symbol = request.form["symbol"]
         data = lookup(symbol)
         if not data:
-            return apology("missing symbol", 400)
-            
+            return apology("invalid symbol", 400)
+
         # URL = "https://cloud.iexapis.com/stable/stock/{0}/quote?token={1}".format(symbol, os.environ.get("API_KEY"))
         # res = requests.get(url = URL)
 
         # if res.status_code == 404:
         #     return apology("invalid symbol", 400)
-        
+
         # data = res.json()
         print(data)
         return render_template("quote.html", data=data)
@@ -146,7 +173,7 @@ def quote():
 def register():
     """Register user"""
 
-        # User reached route via POST (as by submitting a form via POST)
+    # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
 
         username = request.form.get("username").lower()
@@ -173,7 +200,8 @@ def register():
             return apology("password not equal", 403)
 
         # Query database for username
-        res = db.execute("INSERT INTO users (username, hash) VALUES (%s, %s)", (username, generate_password_hash(password)))
+        res = db.execute("INSERT INTO users (username, hash) VALUES (%s, %s)",
+                         (username, generate_password_hash(password)))
 
         print(res)
         # Ensure username exists and password is correct
@@ -181,15 +209,14 @@ def register():
             return apology("Somting wrong", 404)
 
         session["user_id"] = res
-        session["username"] = username 
+        session["username"] = username
         flash("Registered!")
         # Redirect user to home page
         return redirect("/")
 
     # User reached route via GET (as by clicking a link or via redirect)
-    
-    return render_template("register.html")
 
+    return render_template("register.html")
 
 
 @app.route("/sell", methods=["GET", "POST"])
