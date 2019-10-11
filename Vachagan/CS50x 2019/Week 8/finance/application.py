@@ -53,9 +53,8 @@ def index():
     user = db.execute("SELECT cash FROM users WHERE id = %s",
                       (session["user_id"]))[0]
 
-    data = db.execute("SELECT * FROM history WHERE uid = %s",
-                      (session["user_id"]))
-
+    data = db.execute("SELECT SUM(shares) as shares, price, name, symbol FROM history WHERE uid = %s GROUP BY name", (session["user_id"]))
+    print(data)
     return render_template("home.html", user=user, data=data)
 
 
