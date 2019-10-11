@@ -10,7 +10,7 @@
             <select class="form-control" name="symbol">
                 <option disabled="" selected="" value="">Symbol</option>
                     {% for item in data %}
-                        <option value="{{ item.symbol }}">{{ item.symbol }}</option>
+                        <option value="{{ item.symbol }}">{{ item.name }}</option>
                     {% endfor %}
             </select>
         </div>

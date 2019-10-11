@@ -18,7 +18,7 @@ Portfolio
         <tfoot>
             <tr>
                 <td colspan="4"></td>
-                <td><b>{{ user.cash | usd }}</b></td>
+                <td><b>{{ total | usd }}</b></td>
             </tr>
         </tfoot>
         <tbody>
@@ -28,7 +28,7 @@ Portfolio
                         <td>{{ task.symbol }}</td>
                         <td>{{ task.name }}</td>
                         <td>{{ task.shares }}</td>
-                        <td>{{ task.price }}</td>
+                        <td>{{ task.price | usd }}</td>
                         <td>{{ (task.shares * task.price) | usd }}</td>
                     </tr>
                 {% endfor %}

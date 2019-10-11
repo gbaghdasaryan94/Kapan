@@ -53,9 +53,14 @@ def index():
     user = db.execute("SELECT cash FROM users WHERE id = %s",
                       (session["user_id"]))[0]
 
-    data = db.execute("SELECT SUM(shares) as shares, price, name, symbol FROM history WHERE uid = %s GROUP BY name", (session["user_id"]))
-    print(data)
-    return render_template("home.html", user=user, data=data)
+    data = db.execute(
+        "SELECT SUM(shares) as shares, price, name, symbol FROM history WHERE uid = %s GROUP BY name HAVING SUM(shares) > 0", (session["user_id"]))
+    total = user["cash"]
+    if data:
+        for i in range(len(data)):
+            data[i]["price"] = lookup(data[i]["symbol"])["price"]
+            total += data[i]["shares"] * data[i]["price"]
+    return render_template("home.html", user=user, data=data, total=total)
 
 
 @app.route("/buy", methods=["GET", "POST"])
@@ -92,15 +97,17 @@ def buy():
 @app.route("/check", methods=["GET"])
 def check():
     """Return true if username available, else false, in JSON format"""
-    return jsonify(not bool(len(db.execute("SELECT * FROM users WHERE username = %s", request.args.get('username') )))), 200
+    return jsonify(not bool(len(db.execute("SELECT * FROM users WHERE username = %s", request.args.get('username'))))), 200
 
 
 @app.route("/history")
 @login_required
 def history():
     """Show history of transactions"""
-
-    return apology("TODO")
+    data = db.execute(
+        "SELECT shares, price, name, symbol, date FROM history WHERE uid = %s", (session["user_id"]))
+    print(data)
+    return render_template("history.html", data=data)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -121,14 +128,14 @@ def login():
 
         # Query database for username
         rows = db.execute("SELECT * FROM users WHERE username = :username",
-                          username = request.form.get("username"))
+                          username=request.form.get("username"))
 
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
             return apology("invalid username and/or password", 403)
 
         # Remember which user has logged in
-        session["user_id"]=rows[0]["id"]
+        session["user_id"] = rows[0]["id"]
 
         # Redirect user to home page
         return redirect("/")
@@ -148,39 +155,32 @@ def logout():
     return redirect("/")
 
 
-@app.route("/quote", methods = ["GET", "POST"])
+@app.route("/quote", methods=["GET", "POST"])
 @login_required
 def quote():
     """Get stock quote."""
 
     if request.method == "POST":
-        symbol=request.form["symbol"]
-        data=lookup(symbol)
+        symbol = request.form["symbol"]
+        data = lookup(symbol)
         if not data:
             return apology("invalid symbol", 400)
-
-        # URL = "https://cloud.iexapis.com/stable/stock/{0}/quote?token={1}".format(symbol, os.environ.get("API_KEY"))
-        # res = requests.get(url = URL)
-
-        # if res.status_code == 404:
-        #     return apology("invalid symbol", 400)
-
-        # data = res.json()
-        return render_template("quote.html", data = data)
+            
+        return render_template("quote.html", data=data)
 
     return render_template("quote.html")
 
 
-@app.route("/register", methods = ["GET", "POST"])
+@app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user"""
 
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
 
-        username=request.form.get("username").lower()
-        password=request.form.get("password")
-        confirmation=request.form.get("confirmation")
+        username = request.form.get("username").lower()
+        password = request.form.get("password")
+        confirmation = request.form.get("confirmation")
         # Ensure username was submitted
         if not username:
             return apology("must provide username", 400)
@@ -202,7 +202,7 @@ def register():
             return apology("password not equal", 400)
 
         # Query database for username
-        res=db.execute("INSERT INTO users (username, hash) VALUES (%s, %s)",
+        res = db.execute("INSERT INTO users (username, hash) VALUES (%s, %s)",
                          (username, generate_password_hash(password)))
 
         # Ensure username exists and password is correct
@@ -224,10 +224,39 @@ def register():
 @login_required
 def sell():
     """Sell shares of stock"""
-    data = db.execute("SELECT symbol FROM history WHERE uid = %s", session["user_id"])
-    
 
+    if request.method == "POST":
+        symbol = request.form["symbol"]
 
+        if request.form["shares"].isdigit():
+            shares = int(request.form["shares"])
+
+            if shares <= 0:
+                return apology("shares can't be negative or zero")
+
+            dshares = db.execute("SELECT SUM(shares) as shares FROM history WHERE symbol = %s and uid = %s GROUP BY name", (
+                symbol, session["user_id"]))[0]["shares"]
+
+            if dshares < shares:
+                return apology("shares is not avaible", 400)
+
+            ldata = lookup(symbol)
+
+            if not ldata:
+                return apology("something wrong", 400)
+
+            cash = db.execute("SELECT cash FROM users WHERE id = %s", (session["user_id"]))[
+                0]["cash"]
+
+            cash += shares * ldata["price"]
+
+            if db.execute("INSERT INTO history (symbol, name, uid, shares, price) VALUES (%s, %s, %s, %s, %s)", (symbol, ldata["name"], session["user_id"], 0-shares, ldata["price"])) and db.execute("UPDATE users SET cash = %s WHERE id = %s", (cash, session["user_id"])):
+                flash("Sold!")
+
+            return redirect("/")
+        return apology("invalid shares", 400)
+    data = db.execute(
+        "SELECT symbol, name FROM history WHERE uid = %s GROUP BY name  HAVING SUM(shares) > 0", session["user_id"])
     return render_template("sell.html", data=data)
 
 
