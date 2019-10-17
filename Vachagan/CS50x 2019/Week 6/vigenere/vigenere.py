@@ -24,7 +24,6 @@ def main(argv):
     #         lt = chr((case + next(keyOrd)) % 26 +   ord(lt) - case)
     #     print(lt, end='')
     # print()
-    # exit(0)
 
 
 if __name__ == "__main__":

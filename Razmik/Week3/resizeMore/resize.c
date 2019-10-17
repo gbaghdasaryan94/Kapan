@@ -11,14 +11,14 @@ int main(int argc, char *argv[])
     // ensure proper usage
     if (argc != 4)
     {
-        fprintf(stderr, "Usage: ./copy [infile] [outfile] [X times]\n");
+        fprintf(stderr, "Usage: ./copy [X times] [infile] [outfile]\n");
         return 1;
     }
 
     // remember filenames and resize time
-    int n = atoi(argv[3]);
-    char *infile = argv[1];
-    char *outfile = argv[2];
+    float f = atof(argv[1]);
+    char *infile = argv[2];
+    char *outfile = argv[3];
 
     // open input file
     FILE *inptr = fopen(infile, "r");
@@ -58,24 +58,24 @@ int main(int argc, char *argv[])
     // determine padding for scanlines
     int padding = (4 - (bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
 
-    // getting infile height 
+    // getting infile height
     int oldHeight = abs(bi.biHeight);
-    
+
     // getting infile width
     int oldWidth = bi.biWidth;
-    
+
     // changing width
-    bi.biWidth = bi.biWidth * n;
-    
+    bi.biWidth = bi.biWidth * f;
+
     // changing Height
-    bi.biHeight = bi.biHeight * n;
-    
+    bi.biHeight = bi.biHeight * f;
+
     // getting outfile padding
     int opadding = (4 - (bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
-    
+
     // getting outfile Image Size
-    bi.biSizeImage = ((sizeof(RGBTRIPLE)*bi.biWidth) + opadding) * abs(bi.biHeight);
-    
+    bi.biSizeImage = ((sizeof(RGBTRIPLE) * bi.biWidth) + opadding) * abs(bi.biHeight);
+
     // getting outline file size
     bf.bfSize = bi.biSizeImage + sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER);
 
@@ -84,7 +84,8 @@ int main(int argc, char *argv[])
 
     // write outfile's BITMAPINFOHEADER
     fwrite(&bi, sizeof(BITMAPINFOHEADER), 1, outptr);
-
+    
+    int lim = ceil(1 / f), q = ceil(f);
     // iterate over infile's scanlines
     for (int i = 0; i < oldHeight; i++)
     {
@@ -93,18 +94,24 @@ int main(int argc, char *argv[])
 
         // read RGB triple from infiles' line
         for (int j = 0; j < oldWidth; j++)
+        {
             fread(&rgbs[j], sizeof(RGBTRIPLE), 1, inptr);
-        
+        }
+
         // write for every line
-        for (int k=0; k < n; k++)
+        for (int b = 0; i % lim == 0 && b <  q; b++)
         {
             // write RGB triple to outfile
             for (int l = 0; l < bi.biWidth; l++)
-                fwrite(&rgbs[l/n], sizeof(RGBTRIPLE), 1, outptr);
+            {
+                fwrite(&rgbs[(int)(l / f)], sizeof(RGBTRIPLE), 1, outptr);
+            }
 
             // add padding to outfile
             for (int k = 0; k < opadding; k++)
+            {
                 fputc(0x00, outptr);
+            }
         }
 
         // skip over padding, if any

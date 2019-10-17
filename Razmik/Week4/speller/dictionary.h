@@ -7,23 +7,22 @@
 
 // Maximum length for a word
 // (e.g., pneumonoultramicroscopicsilicovolcanoconiosis)
-#define LENGTH 45
+#define LENGTH 47
 #define DICTIONARY "dictionaries/large"
 
 typedef struct nevi
 {
-    int id;
-    char * word;
-    struct nevi * next;
+    char word[LENGTH];
+    struct nevi *next;
 
 } Node;
 
-
 // Prototypes
-bool check(const char *word);
+bool check(const char *wrd);
 bool load(const char *dictionary);
 unsigned int size(void);
 bool unload(void);
-void addto(char * wrd);
+void addto(char *wrd);
+
 
 #endif // DICTIONARY_H
