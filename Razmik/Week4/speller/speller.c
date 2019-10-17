@@ -11,6 +11,9 @@
 #undef calculate
 #undef getrusage
 
+// Default dictionary
+#define DICTIONARY "dictionaries/large"
+
 // Prototype
 double calculate(const struct rusage *b, const struct rusage *a);
 
@@ -169,7 +172,7 @@ int main(int argc, char *argv[])
     printf("TIME IN unload:       %.2f\n", time_unload);
     printf("TIME IN TOTAL:        %.2f\n\n",
            time_load + time_check + time_size + time_unload);
-
+    
     // Success
     return 0;
 }
