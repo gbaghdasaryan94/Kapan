@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
+            <select>
+                    <option value="x-large">x-large</option>
+                    <option value="xx-large">xx-large</option>
+                    <option value="x-small">x-small</option>
+                </select>
+                <script>
+                document.querySelector('select').onchange = function()
+                {
+                    document.querySelector('body').style.fontSize = this.value;
+                };
         <meta charset="UTF-8">
         <link href="css4.css" rel="stylesheet">
         <title>Document</title>
@@ -12,17 +22,6 @@
         </form>
         <header>
             Hello Friend!
-            <select>
-                <option value="x-large">x-large</option>
-                <option value="xx-large">xx-large</option>
-                <option value="x-small">x-small</option>
-            </select>
-            <script>
-            document.querySelector('select').onchange = function()
-            {
-                document.querySelector('body').style.fontSize = this.value;
-            };
-
             </script>
         </header>
         <main>

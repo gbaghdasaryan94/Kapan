@@ -1,0 +1,17 @@
+p{
+   font-family: arial;
+   font-size: 13px;
+   background-color: #F4F1AE;
+   color: red;
+}
+
+a{
+    text-align: center;
+    font-size: 20px;
+}
+
+form
+{
+    background-color: #979690;
+    text-align: left;
+}

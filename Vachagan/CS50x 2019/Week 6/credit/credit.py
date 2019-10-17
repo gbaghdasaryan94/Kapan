@@ -1,39 +1,33 @@
-from cs50 import get_int
-
-
-def check_sum(card):
-    Sum = 0
-    isTwo = False
-
-    while card > 0:
-        num = card % 10
-        if isTwo:
-            num *= 2
-        isTwo = not isTwo
-
-        Sum += num / 10 + num % 10
-        card /= 10
-
-    return Sum % 10
-
+def checkSum(card):
+    return not sum(int(v) for v in ''.join([str(int(v) * 2) if i % 2 else v for i, v in enumerate(card)])) % 10
+    # return not sum([int(v) for v in ''.join([str(int(v)*2) for v in card[1::2] if int(v)])] + [int(v) for v in card[0::2]]) % 10
 
 def main():
-    card = get_int("Number: ")
-
-    check = check_sum(card)
-    st = str(card)
-    Len = len(st)
+    card = ''
+    while not card.isdigit():
+        card = input("Number: ")
     Message = "INVALID"
-
-    if (Len == 15 and check and st[0] == '3' and (st[1] == '4' or st[1] == '7')):
-        Message = "AMEX"
-    if (Len == 16 and check and st[0] == '5' and (st[1] > '0' and st[1] < '6')):
-        Message = "MASTERCARD"
-    if ((Len == 13 or Len == 16) and check and st[0] == '4'):
-        Message = "VISA"
-
+    if len(card) in [13, 15, 16] and checkSum(card[::-1]):
+        if (card[0] == '3' and (card[1] == '4' or card[1] == '7')):
+            Message = "AMEX"
+        elif (card[0] == '5' and (card[1] > '0' and card[1] < '6')):
+            Message = "MASTERCARD"
+        elif (card[0] == '4'):
+            Message = "VISA"
     print(Message)
 
 
 if __name__ == "__main__":
     main()
+
+
+# print(checkSum("378282246310005"[::-1]))
+# print(checkSum("371449635398431"[::-1]))
+# print(checkSum("5555555555554444"[::-1]))
+# print(checkSum("5105105105105100"[::-1]))
+# print(checkSum("4111111111111111"[::-1]))
+# print(checkSum("4012888888881881"[::-1]))
+# print(checkSum("1234567890"[::-1]))
+# print(checkSum("4003600000000014"[::-1]))
+# for card in ["378282246310005", "371449635398431", "5555555555554444", "5105105105105100", "4111111111111111", "4012888888881881", "4003600000000014", "1234567890"]:
+#     main(card)

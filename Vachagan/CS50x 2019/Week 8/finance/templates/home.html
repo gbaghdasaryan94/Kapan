@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Portfolio
+{% endblock %}
+
+{% block main %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>TOTAL</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td colspan="4"></td>
+                <td><b>{{ total | usd }}</b></td>
+            </tr>
+        </tfoot>
+        <tbody>
+            {% if data %}
+                {% for task in data %}
+                    <tr>
+                        <td>{{ task.symbol }}</td>
+                        <td>{{ task.name }}</td>
+                        <td>{{ task.shares }}</td>
+                        <td>{{ task.price | usd }}</td>
+                        <td>{{ (task.shares * task.price) | usd }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+               
+            <tr>
+                <td colspan="4">CASH</td>
+                <td>{{ user.cash | usd }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

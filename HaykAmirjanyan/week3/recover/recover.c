@@ -1,55 +1,72 @@
+// Resizing a BMP file
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+#include <sys/types.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <unistd.h>
 #include <stdint.h>
 
-typedef uint8_t  BYTE;
+typedef uint8_t BYTE;
 
-int main(int argc, char *argv[]) 
+int main(int argc, char *argv[])
 {
-
-
-    if(argc != 2){
-        fprintf(stderr,"Usage: copy infile outfile\n");
-        return 1;
-    }
-
-    char *infile = argv[1];
-
-    FILE *inptr = fopen(infile,"r");
-
-    if(inptr == NULL) 
+    // ensure proper usage
+    if (argc != 2)
     {
-        fprintf(stderr,"Could not open %s.\n", infile);
+        fprintf(stderr, "Usage: ./recover infile\n");
         return 1;
     }
 
-    char oname[] = "A.jpeg";
-    FILE *out = fopen(oname,"w");
+    FILE *new, *raw = fopen(argv[1], "r");
+    if (raw == NULL)
+    {
+        fprintf(stderr, "Could not open %s.\n", argv[1]);
+        return 2;
+    }
+    // getting file length
+    fseek(raw, 0, SEEK_END);
+    long filelen = ftell(raw);
+    rewind(raw);
 
-    while(!feof(inptr)){
+    // opening file
+    char newname[] = "000";
+    new = fopen("RecoverGarbage", "w");
 
-        BYTE tmp[512];        
-        fread(tmp,sizeof(BYTE),512,inptr);
-        if(tmp[0] == 0xff && tmp[1] == 0xd8 && tmp[2] == 0xff && (tmp[3] >= 0xe0 && tmp[3] <= 0xef)) {
-            fclose(out);
-            out = fopen(oname,"w"); 
+    // till we reach to the end of a file
+    while (ftell(raw) < filelen)
+    {
+        BYTE uno[512];
+        fread(uno, sizeof(BYTE), 512, raw);
 
-            oname[0] =  oname[0] + 1;
-            if(oname[0] == '[')
+        // if founds new image
+        if (uno[0] == 0xff && uno[1] == 0xd8 && uno[2] == 0xff && (uno[3] >= 0xe0 && uno[3] <= 0xef))
+        {
+            fclose(new);
+            char *fn = malloc(strlen(newname + 6));
+            sprintf(fn, "%s.jpg", newname);
+            new = fopen(fn, "w");
+            if (new == NULL)
             {
-                oname[0] = 'a';
+                printf("Could not open %s.\n", newname);
+                return 2;
+            }
+
+            // generating new filename for next file
+            newname[strlen(newname) - 1]++;
+            if (newname[strlen(newname) - 1] > 57)
+            {
+                newname[strlen(newname) - 2]++;
+                newname[strlen(newname) - 1] = '0';
             }
         }
-        fwrite(tmp,sizeof(BYTE),512,out);
-
-
+        fwrite(uno, sizeof(BYTE), 512, new);
     }
-
-    fclose(out);
-
-    fclose(inptr);
-
+    remove("RecoverGarbage");
+    // close files
+    fclose(new);
+    fclose(raw);
     return 0;
-
-
 }

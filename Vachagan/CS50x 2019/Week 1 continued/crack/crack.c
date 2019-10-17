@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <crypt.h>
 #include <string.h>
+#include <stdlib.h>
 
 int generate(char *arr, int i, string str, int len, string hash, char *a)
 {

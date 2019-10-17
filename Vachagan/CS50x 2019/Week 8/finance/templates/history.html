@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>Transacted</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if data %}
+                {% for task in data %}
+                    <tr>
+                        <td>{{ task.symbol }}</td>
+                        <td>{{ task.name }}</td>
+                        <td>{{ task.shares }}</td>
+                        <td>{{ task.price | usd }}</td>
+                        <td>{{ task.date }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+{% endblock %}
