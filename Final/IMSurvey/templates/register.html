@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <div class="login-page">
+        <div class="form">
+          <form class="register-form" action="/register" method="POST">
+            <div id="name"><input autocomplete="off" name="name"  type="text" placeholder="Full Name"/><i></i></div>
+            <div id="email"><input autocomplete="off" name="email"  type="text" placeholder="Email"/><i></i></div>
+            <div id="pword"><input autocomplete="off" name="pword"  type="password" placeholder="Password"/><i></i></div>
+            <div id="cpword"><input autocomplete="off" name="cpword"  type="password" placeholder="Confirm password"/><i></i></div>
+            <input id="submit" type="submit" value="Register">
+            <p class="message">Already registered? <a href="/login">Sign In</a></p>
+          </form>
+        </div>
+      </div>
+      
+      <script src="/static/js/regcheck.js"></script>
+{% endblock %}
