@@ -18,10 +18,9 @@ def after_request(response):
 @app.route('/', methods=['GET'])
 @login_required
 def home():
-    
-    return render_template('index.html', users=User.query.all(), title="Show Users")
-
-
+    users = User.query.all()
+    print(users)
+    return render_template('index.html', users=users, title="Show Users")
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -31,24 +30,23 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        """Create a user."""
-        # username = request.args.get('user')
-        # email = request.args.get('email')
-        # if username and email:
-        #     existing_user = User.query.filter(User.username == username or User.email == email).first()
-        #     if existing_user:
-        #         return make_response(f'{username} ({email}) already created!')
-        #     new_user = User(username=username,
-        #                     email=email,
-        #                     created=dt.now(),
-        #                     bio="In West Philadelphia born and raised, on the playground is where I spent most of my days",
-        #                     admin=False)  # Create an instance of the User class
-        #     db.session.add(new_user)  # Adds new User record to database
-        #     db.session.commit()  # Commits all changes
-        # render_template('users.html', users=User.query.all(), title="Show Users")
+        fullname = request.form.get('fullname')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        confirm = request.form.get('confirm')
+        print(fullname, email, password, confirm)
+        if fullname and email and password and password == confirm:
+            existing_user = User.query.filter(User.email == email).first()
+            if existing_user:
+                return make_response(f'{email} already created!')
+            
+            new_user = User(fullname=fullname, email=email, password=password)
+
+            db.session.add(new_user)
+            db.session.commit()
         return redirect("/")
-    else:
-        return render_template("register.html")
+    
+    return render_template("register.html")
 
 @app.route('/logout')
 def logout(): 

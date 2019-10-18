@@ -4,6 +4,13 @@
     Home
 {% endblock %}
 
-{% block main %}
-   Hello
+{% block main %} 
+    <ul>
+        {% for user in users %}
+            
+        <li>{{ user.fullname }}</li>
+        <li>{{ user.email }}</li>
+            
+        {% endfor %}
+    </ul>
 {% endblock %}

@@ -5,20 +5,17 @@ $(document).ready(function(){
 
 function IsEmail(email) {
     var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})/;
-    if(!regex.test(email)) {
-      return false;
-    }else{
-      return true;
-    }
+    return regex.test(email);
 }
 
 $("#email input").on( "keyup", function(){
-    if (IsEmail($(this).val())) {
-        $(this).parent().children("i").attr("class", "fas fa-check-circle");
-    } else {
-        $(this).parent().children("i").attr("class", "fas fa-exclamation-circle");
-    }
-})
+    if($(this).val() == "")
+        $("#email div div").children("i").attr("class", "fas fa-at");
+    else if (IsEmail($(this).val()))
+        $("#email div div").children("i").attr("class", "fas fa-check-circle");
+    else
+        $("#email div div").children("i").attr("class", "fas fa-exclamation-circle");
+});
 
 // $("#name input").change(function(this){
 //     let name = $(this).val();
