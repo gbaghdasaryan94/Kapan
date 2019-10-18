@@ -48,6 +48,10 @@
   transition: all 0.3 ease;
   cursor: pointer;
 }
+#submit:disabled {
+  cursor: default;
+  background: #9c9c9c;
+}
 .form button:hover,.form button:active,.form button:focus {
   background: #43A047;
 }
