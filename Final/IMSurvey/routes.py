@@ -4,7 +4,8 @@ from datetime import datetime as dt
 from flask import current_app as app
 
 from .models import db, User
-from .helpers import login_required
+from .helpers import login_required, apology
+import re
 
 
 # Ensure responses aren't cached
@@ -33,6 +34,12 @@ def register():
         fullname = request.form.get('fullname')
         email = request.form.get('email')
         password = request.form.get('password')
+        if (len(password)<6) or not re.search(r"([a-z]|[A-Z]+[0-9]+[/S])", password):
+            return apology("Wrong Password", 400)
+        if not re.search(r"([a-z]|[A-Z]+[/s])",fullname):
+            return apology("Wrong Fullname", 400)
+
+
         confirm = request.form.get('confirm')
         print(fullname, email, password, confirm)
         if fullname and email and password and password == confirm:
