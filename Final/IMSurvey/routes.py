@@ -24,8 +24,24 @@ def home():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    session["user_id"] = 15
-    return redirect("/")
+    # session["user_id"] = 15
+
+    if request.method == "POST":
+
+        email = request.form.get('email')
+        password = request.form.get('password')
+        print(email, password)
+        
+        if email and password:
+            existing_user = User.query.filter(User.email == email).first()
+            print(existing_user.id)
+            if not existing_user:
+                return make_response(f'{email} user not found!')
+            session["user_id"] = existing_user.id
+
+        return redirect("/")
+    
+    return render_template("login.html")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -34,7 +50,6 @@ def register():
         email = request.form.get('email')
         password = request.form.get('password')
         confirm = request.form.get('confirm')
-        print(fullname, email, password, confirm)
         if fullname and email and password and password == confirm:
             existing_user = User.query.filter(User.email == email).first()
             if existing_user:
