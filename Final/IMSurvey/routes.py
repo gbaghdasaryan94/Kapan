@@ -19,14 +19,28 @@ def after_request(response):
 @app.route('/', methods=['GET'])
 @login_required
 def home():
-    users = User.query.all()
-    print(users)
-    return render_template('index.html', users=users, title="Show Users")
+    user = User.query.get_or_404(session["user_id"])
+    
+    return render_template('index.html', user=user, title="Show Users")
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    session["user_id"] = 15
-    return redirect("/")
+    
+    if request.method == "POST":
+
+        email = request.form.get('email')
+        password = request.form.get('password')
+        
+        if email and password:
+            existing_user = User.query.filter(User.email == email).first()
+            print(existing_user.id)
+            if not existing_user:
+                return make_response(f'{email} user not found!')
+            session["user_id"] = existing_user.id
+
+        return redirect("/")
+    
+    return render_template("login.html")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -41,16 +55,17 @@ def register():
 
 
         confirm = request.form.get('confirm')
-        print(fullname, email, password, confirm)
         if fullname and email and password and password == confirm:
             existing_user = User.query.filter(User.email == email).first()
             if existing_user:
                 return make_response(f'{email} already created!')
             
             new_user = User(fullname=fullname, email=email, password=password)
-
+            
             db.session.add(new_user)
             db.session.commit()
+
+            session["user_id"] = new_user.id
         return redirect("/")
     
     return render_template("register.html")
