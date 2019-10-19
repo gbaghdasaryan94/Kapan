@@ -12,5 +12,5 @@
         "typeindex": "c",
         "memory": "c"
     },
-    "python.pythonPath": "/Volumes/Free Space/Kapan/env/bin/python3.7"
+    "python.pythonPath": "/usr/sbin/python"
 }

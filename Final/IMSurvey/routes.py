@@ -33,7 +33,7 @@ def login():
         
         if email and password:
             existing_user = User.query.filter(User.email == email).first()
-            print(existing_user.id)
+            # print(existing_user.id)
             if not existing_user:
                 return make_response(f'{email} user not found!')
             session["user_id"] = existing_user.id
