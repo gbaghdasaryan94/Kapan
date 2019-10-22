@@ -12,5 +12,5 @@
         "typeindex": "c",
         "memory": "c"
     },
-    "python.pythonPath": "/usr/sbin/python"
+    "python.pythonPath": "env/bin/python"
 }
