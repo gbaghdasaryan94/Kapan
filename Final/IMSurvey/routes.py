@@ -48,10 +48,12 @@ def register():
         fullname = request.form.get('fullname')
         email = request.form.get('email')
         password = request.form.get('password')
-        if (len(password)<6) or not re.search(r"([a-z]|[A-Z]+[0-9]+[/S])", password):
-            return apology("Wrong Password", 400)
-        if not re.search(r"([a-z]|[A-Z]+[/s])",fullname):
+        if not (re.search("[a-z]",fullname) or  re.search("[A-Z]",fullname)) or not re.search("\s",fullname):
             return apology("Wrong Fullname", 400)
+        if (len(password)<6) or not (re.search("[a-z]",password) or  re.search("[A-Z]",password)) or not re.search("[0-9]",password) or re.search("\s",password):
+            return apology("Wrong Password", 400)
+        
+        
 
 
         confirm = request.form.get('confirm')
