@@ -17,31 +17,37 @@ import re
 #     response.headers["Pragma"] = "no-cache"
 #     return response
 
+<<<<<<< HEAD
 # @app.route('/', methods=['GET'])
 # # @login_required
 # def home():
 #     # user = User.query.get_or_404(session["user_id"])
     
 #     return render_template('onboarding.html', user=user, title="Show Users")
-
-# @app.route('/login', methods=['GET', 'POST'])
-# # def login():
+=======
+@app.route('/', methods=['GET'])
+def home():
+    # user = User.query.get_or_404(session["user_id"])
     
-#     if request.method == "POST":
+    return render_template('index.html')
+>>>>>>> 1e91a6504ec703ffdfb57414f50ca3d8b39e110d
 
-#         email = request.form.get('email')
-#         password = request.form.get('password')
+@app.route('/login', methods=['GET', 'POST'])
+def login():    
+    if request.method == "POST":
+
+        email = request.form.get('email')
+        password = request.form.get('password')
         
-#         if email and password:
-#             existing_user = User.query.filter(User.email == email).first()
-#             # print(existing_user.id)
-#             if not existing_user:
-#                 return make_response(f'{email} user not found!')
-#             session["user_id"] = existing_user.id
+        if email and password:
+            existing_user = User.query.filter(User.email == email).first()
+            if not existing_user:
+                return make_response(f'{email} user not found!')
+            session["user_id"] = existing_user.id
 
-#         return redirect("/")
+        return redirect("/")
     
-#     return render_template("login.html")
+    return render_template("login.html")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -49,13 +55,10 @@ def register():
         fullname = request.form.get('fullname')
         email = request.form.get('email')
         password = request.form.get('password')
-        if not (re.search("[a-z]",fullname) or  re.search("[A-Z]",fullname)) or not re.search("\s",fullname):
-            return apology("Wrong Fullname", 400)
-        if (len(password)<6) or not (re.search("[a-z]",password) or  re.search("[A-Z]",password)) or not re.search("[0-9]",password) or re.search("\s",password):
+        if (len(password)<6) or not re.search(r"([a-z]|[A-Z]+[0-9]+[/S])", password):
             return apology("Wrong Password", 400)
-    
-        
-        
+        if not re.search(r"([a-z]|[A-Z]+[/s])",fullname):
+            return apology("Wrong Fullname", 400)
 
 
         confirm = request.form.get('confirm')

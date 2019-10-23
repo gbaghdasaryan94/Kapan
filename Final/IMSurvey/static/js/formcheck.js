@@ -7,9 +7,10 @@ $(document).ready(function () {
         "password": [/^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,20}$/, "fas fa-key"],
         "confirm": [/^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,20}$/, "fas fa-check-double"]
     }
-    function fullcheck() {
+    function fullcheck(form) {
         let bad = false;
-        $("input").each(function () {
+        form.each(function () {
+            console.log(form);
             if (!check($(this).attr("name"), $(this).val())) bad = true;
         })
         if ($("form").attr("class") == "form signup" && $("#password input").val() != $("#confirm input").val()) {
@@ -39,6 +40,7 @@ $(document).ready(function () {
         } else {
             $("#"+name).find("i").attr("class", "fas fa-exclamation-circle");
         }
-        fullcheck();
+        
+        fullcheck($(this).parents('form:first'));
     });
 });
