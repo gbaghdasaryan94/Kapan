@@ -4,17 +4,18 @@ from datetime import datetime as dt
 from flask import current_app as app
 from cs50 import SQL
 from .models import db, User
+from werkzeug.security import check_password_hash, generate_password_hash
 from .helpers import login_required, apology
 import re
 
 
-# Ensure responses aren't cached
-@app.after_request
-def after_request(response):
-    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-    response.headers["Expires"] = 0
-    response.headers["Pragma"] = "no-cache"
-    return response
+# # Ensure responses aren't cached
+# @app.after_request
+# def after_request(response):
+#     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+#     response.headers["Expires"] = 0
+#     response.headers["Pragma"] = "no-cache"
+#     return response
 
 db = SQL("sqlite:///IMSurvey/survey.db")
 
@@ -33,13 +34,6 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
 
-
-        # if email and password:
-        #     existing_user = User.query.filter(User.email == email).first()
-        #     print(existing_user.id)
-        #     if not existing_user:
-        #         return make_response(f'{email} user not found!')
-
         if not email:
             return apology("Please enter email")
         if not password:
@@ -52,35 +46,39 @@ def login():
         return redirect("/")
     return render_template("login.html")
 
-# @app.route("/register", methods=["GET", "POST"])
-# def register():
-#     if request.method == "POST":
-#         fullname = request.form.get('fullname')
-#         email = request.form.get('email')
-#         password = request.form.get('password')
-#         if (len(password)<6) or not re.search(r"([a-z]|[A-Z]+[0-9]+[/S])", password):
-#             return apology("Wrong Password", 400)
-#         if not re.search(r"([a-z]|[A-Z]+[/s])",fullname):
-#             return apology("Wrong Fullname", 400)
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        fullname = request.form.get('fullname')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        if (len(password)<6) or not re.search(r"([a-z]|[A-Z]+[0-9]+[/S])", password):
+            return apology("Wrong Password", 400)
+        if not re.search(r"([a-z]|[A-Z]+[/s])",fullname):
+            return apology("Wrong Fullname", 400)
 
 
-#         confirm = request.form.get('confirm')
-#         if fullname and email and password and password == confirm:
-#             existing_user = User.query.filter(User.email == email).first()
-#             if existing_user:
-#                 return make_response(f'{email} already created!')
+        confirm = request.form.get('confirm')
+        if fullname and email and password and password == confirm:
+            existing_user = User.query.filter(User.email == email).first()
+            if existing_user:
+                return make_response(f'{email} already created!')
             
-#             new_user = User(fullname=fullname, email=email, password=password)
+            new_user = User(fullname=fullname, email=email, password=generate_password_hash(request.form.get("password")))
             
-#             db.session.add(new_user)
-#             db.session.commit()
+            db.session.add(new_user)
+            db.session.commit()
 
-#             session["user_id"] = new_user.id
-#         return redirect("/")
+            session["user_id"] = new_user.id
+        return redirect("/")
     
-#     return render_template("register.html")
+    return render_template("register.html")
 
 @app.route('/logout')
 def logout(): 
     session.clear()
     return redirect("/")
+
+@app.route('/account')
+def my_account(): 
+    return render_template("account.html")
