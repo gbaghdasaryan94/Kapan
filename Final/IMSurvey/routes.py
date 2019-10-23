@@ -2,26 +2,27 @@ from flask import flash, jsonify, redirect, render_template, request, session, m
 
 from datetime import datetime as dt
 from flask import current_app as app
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from .models import db, User
 from .helpers import login_required, apology
 import re
 
 
-# Ensure responses aren't cached
-@app.after_request
-def after_request(response):
-    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-    response.headers["Expires"] = 0
-    response.headers["Pragma"] = "no-cache"
-    return response
+# # Ensure responses aren't cached
+# @app.after_request
+# def after_request(response):
+#     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+#     response.headers["Expires"] = 0
+#     response.headers["Pragma"] = "no-cache"
+#     return response
 
-@app.route('/', methods=['GET'])
-# @login_required
-def home():
-    # user = User.query.get_or_404(session["user_id"])
+# @app.route('/', methods=['GET'])
+# # @login_required
+# def home():
+#     # user = User.query.get_or_404(session["user_id"])
     
-    return render_template('onboarding.html', user=user, title="Show Users")
+#     return render_template('onboarding.html', user=user, title="Show Users")
 
 # @app.route('/login', methods=['GET', 'POST'])
 # # def login():
@@ -63,7 +64,7 @@ def register():
             if existing_user:
                 return make_response(f'{email} already created!')
             
-            new_user = User(fullname=fullname, email=email, password=password)
+            new_user = User(fullname=fullname, email=email, password=generate_password_hash(request.form.get("password")))
             
             db.session.add(new_user)
             db.session.commit()
