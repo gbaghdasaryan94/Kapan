@@ -40,7 +40,7 @@ def login():
             return apology("Please enter password")
         
         em = db.execute("SELECT * FROM users WHERE email = :email", email = email)
-        if not em or password != em[0]['password']:
+        if not em or check_password_hash(em[0]["password"], request.form.get("password")):
             return apology("Email or password is invalid")
         session["user_id"] = em[0]['id']
         return redirect("/")
