@@ -17,22 +17,14 @@ def after_request(response):
     return response
 
 @app.route('/', methods=['GET'])
-@login_required
 def home():
-    user = User.query.get_or_404(session["user_id"])
+    # user = User.query.get_or_404(session["user_id"])
     
-    return render_template('onboarding.html', user=user, title="Show Users")
+    return render_template('index.html')
 
-<<<<<<< HEAD
 @app.route('/login', methods=['GET', 'POST'])
 def login():    
     if request.method == "POST":
-=======
-# @app.route('/login', methods=['GET', 'POST'])
-# # def login():
-    
-#     if request.method == "POST":
->>>>>>> bc8d203bd1071a7915d0877400e28aee104cd476
 
         email = request.form.get('email')
         password = request.form.get('password')

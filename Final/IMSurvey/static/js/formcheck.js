@@ -9,8 +9,7 @@ $(document).ready(function () {
     }
     function fullcheck(form) {
         let bad = false;
-        console.log(`form[class=${form}] input`);
-        $(form).find("input").each(function () {
+        form.each(function () {
             console.log(form);
             if (!check($(this).attr("name"), $(this).val())) bad = true;
         })
@@ -42,6 +41,6 @@ $(document).ready(function () {
             $("#"+name).find("i").attr("class", "fas fa-exclamation-circle");
         }
         
-        fullcheck($(this).parents('form:first').attr("class"));
+        fullcheck($(this).parents('form:first'));
     });
 });
