@@ -17,30 +17,30 @@ def after_request(response):
     return response
 
 @app.route('/', methods=['GET'])
-@login_required
+# @login_required
 def home():
-    user = User.query.get_or_404(session["user_id"])
+    # user = User.query.get_or_404(session["user_id"])
     
-    return render_template('index.html', user=user, title="Show Users")
+    return render_template('onboarding.html', user=user, title="Show Users")
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
+# @app.route('/login', methods=['GET', 'POST'])
+# # def login():
     
-    if request.method == "POST":
+#     if request.method == "POST":
 
-        email = request.form.get('email')
-        password = request.form.get('password')
+#         email = request.form.get('email')
+#         password = request.form.get('password')
         
-        if email and password:
-            existing_user = User.query.filter(User.email == email).first()
-            # print(existing_user.id)
-            if not existing_user:
-                return make_response(f'{email} user not found!')
-            session["user_id"] = existing_user.id
+#         if email and password:
+#             existing_user = User.query.filter(User.email == email).first()
+#             # print(existing_user.id)
+#             if not existing_user:
+#                 return make_response(f'{email} user not found!')
+#             session["user_id"] = existing_user.id
 
-        return redirect("/")
+#         return redirect("/")
     
-    return render_template("login.html")
+#     return render_template("login.html")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -52,6 +52,7 @@ def register():
             return apology("Wrong Fullname", 400)
         if (len(password)<6) or not (re.search("[a-z]",password) or  re.search("[A-Z]",password)) or not re.search("[0-9]",password) or re.search("\s",password):
             return apology("Wrong Password", 400)
+    
         
         
 
