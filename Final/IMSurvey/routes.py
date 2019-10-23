@@ -17,20 +17,11 @@ import re
 #     response.headers["Pragma"] = "no-cache"
 #     return response
 
-<<<<<<< HEAD
-# @app.route('/', methods=['GET'])
-# # @login_required
-# def home():
-#     # user = User.query.get_or_404(session["user_id"])
-    
-#     return render_template('onboarding.html', user=user, title="Show Users")
-=======
 @app.route('/', methods=['GET'])
 def home():
     # user = User.query.get_or_404(session["user_id"])
     
     return render_template('index.html')
->>>>>>> 1e91a6504ec703ffdfb57414f50ca3d8b39e110d
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():    
@@ -81,3 +72,7 @@ def register():
 def logout(): 
     session.clear()
     return redirect("/")
+
+@app.route('/account')
+def my_account(): 
+    return render_template("account.html")
