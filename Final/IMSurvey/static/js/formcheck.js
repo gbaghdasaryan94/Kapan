@@ -9,14 +9,13 @@ $(document).ready(function () {
     }
     function fullcheck(form) {
         let bad = false;
-        form.each(function () {
-            console.log(form);
+        $(`#${form} input`).each(function () {
             if (!check($(this).attr("name"), $(this).val())) bad = true;
         })
-        if ($("form").attr("class") == "form signup" && $("#password input").val() != $("#confirm input").val()) {
+        if (form == "signup" && $("#password input").val() != $("#confirm input").val()) {
             bad = true;
         }
-        $("#submit").prop('disabled', bad);
+        $(`#${form} button`).prop('disabled', bad);
     }
 
     function check(name, value) {
@@ -26,11 +25,12 @@ $(document).ready(function () {
     $("input").on("keyup", function () {
         let name = $(this).attr("name");
         let value = $(this).val();
+        let form = $(this).parents('form:first').attr("id");
         if(value == ""){
-            $("#"+name).find("i").attr("class", inputDict[name][1]);
+            $(this).parent().find("i").attr("class", inputDict[name][1]);
         }else if (check(name, value)){
-            $("#"+name).find("i").attr("class", "fas fa-check-circle");
-            if ($(this).attr("type") == "password") {
+            $(this).parent().find("i").attr("class", "fas fa-check-circle");
+            if ($(this).attr("type") == "password" && form == "signup" && $("#confirm input").val() != "") {
                 if ($("#confirm input").val() != $("#password input").val()) {
                     $("#confirm").find("i").attr("class", "fas fa-exclamation-circle");
                 } else {
@@ -38,9 +38,8 @@ $(document).ready(function () {
                 }
             }
         } else {
-            $("#"+name).find("i").attr("class", "fas fa-exclamation-circle");
+            $(this).parent().find("i").attr("class", "fas fa-exclamation-circle");
         }
-        
-        fullcheck($(this).parents('form:first'));
+        fullcheck(form);
     });
 });
