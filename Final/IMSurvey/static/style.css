@@ -174,8 +174,7 @@ section .text>p {
     font-size: 15px;
     font-weight: 400;
     font-family: "Raleway", sans-serif;
-    color: #b0bec5;
-    color: #b0bec5;
+    color: #081439;
 }
 
 section.project .text h4 {
@@ -288,9 +287,17 @@ section.services #accordion {
     max-width: 800px;
     padding-top: 30px;
 }
+section.services{
+    padding-top: 1px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url('img/customar-_area_bg.jpg');
+
+}
 
 section.services .text {
     margin-bottom: 0;
+    color: #fff;
 }
 
 section.services #accordion .slide_up {
@@ -918,7 +925,7 @@ section.team .text>p {
     margin : 0 auto;
     transition: all 0.25s ease;
     border: 5px solid rgba(230, 230, 230, .5);
-    border-radius:10em;    
+    /* border-radius:10em;     */
 }
 
 .slider-nav .slick-current .img-wrap{
@@ -936,7 +943,7 @@ section.team .text>p {
     left: 0;    
     background-size: cover;
     background-position: center;
-    border-radius: 10em;
+    /* border-radius: 10em; */
     opacity: 0.2;
     background-repeat: no-repeat;
     transition: all 0.25s ease;

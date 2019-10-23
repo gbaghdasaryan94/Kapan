@@ -95,13 +95,14 @@ $('.slider-for').slick({
 
 
 $('.slider-nav').slick({
-  slidesToShow: 4,
+  slidesToShow: 3,
+  infinite: true,
   infinite: false,
   slidesToScroll: 1,
   asNavFor: '.slider-for',
   dots: false,
   centerMode: true,
-  // centerPadding: '60px',
+  centerPadding: '60px',
   focusOnSelect: true,
   arrows:false,
   responsive: [
