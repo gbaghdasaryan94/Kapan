@@ -6,7 +6,7 @@
     <h1 class="mb-3">Form</h1>
 
     <!-- http://getbootstrap.com/docs/4.1/components/forms/ -->
-    <form action="/form" method="post">
+    <form action="/form" method="post" onsubmit="return func()" name="formradio">
 
         <input type="text" id="inname" name="inputname" placeholder="Name"><br>
         <select name="house" id="selector">
@@ -16,19 +16,28 @@
             <option value="Ravenclaw">Ravenclaw</option>
             <option value="Slytherin">Slytherin</option>
         </select><br>
-        <input type="radio" name="position" id="beater"><label for="beater">Beater</label><br>
-        <input type="radio" name="position" id="chaser"><label for="chaser">Chaser</label><br>
-        <input type="radio" name="position" id="keeper"><label for="keeper">Keeper</label><br>
-        <input type="radio" name="position" id="seeker"><label for="seeker">Seeker</label><br>
+        <input type="radio" name="position" value="beater" id="beater"><label for="beater" class="input">Beater</label><br>
+        <input type="radio" name="position" value="chaser" id="chaser"><label for="chaser" class="input">Chaser</label><br>
+        <input type="radio" name="position" value="keeper" id="keeper"><label for="keeper" class="input">Keeper</label><br>
+        <input type="radio" name="position" value="seeker" id="seeker"><label for="seeker" class="input">Seeker</label><br>
         <!-- http://getbootstrap.com/docs/4.1/components/buttons/ -->
-        <button class="btn btn-primary" type="submit">Submit</button>
+        <button class="btn btn-primary" type="submit" >Submit</button>
 
     </form>
 
     <script>
 
-        /* TODO */
-
+        function func()
+        {
+            let a = document.getElementById('inname').value;
+            let b = document.getElementById('selector').value;
+            let c = document.forms["formradio"]["position"];
+            if(c.value == '' || a == '' || b == '')
+            {
+                alert("Enter all fields");
+                return false;
+            }
+        }
     </script>
 
 {% endblock %}
