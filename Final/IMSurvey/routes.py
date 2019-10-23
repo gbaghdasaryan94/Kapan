@@ -2,7 +2,7 @@ from flask import flash, jsonify, redirect, render_template, request, session, m
 
 from datetime import datetime as dt
 from flask import current_app as app
-
+from cs50 import SQL
 from .models import db, User
 from .helpers import login_required, apology
 import re
@@ -16,31 +16,41 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
+db = SQL("sqlite:///IMSurvey/survey.db")
+
 @app.route('/', methods=['GET'])
-# @login_required
+@login_required
 def home():
-    # user = User.query.get_or_404(session["user_id"])
-    
+    user = User.query.get_or_404(session["user_id"])
     return render_template('onboarding.html', user=user, title="Show Users")
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    
-#     if request.method == "POST":
 
-#         email = request.form.get('email')
-#         password = request.form.get('password')
+    session.clear()
+
+    if request.method == "POST":
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+
+        # if email and password:
+        #     existing_user = User.query.filter(User.email == email).first()
+        #     print(existing_user.id)
+        #     if not existing_user:
+        #         return make_response(f'{email} user not found!')
+
+        if not email:
+            return apology("Please enter email")
+        if not password:
+            return apology("Please enter password")
         
-#         if email and password:
-#             existing_user = User.query.filter(User.email == email).first()
-#             # print(existing_user.id)
-#             if not existing_user:
-#                 return make_response(f'{email} user not found!')
-#             session["user_id"] = existing_user.id
-
-#         return redirect("/")
-    
-#     return render_template("login.html")
+        em = db.execute("SELECT * FROM users WHERE email = :email", email = email)
+        if not em or password != em[0]['password']:
+            return apology("Email or password is invalid")
+        session["user_id"] = em[0]['id']
+        return redirect("/")
+    return render_template("login.html")
 
 # @app.route("/register", methods=["GET", "POST"])
 # def register():
