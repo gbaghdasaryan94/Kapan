@@ -21,7 +21,7 @@ def after_request(response):
 def home():
     user = User.query.get_or_404(session["user_id"])
     
-    return render_template('index.html', user=user, title="Show Users")
+    return render_template('onboarding.html', user=user, title="Show Users")
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
