@@ -79,6 +79,9 @@ def logout():
     session.clear()
     return redirect("/")
 
-@app.route('/account')
-def my_account(): 
-    return render_template("account.html")
+@app.route('/account', methods=["GET", "POST"])
+def my_account():       
+    if session.get("user_id"):
+        return render_template("account.html",user =  User.query.get_or_404(session["user_id"]).first())
+
+    return render_template("account.html",user =  User.query.())
