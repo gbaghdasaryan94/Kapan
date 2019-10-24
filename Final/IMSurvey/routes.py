@@ -26,22 +26,22 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
-    # session.clear()
+    session.clear()
 
-    # if request.method == "POST":
-    #     email = request.form.get('email')
-    #     password = request.form.get('password')
+    if request.method == "POST":
+        email = request.form.get('email')
+        password = generate_password_hash(request.form.get('password'))
 
-    #     if not email:
-    #         return apology("Please enter email")
-    #     if not password:
-    #         return apology("Please enter password")
+        if not email:
+            return apology("Please enter email")
+        if not password:
+            return apology("Please enter password")
         
-    #     em = db.execute("SELECT * FROM users WHERE email = :email", email = email)
-    #     if not em or check_password_hash(em[0]["password"], request.form.get("password")):
-    #         return apology("Email or password is invalid")
-    #     session["user_id"] = em[0]['id']
-    #     return redirect("/")
+        em = User.query.filter_by(email=email).first()
+        if not em.email or check_password_hash(em.password, password):
+            return apology("Email or password is invalid")
+        session["user_id"] = em.id
+        return redirect("/")
     return render_template("login.html")
 
 @app.route("/register", methods=["GET", "POST"])
@@ -71,6 +71,16 @@ def register():
         return redirect("/")
     
     return render_template("register.html")
+
+
+@app.route("/onboarding", methods = ["GET", "POST"])
+@login_required
+def onboarding():
+    name = User.query.filter_by(id = session["user_id"]).first()
+
+    return render_template("onboarding.html", fullname=name.fullname)
+
+
 
 @app.route('/logout')
 def logout(): 
