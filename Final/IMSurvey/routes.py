@@ -2,48 +2,46 @@ from flask import flash, jsonify, redirect, render_template, request, session, m
 
 from datetime import datetime as dt
 from flask import current_app as app
-from cs50 import SQL
 from .models import db, User
 from werkzeug.security import check_password_hash, generate_password_hash
 from .helpers import login_required, apology
 import re
 
 
-# # Ensure responses aren't cached
-# @app.after_request
-# def after_request(response):
-#     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-#     response.headers["Expires"] = 0
-#     response.headers["Pragma"] = "no-cache"
-#     return response
+# Ensure responses aren't cached
+@app.after_request
+def after_request(response):
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    response.headers["Expires"] = 0
+    response.headers["Pragma"] = "no-cache"
+    return response
 
-db = SQL("sqlite:///IMSurvey/survey.db")
 
 @app.route('/', methods=['GET'])
-@login_required
+# @login_required
 def home():
-    user = User.query.get_or_404(session["user_id"])
-    return render_template('onboarding.html', user=user, title="Show Users")
+    
+    return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
-    session.clear()
+    # session.clear()
 
-    if request.method == "POST":
-        email = request.form.get('email')
-        password = request.form.get('password')
+    # if request.method == "POST":
+    #     email = request.form.get('email')
+    #     password = request.form.get('password')
 
-        if not email:
-            return apology("Please enter email")
-        if not password:
-            return apology("Please enter password")
+    #     if not email:
+    #         return apology("Please enter email")
+    #     if not password:
+    #         return apology("Please enter password")
         
-        em = db.execute("SELECT * FROM users WHERE email = :email", email = email)
-        if not em or check_password_hash(em[0]["password"], request.form.get("password")):
-            return apology("Email or password is invalid")
-        session["user_id"] = em[0]['id']
-        return redirect("/")
+    #     em = db.execute("SELECT * FROM users WHERE email = :email", email = email)
+    #     if not em or check_password_hash(em[0]["password"], request.form.get("password")):
+    #         return apology("Email or password is invalid")
+    #     session["user_id"] = em[0]['id']
+    #     return redirect("/")
     return render_template("login.html")
 
 @app.route("/register", methods=["GET", "POST"])
