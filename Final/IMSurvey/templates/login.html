@@ -1,42 +1,35 @@
-{% extends "layout.html" %}
+<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle"> Log In </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form" id="signin" action="/login" method="POST">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fas fa-at"></i></div>
+                            </div>
+                            <input type="email" class="form-control" name="email" placeholder="Email">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fas fa-key"></i></div>
+                            </div>
+                            <input type="password" class="form-control" name="password" placeholder="Password">
+                        </div>
 
-{% block title %}
-Register
-{% endblock %}
-
-{% block includes %}
-<script src="/static/js/formcheck.js"></script>
-{% endblock %}
-
-
-{% block modalbody %}
-<!-- 
-<form class="form signin" action="/login" method="POST">
-  <h1 class="h3 mb-4 font-weight-normal">Log In</h1>
-  
-  <div id="email" class="input-group mb-3">
-    <div class="input-group-prepend">
-      <div class="input-group-text"><i class="fas fa-at"></i></div>
+                        <button type="submit" class="btn btn-primary" disabled>Login</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <p>For new user? <a href="#" data-toggle="modal" data-target="#register"><i class="fa fa-sign-in"
+                                aria-hidden="true"></i> Sign Up</a></p>
+                </div>
+            </div>
+        </div>
     </div>
-    <input type="email" class="form-control" name="email" id="" placeholder="Email">
-  </div>
-  <div id="password" class="input-group mb-3">
-    <div class="input-group-prepend">
-      <div class="input-group-text"><i class="fas fa-key"></i></div>
-    </div>
-    <input type="password" class="form-control" name="password" id="" placeholder="Password">
-  </div>
-
-  <button id="submit" type="submit" class="btn btn-primary">Login</button>
-  <p class="mt-3">For new user? <a href="/register">Sign Up</a></p>
-</form> -->
-
-{% endblock %}
-
-
-{% block modalheader %}
-  <!-- <h5 class="modal-title" id="exampleModalLongTitle"> </h5>
-  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button> -->
-{% endblock %}
