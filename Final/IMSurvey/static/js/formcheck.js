@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
     $("#fullname input").focus();
     let inputDict = {
