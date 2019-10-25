@@ -21,6 +21,11 @@ def after_request(response):
 # @login_required
 def home():
     
+    if session.get("user_id"):
+        user = User.query.filter_by(id=session["user_id"]).first()
+        if not user.isComplete:
+            return redirect("/onboarding")
+        
     return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -30,19 +35,18 @@ def login():
 
     if request.method == "POST":
         email = request.form.get('email')
-        password = generate_password_hash(request.form.get('password'))
+        password = request.form.get('password')
 
         if not email:
             return apology("Please enter email")
         if not password:
             return apology("Please enter password")
         
-        em = User.query.filter_by(email=email).first()
-        if not em.email or check_password_hash(em.password, password):
+        user = User.query.filter_by(email=email).first()
+        if not user or not check_password_hash(user.password, password):
             return apology("Email or password is invalid")
-        session["user_id"] = em.id
-        return redirect("/")
-    return render_template("login.html")
+        session["user_id"] = user.id
+    return redirect("/")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -68,7 +72,7 @@ def register():
             db.session.commit()
 
             session["user_id"] = new_user.id
-        return redirect("/")
+        return redirect("/onboarding")
     
     return render_template("register.html")
 

@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
     $("#fullname input").focus();
     let inputDict = {
@@ -42,4 +41,5 @@ $(document).ready(function () {
         }
         fullcheck(form);
     });
+
 });
