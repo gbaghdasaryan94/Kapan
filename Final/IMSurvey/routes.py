@@ -8,6 +8,8 @@ from .helpers import login_required, apology, allowed_image
 import re
 import os
 
+from flask_mail import Mail, Message
+mail = Mail(app)
 
 # flash -->  flash("message", "status")  stasus -> primary, secondary, success, danger, warning, info, light, dark
 
@@ -111,7 +113,7 @@ def onboarding():
 
             else:
                 return "That file extension is not allowed"   
-        
+
     return render_template("onboarding.html", fullname=name.fullname)
 
 
@@ -124,3 +126,32 @@ def logout():
 @app.route('/account')
 def my_account(): 
     return render_template("account.html")
+
+
+@app.route('/contact',methods=["GET","POST"])
+def contact():
+    if request.method =="POST":
+        name = request.form.get("name")
+        lastName = request.form.get("lastName")
+        email = request.form.get("email")
+        phone = request.form.get("phone")
+        text = request.form.get("text")
+        if not name:
+           pass
+        if not lastName:
+            pass
+        if not email:
+            pass
+        if not phone:
+            pass
+        if not text:
+            pass
+
+        msg = Message("Message from IMsurvey",recipients=['hamona777@mail.ru'])
+        # msg.body = 'This is a test mail body'
+        msg.html = f"From: {name} {lastName} <br>Email: {email}<br>Phone: {phone}<br><br>Message:<br>{text}"
+        mail.send(msg)
+        success = ('Your email was sent successfully')
+        return render_template("/index.html", success=success)
+    else:
+        return render_template("index.html") 
