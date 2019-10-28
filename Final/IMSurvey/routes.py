@@ -1,12 +1,15 @@
 from flask import flash, jsonify, redirect, render_template, request, session, make_response
 
-from datetime import datetime as dt
+from datetime import datetime
 from flask import current_app as app
 from .models import db, User
 from werkzeug.security import check_password_hash, generate_password_hash
-from .helpers import login_required, apology
+from .helpers import login_required, apology, allowed_image
 import re
+import os
 
+
+# flash -->  flash("message", "status")  stasus -> primary, secondary, success, danger, warning, info, light, dark
 
 # Ensure responses aren't cached
 @app.after_request
@@ -54,24 +57,28 @@ def register():
         fullname = request.form.get('fullname')
         email = request.form.get('email')
         password = request.form.get('password')
-        if (len(password)<6) or not re.search(r"([a-z]|[A-Z]+[0-9]+[/S])", password):
-            return apology("Wrong Password", 400)
-        if not re.search(r"([a-z]|[A-Z]+[/s])",fullname):
-            return apology("Wrong Fullname", 400)
-
-
         confirm = request.form.get('confirm')
-        if fullname and email and password and password == confirm:
-            existing_user = User.query.filter(User.email == email).first()
-            if existing_user:
-                return make_response(f'{email} already created!')
+        if not (fullname and email and password and password == confirm):
+            flash("Error any fields is empty", "danger")
+            return redirect("/")
+        if not re.search(r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$", password):
+            flash("Password is incorrect", "danger")
+            return redirect("/")
+        if not re.search(r"([a-z]|[A-Z]+[/s])",fullname):
+            flash("Fullname is incorrect", "danger")
+            return redirect("/")
             
-            new_user = User(fullname=fullname, email=email, password=generate_password_hash(request.form.get("password")))
-            
-            db.session.add(new_user)
-            db.session.commit()
+        existing_user = User.query.filter(User.email == email).first()
+        if existing_user:
+            return make_response(f'{email} already created!')
+        
+        new_user = User(fullname=fullname, email=email, password=generate_password_hash(request.form.get("password")))
+        
+        db.session.add(new_user)
+        db.session.commit()
 
-            session["user_id"] = new_user.id
+        session["user_id"] = new_user.id
+
         return redirect("/onboarding")
     
     return render_template("register.html")
@@ -81,7 +88,30 @@ def register():
 @login_required
 def onboarding():
     name = User.query.filter_by(id = session["user_id"]).first()
+    print(5415421)
+    if request.method == "POST":
+        data = request.form.to_dict(flat=True)
+        print("shyhcjsk")
+        if request.files:
+            print("axoxa")
+            image = request.files["image"]
+            if not image.filename:
+                flash("No filename", "danger")
+                return
 
+            if allowed_image(image.filename):
+                filename = os.path.join(app.config['IMAGE_UPLOADS'], f"{datetime.now().strftime('%m%s')}.jpg")
+                
+                image.save(''.join([app.config['APP_ROOT'],filename]))
+    
+                update_user = User(birth = data["birthdate"], phone=data["phone"], sex=data["gender"], address=data["address"], avatar=filename, status=data["status"], children=data["child"], about=data["about"], isComplete=True)
+
+                db.session.add(update_user)
+                db.session.commit()
+
+            else:
+                return "That file extension is not allowed"   
+        
     return render_template("onboarding.html", fullname=name.fullname)
 
 

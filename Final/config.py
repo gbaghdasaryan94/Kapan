@@ -1,4 +1,4 @@
-from os import environ
+from os import environ, path
 from tempfile import mkdtemp
 
 class Config:
@@ -8,6 +8,9 @@ class Config:
     SECRET_KEY = environ.get('SECRET_KEY')
     FLASK_APP = environ.get('FLASK_APP')
     FLASK_ENV = environ.get('FLASK_ENV')
+    
+    APP_ROOT = path.dirname(path.abspath(__file__))
+    IMAGE_UPLOADS = '/static/uploads'
 
     # Ensure templates are auto-reloaded
     TEMPLATES_AUTO_RELOAD = True
