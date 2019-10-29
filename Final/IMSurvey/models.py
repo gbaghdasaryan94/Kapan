@@ -20,7 +20,8 @@ class User(db.Model):
     about = db.Column(db.Text)
     notes = db.Column(db.Text)
     drivelicense = db.Column(db.Text)
-    created = db.Column(db.DateTime, index=False, unique=False, default=datetime.utcnow)
+    created = db.Column(db.DateTime, default=datetime.utcnow)
+    isComplete = db.Column(db.Boolean, default=False)
     
 
     def __repr__(self):
