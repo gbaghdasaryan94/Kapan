@@ -5,106 +5,44 @@ My Account
 {% endblock %}
 
 {% block main %}
-<p>Envelope icon: <span class="glyphicon glyphicon-envelope"> </span></p> 
-<table>
-    <tr>
-        <td>Full Name</td>
-        <td><input value="{{ user["fullname"] }}" disabled/></td>
-        <td>
-            <button>edit</button>
-            <button>save</button>
-        </td>
-    </tr>
-    <tr>
-        <td>Email</td>
-        <td><input type="email" disabled value="{{ user["email"] }}" /></td>
-        <td>
-            <button>edit</button>
-            <button>save</button>
-        </td>
-    </tr>
-    
-    <tr>
-        <td>Password</td>
-        <td><input type="password" disabled/></td>
-        <td>
-            <button>edit</button>
-            <button>save</button>
-        </td>
-    </tr>
-    <tr>
-            <td>Birth Date</td>
-            <td><input  type="date" value="{{ user["birth"] }}"  disabled/></td>
-            <td>
-                <button>edit</button>
-                <button>save</button>
-            </td>
-    </tr>
-    <tr>
-            <td>Phone</td>
-            <td><input name="email"  type="tel" value="{{ user["email"] }}"  disabled/></td>
-            <td>
-                <button>edit</button>
-                <button>save</button>
-            </td>
-    </tr>
+<!-- <table>
+
+
     <tr>
             <td>Gender</td>
-            <td><input type="radio" name="gender" value="male" > Male
-                <input type="radio" name="gender" value="female"> Female</td>
+            <td><input  id="fullname" type="radio" name="gender" value="male" > Male
+                <input  id="fullname" type="radio" name="gender" value="female"> Female</td>
             <td>
-                <button>edit</button>
-                <button>save</button>
-            </td>
-    </tr>
-    <tr>
-            <td>Address</td>
-            <td><input name="address" type="text" value="{{ user["address"]}}" disabled/></td>
-            <td>
-                <button>edit</button>
-                <button>save</button>
-            </td>
-    </tr>
-    <tr>
-            <td>Status</td>
-            <td><input  name ="status" type="text" value="{{ user["status"] }}" disabled/></td>
-            <td>
-                <button>edit</button>
-                <button>save</button>
-            </td>
-    </tr>
-    <tr>
-            <td>Children</td>
-            <td><input  name ="children" type="number" value="{{ user["children"] }}" disabled/></td>
-            <td>
-                <button>edit</button>
-                <button>save</button>
-            </td>
-    </tr>
-    <tr>
-            <td>About</td>
-            <td><input  name ="about" type="text" value="{{ user["about"] }}" disabled/></td>
-            <td>
-                <button>edit</button>
-                <button>save</button>
-            </td>
-    </tr>
-    <tr>
-            <td>Notes</td>
-            <td><input  name ="notes" type="text" value="{{ user["notes"] }}" disabled/></td>
-            <td>
-                <button>edit</button>
-                <button>save</button>
+                <i for="gender" class="edit fas fa-edit"></i>
+                <i for="gender" class="save fas fa-check"></i>
             </td>
     </tr>
     <tr>
         <td>Drive License</td>
-        <td><input type="radio" name="gender" value="male" > Yes
-            <input type="radio" name="gender" value="female"> No</td>
         <td>
-            <button>edit</button>
-            <button>save</button>
+            <input  id="fullname" type="radio" name="drivelicense" value="yes" > Yes
+            <input  id="fullname" type="radio" name="drivelicense" value="no"> No
+        </td>
+        <td>
+            <i for="drivelicense" class="edit fas fa-edit"></i>
+            <i for="drivelicense" class="save fas fa-check"></i>
         </td>
 </tr>
-</table>
+</table> -->
+
+<form class="form" action="/account" method="POST">
+    <div>fullname <input id="fullname" value="{{ user['fullname'] }}" disabled/></div>
+    <div>email<input id="email" type="email" value="{{ user['email'] }}" disabled/></div>
+    <div>password<input id="password" type="password" value="{{ user['password'] }}" disabled/></div>
+    <div>birth<input id="birth" type="date" value="{{ user['birth'] }}" disabled/></div>
+    <div>phone<input id="phone" type="tel" value="{{ user['phone'] }}" disabled/></div>
+    <div>address<input id="address" type="text" value="{{ user['address'] }}" disabled/></div>
+    <div>status<input id="status" type="text" value="{{ user['status'] }}" disabled/></div>
+    <div>children<input id="children" type="number" value="{{ user['children'] }}" disabled/></div>
+    <div>about<input id="about" type="text" value="{{ user['about'] }}" disabled/></div>
+    <div>notes<input id="notes" type="text" value="{{ user['notes'] }}" disabled/></div>
+    <button id="edit" class="btn btn-warning">Edit</button>
+    <input hidden id="submit" type="submit"/>
+</form>
+
 {% endblock %}

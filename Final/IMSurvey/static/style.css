@@ -163,10 +163,11 @@ section.project .text h2 {
 }
 
 section .text>h2 {
-    color: #061e37;
+    color: #fff;
     font-family: "Raleway", sans-serif;
     font-size: 45px;
-    font-weight: 600;
+    font-weight: 800;
+    letter-spacing: 1px;
 }
 
 section .text>p {
@@ -174,7 +175,7 @@ section .text>p {
     font-size: 15px;
     font-weight: 400;
     font-family: "Raleway", sans-serif;
-    color: #081439;
+    color: #fff;
 }
 
 section.project .text h4 {
@@ -1117,4 +1118,7 @@ input[type=checkbox]:checked + label:before { letter-spacing: 8px; } /* allow sp
 }
 .top.active {
     right: 25px
+}
+.save, .edit {
+    cursor: pointer;
 }

@@ -151,4 +151,11 @@ var d = new Date();
     $('html,body').stop().animate({scrollTop: 0},'slow','swing');
   });
 
+$("#edit").click(function(e) {
+  e.preventDefault();
+  $("input").removeAttr( "disabled" );
+  $('#submit').removeAttr( "hidden" );
+ 
+});
+
   });
