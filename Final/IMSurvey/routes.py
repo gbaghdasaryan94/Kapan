@@ -49,8 +49,10 @@ def login():
         
         user = User.query.filter_by(email=email).first()
         if not user or not check_password_hash(user.password, password):
-            return apology("Email or password is invalid")
+            flash("Email or password is invalid", "warning")
+            return redirect("/")
         session["user_id"] = user.id
+
     return redirect("/")
 
 @app.route("/register", methods=["GET", "POST"])
@@ -89,14 +91,11 @@ def register():
 @app.route("/onboarding", methods = ["GET", "POST"])
 @login_required
 def onboarding():
-    name = User.query.filter_by(id = session["user_id"]).first()
-    print(5415421)
+    user = User.query.filter_by(id = session.get("user_id"))
     if request.method == "POST":
         data = request.form.to_dict(flat=True)
-        print("shyhcjsk")
         if request.files:
-            print("axoxa")
-            image = request.files["image"]
+            image = request.files["avatar"]
             if not image.filename:
                 flash("No filename", "danger")
                 return
@@ -105,16 +104,17 @@ def onboarding():
                 filename = os.path.join(app.config['IMAGE_UPLOADS'], f"{datetime.now().strftime('%m%s')}.jpg")
                 
                 image.save(''.join([app.config['APP_ROOT'],filename]))
-    
-                update_user = User(birth = data["birthdate"], phone=data["phone"], sex=data["gender"], address=data["address"], avatar=filename, status=data["status"], children=data["child"], about=data["about"], isComplete=True)
-
-                db.session.add(update_user)
+                data["avatar"] = filename
+                data["birth"] = datetime.strptime(data["birth"], "%m/%d/%Y").date()
+                data["isComplete"] = True
+                user.update(data)
+                # db.session.query(User).filter_by(id = 2).update(data)
                 db.session.commit()
-
+                return redirect("/")
             else:
                 return "That file extension is not allowed"   
 
-    return render_template("onboarding.html", fullname=name.fullname)
+    return render_template("onboarding.html", fullname=user[0].fullname)
 
 
 
@@ -152,6 +152,6 @@ def contact():
         msg.html = f"From: {name} {lastName} <br>Email: {email}<br>Phone: {phone}<br><br>Message:<br>{text}"
         mail.send(msg)
         success = ('Your email was sent successfully')
-        return render_template("/index.html", success=success)
-    else:
-        return render_template("index.html") 
+        return render_template("index.html", success=success)
+    
+    return redirect("/") 
