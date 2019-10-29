@@ -1151,6 +1151,8 @@ input[type=checkbox]:checked + label:before { letter-spacing: 8px; } /* allow sp
     position: absolute !important;
   } */
   
+
+
 .fa-check-circle{
       color: #43A047;
 }
