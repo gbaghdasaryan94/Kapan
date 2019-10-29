@@ -1119,11 +1119,6 @@ input[type=checkbox]:checked + label:before { letter-spacing: 8px; } /* allow sp
 .top.active {
     right: 25px
 }
-<<<<<<< HEAD
-.save, .edit {
-    cursor: pointer;
-}
-=======
 
 /* Vache Style */
 
@@ -1156,4 +1151,78 @@ input[type=checkbox]:checked + label:before { letter-spacing: 8px; } /* allow sp
     position: absolute !important;
   } */
   
->>>>>>> 32d740f8adf9aef464e8028b75aae111e10b1adf
+.fa-check-circle{
+      color: #43A047;
+}
+.input-group-text{
+    background-color: #fff;
+}
+
+.fa-exclamation-circle{
+    color: red;
+}
+
+#signup  input:focus{
+    outline: none;
+    box-shadow: none;
+    border-color: #58da5e;
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+    background-color:#15a27f;
+    transition: all 0.3s ease;
+}
+.form button:hover, .form button:active, .form button:focus{
+   background-color: #1de9b6; 
+}
+
+.form button{
+    background-color: #15a27f;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    outline: none;
+}
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle{
+    background-color: #15a27f;
+    outline: none;
+    box-shadow: none;
+    border:none;
+}
+.modal-content .modal-footer > p a{
+    margin-left: 10px;
+    color:   #15a27f;
+}
+
+.modal-content .close {
+    transition: all 0.25s ease;
+    outline: none;
+    
+}
+
+.modal-content .close:hover {
+    transform: scale(1.1);
+}
+
+#onboarding input:focus{
+    border-color: #15a27f;
+    outline :none;
+}
+
+section.contact_area h2, section.project .text h2{
+    color:rgb(66, 68, 70);
+}
+
+.btn:focus, .btn-primary:focus{
+box-shadow: none;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus{
+    box-shadow: none;
+}
+
+.form-control:focus{
+    box-shadow: none;
+    border-color: #58da5e;
+}

@@ -7,7 +7,6 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from .helpers import login_required, apology, allowed_image
 import re
 import os
-
 from flask_mail import Mail, Message
 mail = Mail(app)
 
@@ -25,13 +24,14 @@ def after_request(response):
 @app.route('/', methods=['GET'])
 # @login_required
 def home():
-    
+
     if session.get("user_id"):
         user = User.query.filter_by(id=session["user_id"]).first()
         if not user.isComplete:
             return redirect("/onboarding")
-        
+
     return render_template('index.html')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -46,7 +46,7 @@ def login():
             return apology("Please enter email")
         if not password:
             return apology("Please enter password")
-        
+
         user = User.query.filter_by(email=email).first()
         if not user or not check_password_hash(user.password, password):
             flash("Email or password is invalid", "warning")
@@ -55,21 +55,13 @@ def login():
 
     return redirect("/")
 
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
         fullname = request.form.get('fullname')
         email = request.form.get('email')
         password = request.form.get('password')
-<<<<<<< HEAD
-        if (len(password)<6) or not re.search(r"^[a-zA-Z0-9\S]*$", password):
-            return apology("Wrong Password", 400)
-        if not re.search(r"^[a-zA-Z\s]*$",fullname):
-            return apology("Wrong Fullname", 400)
-
-
-=======
->>>>>>> 32d740f8adf9aef464e8028b75aae111e10b1adf
         confirm = request.form.get('confirm')
         if not (fullname and email and password and password == confirm):
             flash("Error any fields is empty", "danger")
@@ -77,30 +69,30 @@ def register():
         if not re.search(r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$", password):
             flash("Password is incorrect", "danger")
             return redirect("/")
-        if not re.search(r"([a-z]|[A-Z]+[/s])",fullname):
+        if not re.search(r"([a-z]|[A-Z]+[/s])", fullname):
             flash("Fullname is incorrect", "danger")
             return redirect("/")
-            
+
         existing_user = User.query.filter(User.email == email).first()
         if existing_user:
             return make_response(f'{email} already created!')
-        
-        new_user = User(fullname=fullname, email=email, password=generate_password_hash(request.form.get("password")))
-        
+        new_user = User(fullname=fullname, email=email, password=generate_password_hash(
+            request.form.get("password")))
+
         db.session.add(new_user)
         db.session.commit()
 
         session["user_id"] = new_user.id
 
         return redirect("/onboarding")
-    
+
     return render_template("register.html")
 
 
-@app.route("/onboarding", methods = ["GET", "POST"])
+@app.route("/onboarding", methods=["GET", "POST"])
 @login_required
 def onboarding():
-    user = User.query.filter_by(id = session.get("user_id"))
+    user = User.query.filter_by(id=session.get("user_id"))
     if request.method == "POST":
         data = request.form.to_dict(flat=True)
         if request.files:
@@ -110,50 +102,48 @@ def onboarding():
                 return
 
             if allowed_image(image.filename):
-                filename = os.path.join(app.config['IMAGE_UPLOADS'], f"{datetime.now().strftime('%m%s')}.jpg")
-                
-                image.save(''.join([app.config['APP_ROOT'],filename]))
+                filename = os.path.join(
+                    app.config['IMAGE_UPLOADS'], f"{datetime.now().strftime('%m%s')}.jpg")
+
+                image.save(''.join([app.config['APP_ROOT'], filename]))
                 data["avatar"] = filename
-                data["birth"] = datetime.strptime(data["birth"], "%m/%d/%Y").date()
+                data["birth"] = datetime.strptime(
+                    data["birth"], "%m/%d/%Y").date()
                 data["isComplete"] = True
                 user.update(data)
                 # db.session.query(User).filter_by(id = 2).update(data)
                 db.session.commit()
                 return redirect("/")
             else:
-                return "That file extension is not allowed"   
+                return "That file extension is not allowed"
 
     return render_template("onboarding.html", fullname=user[0].fullname)
 
 
-
 @app.route('/logout')
-def logout(): 
+def logout():
     session.clear()
     return redirect("/")
 
+
 @app.route('/account', methods=["GET", "POST"])
-def my_account(): 
-<<<<<<< HEAD
-    user = User.query.filter_by(id = session.get("user_id"))
+def my_account():
+    user = User.query.filter_by(id=session.get("user_id"))
     if request.method == "POST":
         data = request.form.to_dict(flat=True)
+        data["birth"] = datetime.strptime(data["birth"], "%m/%d/%Y").date()
         user.update(data)
         db.session.commit()
 
-
-
     if session.get("user_id"):
-        return render_template("account.html",user =  User.query.get_or_404(session["user_id"]))
+        return render_template("account.html", user=User.query.get_or_404(session["user_id"]))
 
     return redirect("/")
-=======
-    return render_template("account.html")
 
 
-@app.route('/contact',methods=["GET","POST"])
+@app.route('/contact', methods=["GET", "POST"])
 def contact():
-    if request.method =="POST":
+    if request.method == "POST":
         name = request.form.get("name")
         lastName = request.form.get("lastName")
         email = request.form.get("email")
@@ -170,12 +160,12 @@ def contact():
         if not text:
             pass
 
-        msg = Message("Message from IMsurvey",recipients=['hamona777@mail.ru'])
+        msg = Message("Message from IMsurvey",
+                      recipients=['hamona777@mail.ru'])
         # msg.body = 'This is a test mail body'
         msg.html = f"From: {name} {lastName} <br>Email: {email}<br>Phone: {phone}<br><br>Message:<br>{text}"
         mail.send(msg)
         success = ('Your email was sent successfully')
         return render_template("index.html", success=success)
-    
-    return redirect("/") 
->>>>>>> 32d740f8adf9aef464e8028b75aae111e10b1adf
+
+    return redirect("/")
