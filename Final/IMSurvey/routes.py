@@ -21,7 +21,7 @@ def after_request(response):
     return response
 
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
 # @login_required
 def home():
 
@@ -29,7 +29,8 @@ def home():
         user = User.query.filter_by(id=session["user_id"]).first()
         if not user.isComplete:
             return redirect("/onboarding")
-
+        return render_template('home.html')
+        
     return render_template('index.html')
 
 
@@ -92,7 +93,9 @@ def register():
 @app.route("/onboarding", methods=["GET", "POST"])
 @login_required
 def onboarding():
-    user = User.query.filter_by(id=session.get("user_id"))
+    user = User.query.filter_by(id = session.get("user_id"))
+    if user[0].isComplete:
+        return redirect("/")
     if request.method == "POST":
         data = request.form.to_dict(flat=True)
         if request.files:
@@ -110,6 +113,7 @@ def onboarding():
                 data["birth"] = datetime.strptime(
                     data["birth"], "%m/%d/%Y").date()
                 data["isComplete"] = True
+                print(data)
                 user.update(data)
                 # db.session.query(User).filter_by(id = 2).update(data)
                 db.session.commit()
@@ -127,11 +131,20 @@ def logout():
 
 
 @app.route('/account', methods=["GET", "POST"])
+@login_required
 def my_account():
-    user = User.query.filter_by(id=session.get("user_id"))
+    user = User.query.filter_by(id = session.get("user_id"))
     if request.method == "POST":
         data = request.form.to_dict(flat=True)
-        data["birth"] = datetime.strptime(data["birth"], "%m/%d/%Y").date()
+        
+        if not re.search(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", data["email"]):
+            flash("Email is incorrect", "warning")
+            return redirect(request.url)
+        if not re.search(r"([a-z]|[A-Z]+[/s])", data["fullname"]):
+            flash("Fullname is incorrect", "danger")
+            return redirect("/")
+
+        data["birth"] = datetime.strptime(data["birth"], "%Y-%m-%d").date()
         user.update(data)
         db.session.commit()
 
@@ -160,12 +173,11 @@ def contact():
         if not text:
             pass
 
-        msg = Message("Message from IMsurvey",
-                      recipients=['hamona777@mail.ru'])
+        msg = Message("Message from IMsurvey",recipients=['hamona777@mail.ru', 'imsurvey@kit.am'])
         # msg.body = 'This is a test mail body'
         msg.html = f"From: {name} {lastName} <br>Email: {email}<br>Phone: {phone}<br><br>Message:<br>{text}"
         mail.send(msg)
-        success = ('Your email was sent successfully')
-        return render_template("index.html", success=success)
 
-    return redirect("/")
+        flash('Your email was sent successfully', "success")
+    
+    return redirect("/") 
