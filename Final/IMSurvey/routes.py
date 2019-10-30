@@ -124,7 +124,6 @@ def onboarding():
     return render_template("onboarding.html", fullname=user[0].fullname)
 
 
-<<<<<<< HEAD
 
 @app.route("/fill-cv", methods = ["GET", "POST"])
 @login_required
@@ -143,8 +142,6 @@ def fill_cv():
     return redirect("/")
 
 
-=======
->>>>>>> e38b2cc16b2b72c6e43beca1c588509e5787f80d
 @app.route('/logout')
 def logout():
     session.clear()
