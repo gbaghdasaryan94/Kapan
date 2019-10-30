@@ -7,7 +7,6 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from .helpers import login_required, apology, allowed_image
 import re
 import os
-
 from flask_mail import Mail, Message
 mail = Mail(app)
 
@@ -25,7 +24,7 @@ def after_request(response):
 @app.route('/', methods=['GET', 'POST'])
 # @login_required
 def home():
-    
+
     if session.get("user_id"):
         user = User.query.filter_by(id=session["user_id"]).first()
         if not user.isComplete:
@@ -33,6 +32,7 @@ def home():
         return render_template('home.html')
         
     return render_template('index.html')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -47,7 +47,7 @@ def login():
             return apology("Please enter email")
         if not password:
             return apology("Please enter password")
-        
+
         user = User.query.filter_by(email=email).first()
         if not user or not check_password_hash(user.password, password):
             flash("Email or password is invalid", "warning")
@@ -55,6 +55,7 @@ def login():
         session["user_id"] = user.id
 
     return redirect("/")
+
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -69,27 +70,27 @@ def register():
         if not re.search(r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$", password):
             flash("Password is incorrect", "danger")
             return redirect("/")
-        if not re.search(r"([a-z]|[A-Z]+[/s])",fullname):
+        if not re.search(r"([a-z]|[A-Z]+[/s])", fullname):
             flash("Fullname is incorrect", "danger")
             return redirect("/")
-            
+
         existing_user = User.query.filter(User.email == email).first()
         if existing_user:
             return make_response(f'{email} already created!')
-        
-        new_user = User(fullname=fullname, email=email, password=generate_password_hash(request.form.get("password")))
-        
+        new_user = User(fullname=fullname, email=email, password=generate_password_hash(
+            request.form.get("password")))
+
         db.session.add(new_user)
         db.session.commit()
 
         session["user_id"] = new_user.id
 
         return redirect("/onboarding")
-    
+
     return render_template("register.html")
 
 
-@app.route("/onboarding", methods = ["GET", "POST"])
+@app.route("/onboarding", methods=["GET", "POST"])
 @login_required
 def onboarding():
     user = User.query.filter_by(id = session.get("user_id"))
@@ -104,11 +105,13 @@ def onboarding():
                 return
 
             if allowed_image(image.filename):
-                filename = os.path.join(app.config['IMAGE_UPLOADS'], f"{datetime.now().strftime('%m%s')}.jpg")
-                
-                image.save(''.join([app.config['APP_ROOT'],filename]))
+                filename = os.path.join(
+                    app.config['IMAGE_UPLOADS'], f"{datetime.now().strftime('%m%s')}.jpg")
+
+                image.save(''.join([app.config['APP_ROOT'], filename]))
                 data["avatar"] = filename
-                data["birth"] = datetime.strptime(data["birth"], "%m/%d/%Y").date()
+                data["birth"] = datetime.strptime(
+                    data["birth"], "%m/%d/%Y").date()
                 data["isComplete"] = True
                 print(data)
                 user.update(data)
@@ -116,11 +119,12 @@ def onboarding():
                 db.session.commit()
                 return redirect("/")
             else:
-                return "That file extension is not allowed"   
+                return "That file extension is not allowed"
 
     return render_template("onboarding.html", fullname=user[0].fullname)
 
 
+<<<<<<< HEAD
 
 @app.route("/fill-cv", methods = ["GET", "POST"])
 @login_required
@@ -139,19 +143,41 @@ def fill_cv():
     return redirect("/")
 
 
+=======
+>>>>>>> e38b2cc16b2b72c6e43beca1c588509e5787f80d
 @app.route('/logout')
-def logout(): 
+def logout():
     session.clear()
     return redirect("/")
 
-@app.route('/account')
-def my_account(): 
-    return render_template("account.html")
+
+@app.route('/account', methods=["GET", "POST"])
+@login_required
+def my_account():
+    user = User.query.filter_by(id = session.get("user_id"))
+    if request.method == "POST":
+        data = request.form.to_dict(flat=True)
+        
+        if not re.search(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", data["email"]):
+            flash("Email is incorrect", "warning")
+            return redirect(request.url)
+        if not re.search(r"([a-z]|[A-Z]+[/s])", data["fullname"]):
+            flash("Fullname is incorrect", "danger")
+            return redirect("/")
+
+        data["birth"] = datetime.strptime(data["birth"], "%Y-%m-%d").date()
+        user.update(data)
+        db.session.commit()
+
+    if session.get("user_id"):
+        return render_template("account.html", user=User.query.get_or_404(session["user_id"]))
+
+    return redirect("/")
 
 
-@app.route('/contact',methods=["GET","POST"])
+@app.route('/contact', methods=["GET", "POST"])
 def contact():
-    if request.method =="POST":
+    if request.method == "POST":
         name = request.form.get("name")
         lastName = request.form.get("lastName")
         email = request.form.get("email")

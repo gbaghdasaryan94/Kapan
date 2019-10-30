@@ -151,4 +151,25 @@ var d = new Date();
     $('html,body').stop().animate({scrollTop: 0},'slow','swing');
   });
 
+$("#edit").click(function(e) {
+  e.preventDefault();
+  $("input").removeAttr( "disabled" );
+  $('#submit').removeAttr( "hidden" );
+  $('#cancel').removeAttr( "hidden" );
+  $('#edit').attr( "hidden","hidden" );
+  
+
+});
+
+$("#cancel").click(function(e) {
+  e.preventDefault();
+  $("input").attr( "disabled", "disabled" );
+  $('#submit').attr( "hidden", "hidden"  );
+  $('#cancel').attr( "hidden", "hidden"  );
+  $('#edit').removeAttr( "hidden" );
+
+ 
+  
+});
+
   });
