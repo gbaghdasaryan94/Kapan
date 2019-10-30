@@ -42,7 +42,7 @@ class EWIinfo(db.Model):
     
 
     def __repr__(self):
-        return f'<User id:{self.uid}, email:{self.name}>'
+        return f'<EWIinfo id:{self.uid}, name:{self.name}, info:{self.info}>'
 
 
 class Skillinfo(db.Model):
@@ -57,4 +57,4 @@ class Skillinfo(db.Model):
     
 
     def __repr__(self):
-        return f'<User id:{self.uid}, email:{self.skill}>'
+        return f'<Skillinfo id:{self.uid}, skill:{self.skill}, info:{self.info}>'

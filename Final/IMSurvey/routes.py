@@ -171,6 +171,7 @@ def logout():
 @login_required
 def my_account():
     user = User.query.filter_by(id = session.get("user_id"))
+    edu_info = EWIinfo.query.filter_by(uid = session.get("user_id"), info = "education").all()
     if request.method == "POST":
         data = request.form.to_dict(flat=True)
         
@@ -184,11 +185,8 @@ def my_account():
         data["birth"] = datetime.strptime(data["birth"], "%Y-%m-%d").date()
         user.update(data)
         db.session.commit()
-
-    if session.get("user_id"):
-        return render_template("account.html", user=User.query.get_or_404(session["user_id"]))
-
-    return redirect("/")
+    
+    return render_template("account.html", user=user[0], edu=edu_info)
 
 
 @app.route('/contact', methods=["GET", "POST"])
