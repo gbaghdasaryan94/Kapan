@@ -52,14 +52,15 @@
                                         </ul> -->
                             <div class="sign_up">
                                 {% if session.user_id %}
-                                <p><a href="/logout"><i class="fa fa-user" aria-hidden="true"></i> Log Out</a></p>
+                                <p><a href="/accoount"><i class="fas fa-address-card" aria-hidden="true"></i> Account</a></p>
+                                <p><a href="/logout"><i class="fas fa-sign-out-alt" aria-hidden="true"></i> Log Out</a></p>
                                 {% else %}
                                 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                                         <i class="fa fa-user" aria-hidden="true"></i> Log In
                                       </button> -->
                                 <p><a href="#" data-toggle="modal" data-target="#login"><i class="fa fa-user"
                                             aria-hidden="true"></i> Log In</a></p>
-                                <p><a href="#" data-toggle="modal" data-target="#register"><i class="fa fa-sign-in"
+                                <p><a href="#" data-toggle="modal" data-target="#register"><i class="fa fa-sign-in-alt"
                                             aria-hidden="true"></i> Sign Up</a></p>
                                 {% endif %}
 

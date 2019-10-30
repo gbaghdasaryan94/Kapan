@@ -28,7 +28,7 @@ class User(db.Model):
         return f'<User id:{self.id}, email:{self.email}>'
 
 
-class EWI_info(db.Model):
+class EWIinfo(db.Model):
     """Data model for users info."""
 
     __tablename__ = 'ewi_info'
@@ -45,7 +45,7 @@ class EWI_info(db.Model):
         return f'<User id:{self.uid}, email:{self.name}>'
 
 
-class Skill_info(db.Model):
+class Skillinfo(db.Model):
     """Data model for users skills."""
 
     __tablename__ = 'skill_info'
