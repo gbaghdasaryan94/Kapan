@@ -2,7 +2,7 @@ from flask import flash, jsonify, redirect, render_template, request, session, m
 
 from datetime import datetime
 from flask import current_app as app
-from .models import db, User, EWIinfo
+from .models import db, User, EWIinfo, Skillinfo
 from werkzeug.security import check_password_hash, generate_password_hash
 from .helpers import login_required, apology, allowed_image
 import re
@@ -125,18 +125,37 @@ def onboarding():
 
 
 
-@app.route("/fill-cv", methods = ["GET", "POST"])
+@app.route("/fill-info", methods = ["GET", "POST"])
 @login_required
-def fill_cv():
+def fill_EWIinfo():
 
     if request.method == "POST":
         data = request.form.to_dict(flat=True)
         data["uid"] = session["user_id"]
-        data["start"] = datetime.strptime(data["start"], "%Y-%m-%d").date()
-        data["finish"] = datetime.strptime(data["finish"], "%Y-%m-%d").date()
+        try:
+            data["start"] = datetime.strptime(data["start"], "%Y-%m-%d").date()
+            data["finish"] = datetime.strptime(data["finish"], "%Y-%m-%d").date()
+        except ValueError:
+            flash("You need to spicify the dates", "danger")
+            return redirect("/")
         new_info = EWIinfo(**data)
 
         db.session.add(new_info)
+        db.session.commit()
+
+    return redirect("/")
+
+
+@app.route("/fill-skill", methods = ["GET", "POST"])
+@login_required
+def fill_Skillinfo():
+
+    if request.method == "POST":
+        data = request.form.to_dict(flat=True)
+        data["uid"] = session["user_id"]
+        new_skill = Skillinfo(**data)
+
+        db.session.add(new_skill)
         db.session.commit()
 
     return redirect("/")
