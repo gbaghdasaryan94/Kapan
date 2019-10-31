@@ -5,8 +5,11 @@ from flask import current_app as app
 from .models import db, User, EWIinfo, Skillinfo
 from werkzeug.security import check_password_hash, generate_password_hash
 from .helpers import login_required, apology, allowed_image
-import re
 import os
+import re
+import pdfkit
+import base64
+
 from flask_mail import Mail, Message
 mail = Mail(app)
 
@@ -30,7 +33,7 @@ def home():
         if not user.isComplete:
             return redirect("/onboarding")
         return render_template('home.html')
-        
+
     return render_template('index.html')
 
 
@@ -93,25 +96,20 @@ def register():
 @app.route("/onboarding", methods=["GET", "POST"])
 @login_required
 def onboarding():
-    user = User.query.filter_by(id = session.get("user_id"))
+    user = User.query.filter_by(id=session.get("user_id"))
     if user[0].isComplete:
         return redirect("/")
     if request.method == "POST":
         data = request.form.to_dict(flat=True)
         if request.files:
             image = request.files["avatar"]
-            if not image.filename:
-                flash("No filename", "danger")
-                return
-
-            if allowed_image(image.filename):
+            if image and allowed_image(image.filename):
                 filename = os.path.join(
                     app.config['IMAGE_UPLOADS'], f"{datetime.now().strftime('%m%s')}.jpg")
-
-                image.save(''.join([app.config['APP_ROOT'], filename]))
+                image.save('/IMSurvey/'.join([app.config['APP_ROOT'], filename]))
                 data["avatar"] = filename
                 data["birth"] = datetime.strptime(
-                    data["birth"], "%m/%d/%Y").date()
+                    data["birth"], "%Y-%m-%d").date()
                 data["isComplete"] = True
                 print(data)
                 user.update(data)
@@ -124,8 +122,7 @@ def onboarding():
     return render_template("onboarding.html", fullname=user[0].fullname)
 
 
-
-@app.route("/fill-info", methods = ["GET", "POST"])
+@app.route("/fill-info", methods=["GET", "POST"])
 @login_required
 def fill_EWIinfo():
 
@@ -134,7 +131,8 @@ def fill_EWIinfo():
         data["uid"] = session["user_id"]
         try:
             data["start"] = datetime.strptime(data["start"], "%Y-%m-%d").date()
-            data["finish"] = datetime.strptime(data["finish"], "%Y-%m-%d").date()
+            data["finish"] = datetime.strptime(
+                data["finish"], "%Y-%m-%d").date()
         except ValueError:
             flash("You need to spicify the dates", "danger")
             return redirect("/")
@@ -146,7 +144,7 @@ def fill_EWIinfo():
     return redirect("/")
 
 
-@app.route("/fill-skill", methods = ["GET", "POST"])
+@app.route("/fill-skill", methods=["GET", "POST"])
 @login_required
 def fill_Skillinfo():
 
@@ -170,11 +168,13 @@ def logout():
 @app.route('/account', methods=["GET", "POST"])
 @login_required
 def my_account():
-    user = User.query.filter_by(id = session.get("user_id"))
-    edu_info = EWIinfo.query.filter_by(uid = session.get("user_id"), info = "education").all()
+    user = User.query.filter_by(id=session.get("user_id"))
+    if not user[0].isComplete:
+        return redirect("/")
+
     if request.method == "POST":
         data = request.form.to_dict(flat=True)
-        
+
         if not re.search(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", data["email"]):
             flash("Email is incorrect", "warning")
             return redirect(request.url)
@@ -185,8 +185,16 @@ def my_account():
         data["birth"] = datetime.strptime(data["birth"], "%Y-%m-%d").date()
         user.update(data)
         db.session.commit()
+
+    edu_info = EWIinfo.query.filter_by(uid=session.get("user_id"), info="education").all()
+    intership_info = EWIinfo.query.filter_by(uid=session.get("user_id"), info="intership").all()
+    work_info = EWIinfo.query.filter_by(uid=session.get("user_id"), info="work").all()
+
+    prof_skill = Skillinfo.query.filter_by(uid=session.get("user_id"), info="prof").all()
+    pers_skill = Skillinfo.query.filter_by(uid=session.get("user_id"), info="pers").all()
+    hobby_skill = Skillinfo.query.filter_by(uid=session.get("user_id"), info="hobby").all()
     
-    return render_template("account.html", user=user[0], edu=edu_info)
+    return render_template("account.html", user=user[0], edu=edu_info, inter=intership_info, work=work_info, prof=prof_skill, pers=pers_skill, hobby=hobby_skill)
 
 
 @app.route('/contact', methods=["GET", "POST"])
@@ -208,11 +216,63 @@ def contact():
         if not text:
             pass
 
-        msg = Message("Message from IMsurvey",recipients=['hamona777@mail.ru', 'imsurvey@kit.am'])
+        msg = Message("Message from IMsurvey", recipients=[
+                      'hamona777@mail.ru', 'imsurvey@kit.am'])
         # msg.body = 'This is a test mail body'
         msg.html = f"From: {name} {lastName} <br>Email: {email}<br>Phone: {phone}<br><br>Message:<br>{text}"
         mail.send(msg)
 
         flash('Your email was sent successfully', "success")
+
+    return redirect("/")
+
+
+@app.route('/account/topdf', methods=["GET"])
+@login_required
+def pdf_converter():
+
+    config = pdfkit.configuration(wkhtmltopdf="/usr/bin/wkhtmltopdf")
+
+    options = {
+        'page-size': 'A4',
+        'margin-top': '0.3in',
+        'margin-right': '0.3in',
+        'margin-bottom': '0.3in',
+        'margin-left': '0.3in',
+        'encoding': "UTF-8",
+        'dpi': 600,
+        'custom-header': [
+            ('Accept-Encoding', 'gzip')
+        ],
+        'cookie': [
+            ('cookie-name1', 'cookie-value1'),
+            ('cookie-name2', 'cookie-value2'),
+        ],
+        'no-outline': None
+    }
+
+    user = User.query.filter_by(id=session.get("user_id")).first()
+    user.avatar = os.path.join(app.config['APP_STATIC_ROOT'], user.avatar)
+
+    edu_info = EWIinfo.query.filter_by(uid=session.get("user_id"), info="education").all()
+    intership_info = EWIinfo.query.filter_by(uid=session.get("user_id"), info="intership").all()
+    work_info = EWIinfo.query.filter_by(uid=session.get("user_id"), info="work").all()
+
+    prof_skill = Skillinfo.query.filter_by(uid=session.get("user_id"), info="prof").all()
+    pers_skill = Skillinfo.query.filter_by(uid=session.get("user_id"), info="pers").all()
+    hobby_skill = Skillinfo.query.filter_by(uid=session.get("user_id"), info="hobby").all()
+
     
-    return redirect("/") 
+
+    rendered = render_template("resume/1.html", user=user, edu=edu_info, inter=intership_info, work=work_info, prof=prof_skill, pers=pers_skill, hobby=hobby_skill)
+    #  
+    css = [os.path.join(app.config['APP_STATIC_ROOT'], 'static/resume/grid3.css'), os.path.join(app.config['APP_STATIC_ROOT'], 'static/resume/1.css')]
+
+    pdf = pdfkit.from_string(rendered, False, css=css, configuration=config, options=options)
+
+    response = make_response(pdf)
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = 'attachment; filename=output.pdf'
+    # response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
+
+    return response

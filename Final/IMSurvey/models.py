@@ -14,7 +14,7 @@ class User(db.Model):
     phone = db.Column(db.Text)
     sex = db.Column(db.String(12))
     address = db.Column(db.Text)
-    avatar = db.Column(db.Text)
+    avatar = db.Column(db.Text) #db.LargeBinary
     status = db.Column(db.Text)
     children = db.Column(db.Integer)
     about = db.Column(db.Text)

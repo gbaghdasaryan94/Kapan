@@ -5,125 +5,101 @@ My Account
 {% endblock %}
 
 {% block header_includes  %}
-	<link rel="stylesheet" type="text/css" href="static/css/resume.css">
+<link rel="stylesheet" type="text/css" href="static/css/resume.css">
 {% endblock  %}
 
 {% block main %}
 <section class="main">
 	<div class="container mt-4">
 		<div class="row">
-		
-		<div class="col-lg-4 col-12">
-					
-		<div class="sidebar ">
-			<div class="sidebar-top">
-				<div class="profile-image" style="background-image: url('static/img/man-img.jpg');" ></div>
-				
-			</div>
-			<div class="profile-basic">
-				<h2 class="us-name">{{ user.fullname }}</h2>
-				<h4 class="designation"><i>Web Developer</i>  </h4>
-			</div>
-			
-			<div class="profile-info">
-				<h2>Personal info</h2>
-				<p > <i class="fas fa-phone-alt"></i> {{ user.phone }}</p>
-				<p  > <i class="fas fa-envelope"></i> {{ user.email }}</p>
-				<p> <i class="fas fa-map-marker-alt"></i> {{ user.address }}</p>
-			</div>
 
-			<div class="profile-info skills">
-					<h2>Personal Skills</h2>
-					<p > 
-						<span>Problem solving</span>	
-						<span>Detail-oriented</span>	
-					</p>
-			</div>
-			<div class="profile-info skills">
-					<h2>Hobbis</h2>
-					<p > 
-						<span>Problem solving</span>	
-						<span>Detail-oriented</span>	
-					</p>
-			</div>
-			<div class="download"><button type="button" class="btn ">Download PDF <i class="fas fa-arrow-circle-down"></i></button></div>
-		</div>
-	</div>
-	<div class="col-lg-8 col-12">		
-		<div class="content">
-			<div class="work-experience">
-				<h1 class="heading"> Work Experience</h1>
-				<div class="info">
-					<p class="sub-heading">UI/UX Designer @Academy</p>
-					<p class="duration">JAN 2016 - DEC 2019</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua.</p>
-				</div>
-				<div class="info">
-					<p class="sub-heading">Creative Director @DeviserWeb</p>
-					<p class="duration">JAN 2014 - DEC 2017</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua.</p>
-				</div>
-				<div class="info">
-					<p class="sub-heading">Graphics Designer @Creative Wrold</p>
-					<p class="duration">JAN 2011 - DEC 2014</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua.</p>
-				</div>
-			</div>
-			<div class="education">
-        <h1 class="heading">Education</h1>
-                {% for item in edu %}
-                    <div class="info">
-                        <p class="sub-heading">{{ item.name }}</p>
-                        <p class="duration">{{ item.start }} - {{ item.finish }}</p>
-                        <p>{{ item.profession }}</p>
-                    </div>
-                {% endfor %}
-				<div class="info">
-					<p class="sub-heading">Art & Multimedia @Oxford University</p>
-					<p class="duration">JAN 2010 - DEC 2012</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua.</p>
-				</div>
-				<div class="info">
-					<p class="sub-heading">Post Graduation @Lorem</p>
-					<p class="duration">JAN 2010 - DEC 2011</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua.</p>
-				</div>
-				<div class="info">
-					<p class="sub-heading">TTMP Degree @Creative School</p>
-					<p class="duration">JAN 2009 - DEC 2012</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua.</p>
-				</div>
-			</div>
+			<div class="col-lg-4 col-12">
 
-			<div class="prof-skills">
-					<h1 class="heading">Professional Skills</h1>
-					<div class="skills">							
-						<p > 
-							<span>jQuery</span>	
-							<span>Windows Server</span>	
-							<span>JavaScript Frameworks</span>	
-							<span>Linux OS</span>	
-							<span>PHP</span>	
-							<span>JavaScript</span>	
-							<span>Windows 7/8.1/10</span>	
-							<span>C++</span>	
-							<span>Sass</span>	
-							<span>AngularJS</span>	
-							<span>HTML/CSS</span>	
+				<div class="sidebar ">
+					<div class="sidebar-top">
+						<div class="profile-image" style="background-image: url('{{ user.avatar }}');"></div>
+
+					</div>
+					<div class="profile-basic">
+						<h2 class="us-name">{{ user.fullname }}</h2>
+						<h4 class="designation"><i>Web Developer</i> </h4>
+					</div>
+
+					<div class="profile-info">
+						<h2>Personal info</h2>
+						<p> <i class="fas fa-phone-alt"></i> {{ user.phone }}</p>
+						<p> <i class="fas fa-envelope"></i> {{ user.email }}</p>
+						<p> <i class="fas fa-map-marker-alt"></i> {{ user.address }}</p>
+					</div>
+
+					<div class="profile-info skills">
+						<h2>Personal Skills</h2>
+						<p>
+							{% for item in pers %}
+							<span>{{ item.skill }}</span>
+							{% endfor %}
 						</p>
 					</div>
+					<div class="profile-info skills">
+						<h2>Hobbis</h2>
+						<p>
+							{% for item in hossy %}
+							<span>{{ item.skill }}</span>
+							{% endfor %}
+						</p>
+					</div>
+					<div class="download"><button type="button" class="btn ">Download PDF <i
+								class="fas fa-arrow-circle-down"></i></button></div>
 				</div>
 			</div>
-			<div class="download-circle"><a href="#"><i class="fas fa-file-download"></i></a> </div>			
+			<div class="col-lg-8 col-12">
+				<div class="content">
+					<div class="work-experience">
+						<h1 class="heading"> Work Experience</h1>
+						{% for item in work %}
+						<div class="info">
+							<p class="sub-heading">{{ item.name }}</p>
+							<p class="duration">{{ item.start }} - {{ item.finish }}</p>
+							<p>{{ item.profession }}</p>
+						</div>
+						{% endfor %}
+					</div>
+					<div class="education">
+						<h1 class="heading">Intership</h1>
+						{% for item in inter %}
+						<div class="info">
+							<p class="sub-heading">{{ item.name }}</p>
+							<p class="duration">{{ item.start }} - {{ item.finish }}</p>
+							<p>{{ item.profession }}</p>
+						</div>
+						{% endfor %}
+					</div>
+					<div class="education">
+						<h1 class="heading">Education</h1>
+						{% for item in edu %}
+						<div class="info">
+							<p class="sub-heading">{{ item.name }}</p>
+							<p class="duration">{{ item.start }} - {{ item.finish }}</p>
+							<p>{{ item.profession }}</p>
+						</div>
+						{% endfor %}
+					</div>
+
+					<div class="prof-skills">
+						<h1 class="heading">Professional Skills</h1>
+						<div class="skills">
+							<p>
+								{% for item in prof %}
+								<span>{{ item.skill }}</span>
+								{% endfor %}
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="download-circle"><a href="#"><i class="fas fa-file-download"></i></a> </div>
+			</div>
 		</div>
 	</div>
-</div>
 </section>
 {% endblock  %}
 
@@ -131,14 +107,14 @@ My Account
 {% block footer_includes %}
 <script>
 
-        $(window).scroll(function(){
-            if ($(window).width() < 992) {  
-                if ($(this).scrollTop() > 600) {
-                    $('.download-circle').addClass('active');
-                } else {
-                    $('.download-circle').removeClass('active');
-                }
-            }
-        });
-        </script>
+	$(window).scroll(function () {
+		if ($(window).width() < 992) {
+			if ($(this).scrollTop() > 600) {
+				$('.download-circle').addClass('active');
+			} else {
+				$('.download-circle').removeClass('active');
+			}
+		}
+	});
+</script>
 {% endblock  %}

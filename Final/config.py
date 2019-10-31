@@ -10,7 +10,13 @@ class Config:
     FLASK_ENV = environ.get('FLASK_ENV')
     
     APP_ROOT = path.dirname(path.abspath(__file__))
-    IMAGE_UPLOADS = '/IMSurvey/static/uploads'
+    
+    APP_STATIC_ROOT = path.abspath('IMSurvey')
+    IMAGE_UPLOADS = 'static/uploads'
+
+    # ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+    
+    # UPLOAD_FOLDER = path.join(APP_ROOT, 'IMSurvey/static/uploads')
 
     # Ensure templates are auto-reloaded
     TEMPLATES_AUTO_RELOAD = True

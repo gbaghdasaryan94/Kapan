@@ -1237,13 +1237,14 @@ box-shadow: none;
 
 
 .card {
-    color: white;
+    color: black;
     border-color:white;
-    background-color: #ffffff00;
+    background-color: #ffffff;
+    border: 1px solid #fff !important;
 }
 
 .card-header > a {
-    color: white;
+    color: black;
     transition: all 0.3s linear;
     text-decoration:none;
 }
@@ -1259,48 +1260,49 @@ box-shadow: none;
 }
 
 .btn-white {
-    color: white;
-    border-color: white;
+    color: black;
+    border-color: black;
 }
 
 .btn-white:hover {
     color: #19c3d2;
+    border-color: #19c3d2;
     background-color: white;
     transition: all 0.3s linear;
 }
 
 
 .card input.form-control::placeholder, .card textarea.form-control::placeholder {
-    color:white;
+    color: black;
 }
 
 
 
 .card input.form-control, .card textarea.form-control {
-    color: white;
-    background-color:#14d5c400;
+    color: black;
+    border-color: black;
 }
-
+.card input.form-control:hover, .card textarea.form-control:hover,
 .card input.form-control:focus, .card textarea.form-control:focus {
-    border-color: white;
-    color: #12d3c2;
-    background-color: white;
+    color: #19c3d2;
+    border-color: #19c3d2;
     transition: all 0.3s linear;
 }
 
+.card input.form-control:hover::placeholder, .card textarea.form-control:hover::placeholder,
 .card input.form-control:focus::placeholder, .card textarea.form-control:focus::placeholder {
     color: #12d3c2;
     transition: all 0.3s linear;
 }
 
 /* Change Autocomplete styles in Chrome*/
-.card input:-webkit-autofill,
+/* .card input:-webkit-autofill, */
 .card input:-webkit-autofill:hover, 
 .card input:-webkit-autofill:focus,
-.card textarea:-webkit-autofill,
+/* .card textarea:-webkit-autofill, */
 .card textarea:-webkit-autofill:hover,
 .card textarea:-webkit-autofill:focus,
-.card select:-webkit-autofill,
+/* .card select:-webkit-autofill, */
 .card select:-webkit-autofill:hover,
 .card select:-webkit-autofill:focus {
   border: 1px solid #12d3c2;
@@ -1311,4 +1313,11 @@ box-shadow: none;
 
 textarea {
     resize: none;
+}
+
+
+.onboarding form{
+    max-width: 600px;
+    padding: 40px 70px;
+    background-color: white;
 }
