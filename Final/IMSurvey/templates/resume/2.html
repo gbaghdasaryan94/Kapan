@@ -1,37 +1,60 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
+<html>
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>My CV</title>
 	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="grid4.css">
 	<link rel="stylesheet" type="text/css" href="2.css">
+	
 </head>
 
 <body>
+	<!-- Page <span id='page'></span> of 
+    <span id='topage'></span>   
+    <script> 
+      var vars={};
+      var x=window.location.search.substring(1).split('&');
+      for (var i in x) {
+        var z=x[i].split('=',2);
+        vars[z[0]] = unescape(z[1]);
+      }
+      document.getElementById('page').innerHTML = vars.page; 
+      document.getElementById('topage').innerHTML = vars.topage; 
+    </script>  -->
 	<div class="container">
 		<div class="row">
 			<div class="col-4">
-				<img class="profile-image" src="man.jpg">
+				<img class="profile-image" src="{{ user.avatar }}">
 			</div>
 			<div class="col-8">
-				<div class="profile-basic">
-					<h2 class="us-name">Petrosik Poxosyan</h2>
-					<h4 class="designation"><i>Web Developer</i> </h4>
-				</div>
-
-				<div class="profile-info">
-					<h2>Personal info</h2>
-					<p> <i class="fas fa-phone-alt"></i> 987-654-32-10</p>
-					<p> <i class="fas fa-envelope"></i> petrosik_poxoyan777@gmail.com</p>
-					<p> <i class="fas fa-map-marker-alt"></i> 24 Golden Tower Amborkhana, Sylhet. SYL-3RF87W</p>
+				<div class="block">
+					<h2 class="heading">Petrosik Poxosyan</h2>
+					<div class="">
+						<p><i>Web Developer</i> </p>
+					</div>
+					<h2 class="heading">Personal info</h2>
+					<div class="">
+						<p> <i class="fas fa-phone-alt"></i> 987-654-32-10</p>
+						<p> <i class="fas fa-envelope"></i> petrosik_poxoyan777@gmail.com</p>
+						<p> <i class="fas fa-map-marker-alt"></i> 24 Golden Tower Amborkhana, Sylhet. SYL-3RF87W</p>
+					</div>
 				</div>
 			</div>
 			<div class="col-12">
-				<div class="work-experience">
+				<div class="block">
+					<div class="info">
 					<h1 class="heading"> Work Experience</h1>
+						<p class="sub-heading">UI/UX Designer @Academy</p>
+						<p class="duration">JAN 2016 - DEC 2019</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
 					<div class="info">
 						<p class="sub-heading">UI/UX Designer @Academy</p>
 						<p class="duration">JAN 2016 - DEC 2019</p>
@@ -50,10 +73,23 @@
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 							tempor incididunt ut labore et dolore magna aliqua.</p>
 					</div>
-				</div>
-				<div class="education">
-					<h1 class="heading">Education</h1>
+<!-- 					
 					<div class="info">
+						<p class="sub-heading">Graphics Designer @Creative Wrold</p>
+						<p class="duration">JAN 2011 - DEC 2014</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div> -->
+<!-- 					
+					<div class="info">
+						<p class="sub-heading">Graphics Designer @Creative Wrold</p>
+						<p class="duration">JAN 2011 - DEC 2014</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div> -->
+					<!-- <div style = "display:block; clear:both; page-break-after:always;"></div> -->
+					<div class="info" style="page-break-before:avoid;">
+						<h1 class="heading">Education</h1>
 						<p class="sub-heading">Art &amp; Multimedia @Oxford University</p>
 						<p class="duration">JAN 2010 - DEC 2012</p>
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -71,11 +107,11 @@
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 							tempor incididunt ut labore et dolore magna aliqua.</p>
 					</div>
-				</div>
-
-				<div class="prof-skills">
+					<!-- </div>
+		
+						<div class="prof-skills"> -->
 					<h1 class="heading">Professional Skills</h1>
-					<div class="skills">
+					<div class="info skills">
 						<p>
 							<span>jQuery</span>
 							<span>Windows Server</span>
@@ -93,9 +129,9 @@
 				</div>
 			</div>
 			<div class="col-6">
-				<div class="prof-skills">
-					<h2>Personal Skills</h2>
-					<div class="skills">
+				<div class="block">
+					<h1 class="heading">Personal Skills</h1>
+					<div class="info skills">
 						<p>
 							<span>Problem solving</span>
 							<span>Detail-oriented</span>
@@ -104,9 +140,9 @@
 				</div>
 			</div>
 			<div class="col-6">
-				<div class="prof-skills">
-					<h2>Hobbis</h2>
-					<div class="skills">
+				<div class="block">
+					<h1 class="heading">Hobbis</h1>
+					<div class="info skills">
 						<p>
 							<span>Problem solving</span>
 							<span>Detail-oriented</span>
