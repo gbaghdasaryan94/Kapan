@@ -8,7 +8,6 @@ from .helpers import login_required, apology, allowed_image
 import os
 import re
 import pdfkit
-import base64
 
 from flask_mail import Mail, Message
 mail = Mail(app)
@@ -236,20 +235,12 @@ def pdf_converter():
 
     options = {
         'page-size': 'A4',
-        'margin-top': '0.3in',
-        'margin-right': '0.3in',
-        'margin-bottom': '0.3in',
-        'margin-left': '0.3in',
+        'margin-top': '0.5in',
+        'margin-right': '0.5in',
+        'margin-bottom': '0.5in',
+        'margin-left': '0.5in',
         'encoding': "UTF-8",
-        'dpi': 600,
-        'custom-header': [
-            ('Accept-Encoding', 'gzip')
-        ],
-        'cookie': [
-            ('cookie-name1', 'cookie-value1'),
-            ('cookie-name2', 'cookie-value2'),
-        ],
-        'no-outline': None
+        'dpi': 300
     }
 
     user = User.query.filter_by(id=session.get("user_id")).first()
@@ -265,15 +256,15 @@ def pdf_converter():
 
     
 
-    rendered = render_template("resume/1.html", user=user, edu=edu_info, inter=intership_info, work=work_info, prof=prof_skill, pers=pers_skill, hobby=hobby_skill)
+    rendered = render_template("resume/2.html", user=user, edu=edu_info, inter=intership_info, work=work_info, prof=prof_skill, pers=pers_skill, hobby=hobby_skill)
     #  
-    css = [os.path.join(app.config['APP_STATIC_ROOT'], 'static/resume/grid3.css'), os.path.join(app.config['APP_STATIC_ROOT'], 'static/resume/1.css')]
+    css = [os.path.join(app.config['APP_STATIC_ROOT'], 'static/resume/grid4.css'), os.path.join(app.config['APP_STATIC_ROOT'], 'static/resume/2.css')]
 
     pdf = pdfkit.from_string(rendered, False, css=css, configuration=config, options=options)
 
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
-    response.headers['Content-Disposition'] = 'attachment; filename=output.pdf'
-    # response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
+    # response.headers['Content-Disposition'] = 'attachment; filename=output.pdf'
+    response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
 
     return response
