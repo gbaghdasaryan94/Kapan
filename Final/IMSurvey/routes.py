@@ -205,15 +205,7 @@ def contact():
         email = request.form.get("email")
         phone = request.form.get("phone")
         text = request.form.get("text")
-        if not name:
-           pass
-        if not lastName:
-            pass
-        if not email:
-            pass
-        if not phone:
-            pass
-        if not text:
+        if not (name and lastName and email and phone and text):
             pass
 
         msg = Message("Message from IMsurvey", recipients=[
@@ -227,10 +219,10 @@ def contact():
     return redirect("/")
 
 
-@app.route('/topdf', methods=["GET"])
+@app.route('/topdf/<int:version>', methods=["GET"])
 @login_required
-def pdf_converter():
-
+def pdf_converter(version):
+    print(version)
     config = pdfkit.configuration(wkhtmltopdf="./wkhtmltopdf")
 
     options = {
@@ -256,15 +248,13 @@ def pdf_converter():
 
     
 
-    rendered = render_template("resume/2.html", user=user, edu=edu_info, inter=intership_info, work=work_info, prof=prof_skill, pers=pers_skill, hobby=hobby_skill)
-    #  
-    css = [os.path.join(app.config['APP_STATIC_ROOT'], 'static/resume/grid4.css'), os.path.join(app.config['APP_STATIC_ROOT'], 'static/resume/2.css')]
+    rendered = render_template(f"resume/{version}.html", user=user, edu=edu_info, inter=intership_info, work=work_info, prof=prof_skill, pers=pers_skill, hobby=hobby_skill)
+    css = [os.path.join(app.config['APP_STATIC_ROOT'], 'static/resume/grid4.css'), os.path.join(app.config['APP_STATIC_ROOT'], f'static/resume/{version}.css')]
 
     pdf = pdfkit.from_string(rendered, False, css=css, configuration=config, options=options)
 
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
-    # response.headers['Content-Disposition'] = 'attachment; filename=output.pdf'
-    response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
-
+    # response.headers['Content-Disposition'] = f'attachment; filename=CV({user.fullname}).pdf'
+    response.headers['Content-Disposition'] = f'inline; filename=CV({user.fullname}).pdf'
     return response

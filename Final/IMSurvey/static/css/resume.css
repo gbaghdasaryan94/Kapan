@@ -130,7 +130,7 @@ font-weight: bold;
 	left: 0;
 	width: 100%;
 }
-.download button{
+.download a{
 	background-color: #1edfb9 ;
 	transition: all 0.25s ease;
 	color: #fff;
@@ -143,7 +143,7 @@ font-weight: bold;
 
 
 
-.download button i{
+.download a i{
 	transition: all 0.25s ease;
 	margin-left: 5px;
 	vertical-align: middle;
@@ -151,11 +151,11 @@ font-weight: bold;
 	font-size: 22px;
 }
 
-.download:hover button i{
+.download:hover a i{
 	transform: scale(1.1);
 }
 
-.download:hover button {
+.download:hover a {
 	background-color: #15a27f;
 	color: #fff;
 	letter-spacing: 1px;
@@ -235,7 +235,7 @@ font-weight: bold;
 	.content{
 		margin-left: 0;
 	}
-	.download button{
+	.download a{
 		z-index: 100;
 	}
 }

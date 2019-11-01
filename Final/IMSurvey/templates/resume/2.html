@@ -1,6 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -15,18 +13,6 @@
 </head>
 
 <body>
-	<!-- Page <span id='page'></span> of 
-    <span id='topage'></span>   
-    <script> 
-      var vars={};
-      var x=window.location.search.substring(1).split('&');
-      for (var i in x) {
-        var z=x[i].split('=',2);
-        vars[z[0]] = unescape(z[1]);
-      }
-      document.getElementById('page').innerHTML = vars.page; 
-      document.getElementById('topage').innerHTML = vars.topage; 
-    </script>  -->
 	<div class="container">
 		<div class="row">
 			<div class="col-4">
@@ -34,96 +20,53 @@
 			</div>
 			<div class="col-8">
 				<div class="block">
-					<h2 class="heading">Petrosik Poxosyan</h2>
+					<h1 class="heading">{{ user.fullname }}</h1>
 					<div class="">
 						<p><i>Web Developer</i> </p>
 					</div>
-					<h2 class="heading">Personal info</h2>
+					<h1 class="heading">Personal info</h1>
 					<div class="">
-						<p> <i class="fas fa-phone-alt"></i> 987-654-32-10</p>
-						<p> <i class="fas fa-envelope"></i> petrosik_poxoyan777@gmail.com</p>
-						<p> <i class="fas fa-map-marker-alt"></i> 24 Golden Tower Amborkhana, Sylhet. SYL-3RF87W</p>
+							<p> <i class="fas fa-phone-alt"></i> {{ user.phone }}</p>
+							<p> <i class="fas fa-envelope"></i> {{ user.email }}</p>
+							<p> <i class="fas fa-map-marker-alt"></i> {{ user.address }}</p>
 					</div>
 				</div>
 			</div>
 			<div class="col-12">
 				<div class="block">
-					<div class="info">
 					<h1 class="heading"> Work Experience</h1>
-						<p class="sub-heading">UI/UX Designer @Academy</p>
-						<p class="duration">JAN 2016 - DEC 2019</p>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua.</p>
-					</div>
-					<div class="info">
-						<p class="sub-heading">UI/UX Designer @Academy</p>
-						<p class="duration">JAN 2016 - DEC 2019</p>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua.</p>
-					</div>
-					<div class="info">
-						<p class="sub-heading">Creative Director @DeviserWeb</p>
-						<p class="duration">JAN 2014 - DEC 2017</p>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua.</p>
-					</div>
-					<div class="info">
-						<p class="sub-heading">Graphics Designer @Creative Wrold</p>
-						<p class="duration">JAN 2011 - DEC 2014</p>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua.</p>
-					</div>
-<!-- 					
-					<div class="info">
-						<p class="sub-heading">Graphics Designer @Creative Wrold</p>
-						<p class="duration">JAN 2011 - DEC 2014</p>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua.</p>
-					</div> -->
-<!-- 					
-					<div class="info">
-						<p class="sub-heading">Graphics Designer @Creative Wrold</p>
-						<p class="duration">JAN 2011 - DEC 2014</p>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua.</p>
-					</div> -->
+					{% for item in work %}
+						<div class="info">
+							<p class="sub-heading">{{ item.name }}</p>
+							<p class="duration">{{ item.start }} - {{ item.finish }}</p>
+							<p>{{ item.profession }}</p>
+						</div>
+					{% endfor %}
 					<!-- <div style = "display:block; clear:both; page-break-after:always;"></div> -->
-					<div class="info" style="page-break-before:avoid;">
-						<h1 class="heading">Education</h1>
-						<p class="sub-heading">Art &amp; Multimedia @Oxford University</p>
-						<p class="duration">JAN 2010 - DEC 2012</p>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua.</p>
-					</div>
+					
+					<h1 class="heading">Intership</h1>
+					{% for item in inter %}
 					<div class="info">
-						<p class="sub-heading">Post Graduation @Lorem</p>
-						<p class="duration">JAN 2010 - DEC 2011</p>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua.</p>
+						<p class="sub-heading">{{ item.name }}</p>
+						<p class="duration">{{ item.start }} - {{ item.finish }}</p>
+						<p>{{ item.profession }}</p>
 					</div>
+					{% endfor %}
+					
+					<h1 class="heading">Education</h1>
+					{% for item in edu %}
 					<div class="info">
-						<p class="sub-heading">TTMP Degree @Creative School</p>
-						<p class="duration">JAN 2009 - DEC 2012</p>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua.</p>
+						<p class="sub-heading">{{ item.name }}</p>
+						<p class="duration">{{ item.start }} - {{ item.finish }}</p>
+						<p>{{ item.profession }}</p>
 					</div>
-					<!-- </div>
-		
-						<div class="prof-skills"> -->
+					{% endfor %}
 					<h1 class="heading">Professional Skills</h1>
 					<div class="info skills">
 						<p>
-							<span>jQuery</span>
-							<span>Windows Server</span>
-							<span>JavaScript Frameworks</span>
-							<span>Linux OS</span>
-							<span>PHP</span>
-							<span>JavaScript</span>
-							<span>Windows 7/8.1/10</span>
-							<span>C++</span>
-							<span>Sass</span>
-							<span>AngularJS</span>
-							<span>HTML/CSS</span>
+							{% for item in prof %}
+								<span>{{ item.skill }}</span>
+							{% endfor %}
 						</p>
 					</div>
 				</div>
@@ -133,8 +76,9 @@
 					<h1 class="heading">Personal Skills</h1>
 					<div class="info skills">
 						<p>
-							<span>Problem solving</span>
-							<span>Detail-oriented</span>
+							{% for item in pers %}
+							<span>{{ item.skill }}</span>
+							{% endfor %}
 						</p>
 					</div>
 				</div>
@@ -144,8 +88,9 @@
 					<h1 class="heading">Hobbis</h1>
 					<div class="info skills">
 						<p>
-							<span>Problem solving</span>
-							<span>Detail-oriented</span>
+							{% for item in hobby %}
+							<span>{{ item.skill }}</span>
+							{% endfor %}
 						</p>
 					</div>
 				</div>
