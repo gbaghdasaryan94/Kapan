@@ -79,7 +79,8 @@ def register():
 
         existing_user = User.query.filter(User.email == email).first()
         if existing_user:
-            return make_response(f'{email} already created!')
+            flash(f'{email} already created!', "warning")
+            return redirect("/")
         new_user = User(fullname=fullname, email=email, password=generate_password_hash(
             request.form.get("password")))
 
@@ -227,7 +228,7 @@ def contact():
     return redirect("/")
 
 
-@app.route('/account/topdf', methods=["GET"])
+@app.route('/topdf', methods=["GET"])
 @login_required
 def pdf_converter():
 
