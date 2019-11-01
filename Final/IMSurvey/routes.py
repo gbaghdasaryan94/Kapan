@@ -232,7 +232,7 @@ def contact():
 @login_required
 def pdf_converter():
 
-    config = pdfkit.configuration(wkhtmltopdf="/usr/bin/wkhtmltopdf")
+    config = pdfkit.configuration(wkhtmltopdf="./wkhtmltopdf")
 
     options = {
         'page-size': 'A4',
