@@ -133,7 +133,7 @@ $('.slider-nav').slick({
 
 var d = new Date();
     var year = d.getFullYear();
-    $(".year").html(year+".");
+    $(".year").html(year);
     
 
 
