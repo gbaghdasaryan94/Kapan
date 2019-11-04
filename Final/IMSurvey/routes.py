@@ -173,18 +173,30 @@ def my_account():
         return redirect("/")
 
     if request.method == "POST":
-        data = request.form.to_dict(flat=True)
+        if request.form.get("type") and request.form.get("type") == "remove":
+            table = request.form.get("table")
+            if table == "info":
+                EWIinfo.query.filter_by(id = request.form.get("data"), uid=session.get("user_id")).delete()
+            elif table == "skill":
+                Skillinfo.query.filter_by(id = request.form.get("data"), uid=session.get("user_id")).delete()
+            else:
+                User.query.filter_by(id = request.form.get("data"), uid=session.get("user_id")).delete()
+            db.session.commit()
+            return jsonify(True), 200
 
-        if not re.search(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", data["email"]):
-            flash("Email is incorrect", "warning")
-            return redirect(request.url)
-        if not re.search(r"([a-z]|[A-Z]+[/s])", data["fullname"]):
-            flash("Fullname is incorrect", "danger")
-            return redirect("/")
 
-        data["birth"] = datetime.strptime(data["birth"], "%Y-%m-%d").date()
-        user.update(data)
-        db.session.commit()
+        # data = request.form.to_dict(flat=True)
+
+        # if not re.search(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", data["email"]):
+        #     flash("Email is incorrect", "warning")
+        #     return redirect(request.url)
+        # if not re.search(r"([a-z]|[A-Z]+[/s])", data["fullname"]):
+        #     flash("Fullname is incorrect", "danger")
+        #     return redirect("/")
+
+        # data["birth"] = datetime.strptime(data["birth"], "%Y-%m-%d").date()
+        # user.update(data)
+        # db.session.commit()
 
     edu_info = EWIinfo.query.filter_by(uid=session.get("user_id"), info="education").all()
     intership_info = EWIinfo.query.filter_by(uid=session.get("user_id"), info="intership").all()
@@ -195,6 +207,7 @@ def my_account():
     hobby_skill = Skillinfo.query.filter_by(uid=session.get("user_id"), info="hobby").all()
     
     return render_template("account.html", user=user[0], edu=edu_info, inter=intership_info, work=work_info, prof=prof_skill, pers=pers_skill, hobby=hobby_skill)
+
 
 
 @app.route('/contact', methods=["GET", "POST"])

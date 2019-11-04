@@ -73,7 +73,8 @@ body {
 	font-size: 15px;	
 }
 
-.skills span{
+.skills .skill-alone{
+    text-align: center;
 	padding: 10px 10px;
 	margin: 5px;
 	display: inline-block;
@@ -81,11 +82,11 @@ body {
 	color: #767270;
 }
 
-.profile-info.skills span{
+.profile-info.skills .skill-alone{
 	font-size: 12px;
 }
 
-.work-experience, .education, .prof-skills {
+.block {
 	margin-bottom: 30px;
 	padding: 5% 2% 5% 10%;
 	background: white;
@@ -115,7 +116,7 @@ font-weight: bold;
 	font-size: 14px;
 }
 
-.prof-skills .skills span{
+.block .skills .skill-alone{
 	background-color: #15a27f;
 	background-image: linear-gradient(to right top, #25e3b3, #21e1b6, #1edfba, #1dddbc, #1edbbf);
 	color: #fff;
@@ -125,9 +126,9 @@ font-weight: bold;
 	margin-bottom: 20px;
 }
 .download{
-	position: absolute;
+	/* position: absolute;
 	bottom: -120px;
-	left: 0;
+	left: 0; */
 	width: 100%;
 }
 .download a{
@@ -199,6 +200,16 @@ font-weight: bold;
 .download-circle.active {
     right: 25px;
 }
+
+
+/* Edit and delete button */
+.edit {
+    display: none;
+    position: absolute;
+    right: 5%;
+}
+
+
 
 
 @media only screen and (max-width : 1200px){
