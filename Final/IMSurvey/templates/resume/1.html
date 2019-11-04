@@ -12,27 +12,27 @@
 </head>
 
 <body>
-	<div class="container">
+	<!-- <div class="container"> -->
 		<div class="row">
 
 			<div class="col-4">
-				<div class="sidebar ">
+				<div class="sidebar">
 					<div class="sidebar-top">
 						<div class="profile-image" style="background-image: url('{{ user.avatar }}');"></div>
 					</div>
-					<div class="profile-basic">
-						<h2 class="us-name">{{ user.fullname }}</h2>
-						<h4 class="designation"><i>Web Developer</i> </h4>
+					<div class="profile">
+						<h2>{{ user.fullname }}</h2>
+						<p><i>Web Developer</i> </p>
 					</div>
 
-					<div class="profile-info">
+					<div class="profile">
 						<h2>Personal info</h2>
 						<p> <i class="fas fa-phone-alt"></i> {{ user.phone }}</p>
 						<p> <i class="fas fa-envelope"></i> {{ user.email }}</p>
 						<p> <i class="fas fa-map-marker-alt"></i> {{ user.address }}</p>
 					</div>
 					{% if pers %}
-					<div class="profile-info skills">
+					<div class="profile skills">
 						<h2>Personal Skills</h2>
 						<p>
 							{% for item in pers %}
@@ -42,7 +42,7 @@
 					</div>
 					{% endif %}
 					{% if hobby %}
-					<div class="profile-info skills">
+					<div class="profile skills">
 						<h2>Hobbis</h2>
 						<p>
 							{% for item in hobby %}
@@ -55,7 +55,7 @@
 				</div>
 			</div>
 			<div class="col-8">
-				<div class="content">
+				<div id="content" class="content">
 					{% if work %}
 					<div class="block">
 						<h1 class="heading"> Work Experience</h1>
@@ -92,7 +92,6 @@
 						{% endfor %}
 					</div>
 					{% endif %}
-
 					{% if prof %}
 					<div class="block">
 						<h1 class="heading">Professional Skills</h1>
@@ -108,9 +107,18 @@
 
 				</div>
 			</div>
+			
 		</div>
-	</div>
-
+	<!-- </div> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			let obj = $("#content").contents().find(".info");
+			for (let i = 7; i < obj.length; i += 7) {
+			$("<div style='page-break-after:always !important; display: inline-block; height: 120px; '>").insertAfter(obj[i]);
+			}
+		});
+	</script>
 </body>
 
 </html>

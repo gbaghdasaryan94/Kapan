@@ -1085,11 +1085,12 @@ input[type=checkbox]:checked + label:before { letter-spacing: 8px; } /* allow sp
 
 .copy{
     text-align: center;
-    color: #fff;
+    color: #9a9595;
 }
 
-.copy span{
-    margin-right: 10px;
+.cop_n{
+    margin-right: 5px;
+    margin-left: 5px;
 }
 
 
