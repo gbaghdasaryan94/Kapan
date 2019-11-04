@@ -11,7 +11,7 @@
 </head>
 
 <body>
-	<div class="container">
+	<!-- <div class="container"> -->
 		<div class="row">
 			<div class="col-4">
 				<img class="profile-image" src="man.jpg">
@@ -31,9 +31,21 @@
 				</div>
 			</div>
 			<div class="col-12">
-				<div class="block">
-					<div class="info">
+				<div id="content" class="block">
 					<h1 class="heading"> Work Experience</h1>
+					<div class="info">
+						<p class="sub-heading">UI/UX Designer @Academy</p>
+						<p class="duration">JAN 2016 - DEC 2019</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+					<div class="info">
+						<p class="sub-heading">UI/UX Designer @Academy</p>
+						<p class="duration">JAN 2016 - DEC 2019</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+					<div class="info">
 						<p class="sub-heading">UI/UX Designer @Academy</p>
 						<p class="duration">JAN 2016 - DEC 2019</p>
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -51,10 +63,8 @@
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 							tempor incididunt ut labore et dolore magna aliqua.</p>
 					</div>
-					<!-- </div>
-						<div class="education"> -->
-					<div class="info">
 					<h1 class="heading">Education</h1>
+					<div class="info">
 						<p class="sub-heading">Art &amp; Multimedia @Oxford University</p>
 						<p class="duration">JAN 2010 - DEC 2012</p>
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -72,11 +82,8 @@
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 							tempor incididunt ut labore et dolore magna aliqua.</p>
 					</div>
-					<!-- </div>
-		
-						<div class="prof-skills"> -->
-					<div class="info skills">
 					<h1 class="heading">Professional Skills</h1>
+					<div class="info skills">
 						<p>
 							<span>jQuery</span>
 							<span>Windows Server</span>
@@ -91,23 +98,17 @@
 							<span>HTML/CSS</span>
 						</p>
 					</div>
-				</div>
-			</div>
-			<div class="col-6">
-				<div class="block">
-					<div class="info skills">
+
 					<h1 class="heading">Personal Skills</h1>
+					<div class="info skills">
 						<p>
 							<span>Problem solving</span>
 							<span>Detail-oriented</span>
 						</p>
 					</div>
-				</div>
-			</div>
-			<div class="col-6">
-				<div class="block">
-					<div class="info skills">
+					
 					<h1 class="heading">Hobbis</h1>
+					<div class="info skills">
 						<p>
 							<span>Problem solving</span>
 							<span>Detail-oriented</span>
@@ -116,8 +117,17 @@
 				</div>
 			</div>
 		</div>
-	</div>
-
+	<!-- </div> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			let obj = $("#content").children(".info");
+			console.log(obj);
+			for (let i = 4; i < obj.length; i += 4) {
+				$("<div style='page-break-after:always !important; height: 100px;'>").insertAfter(obj[i]);
+			}
+		});
+	</script>
 </body>
 
 </html>

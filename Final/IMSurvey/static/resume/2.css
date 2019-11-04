@@ -1,21 +1,20 @@
-body {
-	background: #fff;
-	font-size: 18px;
-	font-family: verdana, sans-serif;
-	/* padding: 10px; */
-}
-
 * {
 	overflow: visible !important;
 }
 
+body {
+	background: #fff;
+	font-size: 18px;
+	font-family: verdana, sans-serif;
+	margin: 0;
+	/* padding: 10px; */
+}
+
 .profile-image {
 	width: 100%;
-	height: 350px !important;
-    /* position: relative;
+	/* position: relative;
     display: inline-block;
     height: auto; */
-    /* box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12); */
 }
 
 .skills span{
@@ -27,14 +26,14 @@ body {
 }
 
 .block {
-	padding: 2% 4%;
+	padding: 1% 50px;
 	background: white;
 }
 
 
 
 .info {
-	margin: 1% 1% 5% 1%;
+	margin: 10px 25px;
 	border-bottom: 1px solid #bdbdbd;
 	display: block;
 	height: auto !important;
@@ -62,17 +61,17 @@ font-weight: bold;
 
 
 @media print {
-	div.info{ 
-		page-break-after:avoid;
+	/* div.info{  */
+		/* page-break-after:always !important; */
 		/* page-break-inside:avoid; */
-		page-break-before:avoid;
+		/* page-break-before:avoid; */
 		/* break-after: avoid; */
 		/* break-before: avoid; */
 		/* break-inside: avoid; */
-	}
-	/* div.block {
+	/* } */
+	div.block {
 		page-break-inside:avoid;
-	} */
+	}
 }
 
 @page 

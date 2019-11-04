@@ -10,7 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="1.css">
 </head>
 <body>
-	<div class="container">
+	<!-- <div class="container"> -->
 		<div class="row">
 		
 		<div class="col-4">
@@ -18,26 +18,26 @@
 			<div class="sidebar-top">
 				<div class="profile-image" style="background-image: url('man.jpg');" ></div>
 			</div>
-			<div class="profile-basic">
-				<h2 class="us-name">Petrosik Poxosyan</h2>
-				<h4 class="designation"><i>Web Developer</i>  </h4>
+			<div class="profile">
+				<h2>Petrosik Poxosyan</h2>
+				<p><i>Web Developer</i></p>
 			</div>
 			
-			<div class="profile-info">
+			<div class="profile">
 				<h2>Personal info</h2>
-				<p > <i class="fas fa-phone-alt"></i> 987-654-32-10</p>
-				<p  > <i class="fas fa-envelope"></i> petrosik_poxoyan777@gmail.com</p>
+				<p> <i class="fas fa-phone-alt"></i> 987-654-32-10</p>
+				<p> <i class="fas fa-envelope"></i> petrosik_poxoyan777@gmail.com</p>
 				<p> <i class="fas fa-map-marker-alt"></i> 24 Golden Tower Amborkhana, Sylhet.	SYL-3RF87W</p>
 			</div>
 
-			<div class="profile-info skills">
+			<div class="profile skills">
 					<h2>Personal Skills</h2>
-					<p > 
+					<p> 
 						<span>Problem solving</span>	
 						<span>Detail-oriented</span>	
 					</p>
 			</div>
-			<div class="profile-info skills">
+			<div class="profile skills">
 					<h2>Hobbis</h2>
 					<p > 
 						<span>Problem solving</span>	
@@ -112,7 +112,17 @@
 			</div>			
 		</div>
 	</div>
-</div>	
-
+<!-- </div>	 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			let obj = $(".content").contents().find(".info");
+			$("<div style='page-break-after:always !important; display: block; height: 200px; '>").insertAfter(obj[8]);
+			$("<div style='page-break-after:always !important; display: block; height: 200px; '>").insertAfter(obj[7]);
+			// for (let i = 4; i < obj.length; i += 5) {
+				// $("<div style='page-break-after:always !important; height: 100px;'>").insertAfter(obj[i]);
+			// }
+		});
+	</script>
 </body>
 </html>

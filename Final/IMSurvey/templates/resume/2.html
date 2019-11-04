@@ -13,7 +13,7 @@
 </head>
 
 <body>
-	<div class="container">
+	<!-- <div class="container"> -->
 		<div class="row">
 			<div class="col-4">
 				<img class="profile-image" src="{{ user.avatar }}">
@@ -33,7 +33,7 @@
 				</div>
 			</div>
 			<div class="col-12">
-				<div class="block">
+				<div id="content" class="block">
 					<h1 class="heading"> Work Experience</h1>
 					{% for item in work %}
 						<div class="info">
@@ -42,8 +42,6 @@
 							<p>{{ item.profession }}</p>
 						</div>
 					{% endfor %}
-					<!-- <div style = "display:block; clear:both; page-break-after:always;"></div> -->
-					
 					<h1 class="heading">Intership</h1>
 					{% for item in inter %}
 					<div class="info">
@@ -52,7 +50,6 @@
 						<p>{{ item.profession }}</p>
 					</div>
 					{% endfor %}
-					
 					<h1 class="heading">Education</h1>
 					{% for item in edu %}
 					<div class="info">
@@ -69,10 +66,6 @@
 							{% endfor %}
 						</p>
 					</div>
-				</div>
-			</div>
-			<div class="col-6">
-				<div class="block">
 					<h1 class="heading">Personal Skills</h1>
 					<div class="info skills">
 						<p>
@@ -81,10 +74,6 @@
 							{% endfor %}
 						</p>
 					</div>
-				</div>
-			</div>
-			<div class="col-6">
-				<div class="block">
 					<h1 class="heading">Hobbis</h1>
 					<div class="info skills">
 						<p>
@@ -96,8 +85,18 @@
 				</div>
 			</div>
 		</div>
-	</div>
-
+	<!-- </div> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			let obj = $("#content").children(".info");
+			// $("<div style='page-break-after:always !important; display: block; clear: both;'>").insertAfter(obj[4]);
+			// $("<div style='page-break-after:always !important; display: block; clear: both;'>").insertAfter(obj[10]);
+			for (let i = 5; i < obj.length; i += 6) {
+				$("<div style='page-break-after:always !important; display: block; clear: both;'>").insertAfter(obj[i]);
+			}
+		});
+	</script>
 </body>
 
 </html>
