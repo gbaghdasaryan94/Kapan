@@ -149,6 +149,7 @@ section>.text {
     margin: 100px auto;
     max-width: 555px;
     text-align: center;
+    color: #12d3c2;
 }
 
 section.project p.button {
