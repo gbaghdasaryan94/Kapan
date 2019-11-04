@@ -32,12 +32,15 @@ body {
 
 
 
-.info {
+.info{
 	margin: 10px 25px;
 	border-bottom: 1px solid #bdbdbd;
 	display: block;
 	height: auto !important;
 	clear: both;
+}
+.head {
+	margin: 10px 25px;
 }
 h1 {
 	display: block;
@@ -61,14 +64,6 @@ font-weight: bold;
 
 
 @media print {
-	/* div.info{  */
-		/* page-break-after:always !important; */
-		/* page-break-inside:avoid; */
-		/* page-break-before:avoid; */
-		/* break-after: avoid; */
-		/* break-before: avoid; */
-		/* break-inside: avoid; */
-	/* } */
 	div.block {
 		page-break-inside:avoid;
 	}
