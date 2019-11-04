@@ -34,6 +34,7 @@
 			</div>
 			<div class="col-12">
 				<div id="content" class="block">
+					{% if work %}
 					<h1 class="heading"> Work Experience</h1>
 					{% for item in work %}
 						<div class="info">
@@ -42,6 +43,9 @@
 							<p>{{ item.profession }}</p>
 						</div>
 					{% endfor %}
+					{% endif %}
+					
+					{% if inter %}
 					<h1 class="heading">Intership</h1>
 					{% for item in inter %}
 					<div class="info">
@@ -50,6 +54,10 @@
 						<p>{{ item.profession }}</p>
 					</div>
 					{% endfor %}
+					{% endif %}
+					
+
+					{% if edu %}
 					<h1 class="heading">Education</h1>
 					{% for item in edu %}
 					<div class="info">
@@ -58,6 +66,9 @@
 						<p>{{ item.profession }}</p>
 					</div>
 					{% endfor %}
+					{% endif %}
+					
+					{% if prof %}
 					<h1 class="heading">Professional Skills</h1>
 					<div class="info skills">
 						<p>
@@ -66,6 +77,9 @@
 							{% endfor %}
 						</p>
 					</div>
+					{% endif %}
+					
+					{% if pers %}
 					<h1 class="heading">Personal Skills</h1>
 					<div class="info skills">
 						<p>
@@ -74,6 +88,9 @@
 							{% endfor %}
 						</p>
 					</div>
+					{% endif %}
+					
+					{% if hobby %}
 					<h1 class="heading">Hobbis</h1>
 					<div class="info skills">
 						<p>
@@ -82,6 +99,7 @@
 							{% endfor %}
 						</p>
 					</div>
+					{% endif %}
 				</div>
 			</div>
 		</div>
