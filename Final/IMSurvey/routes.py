@@ -107,6 +107,9 @@ def onboarding():
             if image and allowed_image(image.filename):
                 filename = os.path.join(
                     app.config['IMAGE_UPLOADS'], f"{datetime.now().strftime('%m%s')}.jpg")
+                  
+                if not os.path.exists('/IMSurvey/'.join([app.config['APP_ROOT'], app.config['IMAGE_UPLOADS']])):
+                    os.makedirs('/IMSurvey/'.join([app.config['APP_ROOT'], app.config['IMAGE_UPLOADS']]))
                 image.save('/IMSurvey/'.join([app.config['APP_ROOT'], filename]))
                 data["avatar"] = filename
                 data["birth"] = datetime.strptime(
