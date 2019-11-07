@@ -18,7 +18,7 @@ My Account
 				<div class="sidebar ">
 					<div class="sidebar-top">
 						<div class="profile-image" style="background-image: url('{{ user.avatar }}');">
-							<div class="edit"><i class="fa fa-edit change "></i></div>
+							<div class="edit"><i class="fa fa-edit change "  data-toggle="modal" data-target="#change"></i></div>
 						</div>
 
 					</div>
@@ -51,7 +51,7 @@ My Account
 					
 					{% if hobby %}
 					<div class="profile-info skills">
-						<div class="edit"><i class="fa fa-edit change "></i></div>
+						<div class="edit"><i class="fa fa-edit change "  data-toggle="modal" data-target="#change"></i></div>
 						<h2>Hobbies</h2>
 						{% for item in hobby %}
 						<div class="skill-alone" data="hobby">{{ item.skill }}<div class="edit"><i
@@ -79,7 +79,7 @@ My Account
 						<h1 class="heading"> Work Experience</h1>
 						{% for item in work %}
 						<div class="info" data="{{ item.id }}">
-							<div class="edit"><i class="fa fa-edit change "></i>&nbsp;<i
+							<div class="edit"><i class="fa fa-edit change "  data-toggle="modal" data-target="#change"></i>&nbsp;<i
 									class="fa fa-remove remove"></i></div>
 							<p class="sub-heading">{{ item.name }}</p>
 							<p class="duration">{{ item.start }} - {{ item.finish }}</p>
@@ -95,7 +95,7 @@ My Account
 						<h1 class="heading">Intership</h1>
 						{% for item in inter %}
 						<div class="info" data="{{ item.id }}">
-							<div class="edit"><i class="fa fa-edit change "></i>&nbsp;<i
+							<div class="edit"><i class="fa fa-edit change "  data-toggle="modal" data-target="#change"></i>&nbsp;<i
 									class="fa fa-remove remove"></i></div>
 							<p class="sub-heading">{{ item.name }}</p>
 							<p class="duration">{{ item.start }} - {{ item.finish }}</p>
@@ -111,7 +111,7 @@ My Account
 						<h1 class="heading">Education</h1>
 						{% for item in edu %}
 						<div class="info" data="{{ item.id }}">
-							<div class="edit"><i class="fa fa-edit change "></i>&nbsp;<i
+							<div class="edit"><i class="fa fa-edit change "  data-toggle="modal" data-target="#change"></i>&nbsp;<i
 									class="fa fa-remove remove"></i></div>
 							<p class="sub-heading">{{ item.name }}</p>
 							<p class="duration">{{ item.start }} - {{ item.finish }}</p>
@@ -141,6 +141,49 @@ My Account
 		</div>
 	</div>
 </section>
+
+<div class="modal fade" id="change" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle"> Edit </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+					
+					
+					<form action="#">
+						<div class="form-row">
+						  <div class="form-group col-md-6">
+							<label for="name">Name Of Institution</label>
+							<input type="text" class="form-control" name="name" placeholder="Name Of Institution">
+						  </div>
+						  <div class="form-group col-md-6">
+							<label for="profession">Title</label>
+							<input type="text" class="form-control" name="profession" placeholder="Enter the profession title">
+						  </div>
+						</div>
+						<div class="form-row">
+						  <div class="form-group col-md-6">
+							<label for="start">Start Date</label>
+							<input type="date" class="form-control" name="start" placeholder="MM-DD-YYYY">
+						  </div>
+						  <div class="form-group col-md-6">
+							<label for="finish">End Date</label>
+							<input type="date" class="form-control" name="finish" placeholder="MM-DD-YYYY">
+						  </div>
+						</div>
+						<input type="text" name="id" hidden>
+						<div class="text-center"><button class="btn btn-white change-save">Save</button></div>
+					</form>
+
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock  %}
 
 

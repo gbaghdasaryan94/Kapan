@@ -8,6 +8,7 @@ from .helpers import login_required, apology, allowed_image
 import os
 import re
 import pdfkit
+import time
 
 from flask_mail import Mail, Message
 mail = Mail(app)
@@ -171,20 +172,46 @@ def my_account():
     user = User.query.filter_by(id=session.get("user_id"))
     if not user[0].isComplete:
         return redirect("/")
-
+    
     if request.method == "POST":
-        if request.form.get("type") and request.form.get("type") == "remove":
-            table = request.form.get("table")
-            if table == "info":
-                EWIinfo.query.filter_by(id = request.form.get("data"), uid=session.get("user_id")).delete()
-            elif table == "skill":
-                Skillinfo.query.filter_by(id = request.form.get("data"), uid=session.get("user_id")).delete()
-            else:
-                User.query.filter_by(id = request.form.get("data"), uid=session.get("user_id")).delete()
-            db.session.commit()
-            return jsonify(True), 200
+        if request.form.get("type"):
+            if request.form.get("type") == "remove":
+                table = request.form.get("table")
+                if table == "info":
+                    EWIinfo.query.filter_by(id = request.form.get("data"), uid=session.get("user_id")).delete()
+                elif table == "skill":
+                    Skillinfo.query.filter_by(id = request.form.get("data"), uid=session.get("user_id")).delete()
+                else:
+                    User.query.filter_by(id = request.form.get("data"), uid=session.get("user_id")).delete()
+                db.session.commit()
+                return jsonify(True), 200
+            elif request.form.get("type") == "change":
+                
+                table = request.form.get("table")
+                data = request.form.to_dict(flat=True)
 
-
+                try:
+                    data["start"] = datetime.strptime(data["start"], "%Y-%m-%d").date()
+                    data["finish"] = datetime.strptime(
+                        data["finish"], "%Y-%m-%d").date()
+                except ValueError:
+                    return jsonify(False), 500
+                    
+                del data["type"]
+                del data["table"]
+                del data["id"]
+                print(data)
+                if table == "info":
+                    db.session.query(EWIinfo).filter_by(id = request.form.get("id"), uid=session.get("user_id")).update(data)
+                # elif table == "skill":
+                #     Skillinfo.update(data)
+                # else:
+                #     User.update(data)
+                db.session.commit()
+                return jsonify(True), 200
+                # for item in request.form:
+                #     print(item)
+            return jsonify(False), 500
         # data = request.form.to_dict(flat=True)
 
         # if not re.search(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", data["email"]):

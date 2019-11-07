@@ -146,15 +146,9 @@
 
     {% block modalonboarding %}{% endblock %}
 
-    <!-- Modal Login -->
-    {% include 'login.html' %}
-    
-
-    <!-- Modal Register -->
-    {% include 'register.html' %}
+   
 
     <script src="/static/js/jquery-3.1.1.min.js"></script>
-    <script src="/static/js/formcheck.js"></script>
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
@@ -170,7 +164,12 @@
     <script src="/static/js/active.js"></script>
 
     {% block footer_includes %} {% endblock %}
+ <!-- Modal Login -->
+    {% include 'login.html' %}
+    
 
+    <!-- Modal Register -->
+    {% include 'register.html' %}
 
 </body>
 
