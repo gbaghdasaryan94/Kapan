@@ -300,5 +300,5 @@ dmypy.json
 
 .DS_Store
 
-*.db
+survey.db
 uploads
