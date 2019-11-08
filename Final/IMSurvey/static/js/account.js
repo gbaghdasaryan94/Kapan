@@ -13,64 +13,57 @@ $( document ).ready(function(){
     }, function(){
         $(this).find(".edit").css("display", "none");
     })
+    
+    function FormToJSON(form){
+        var array = $(form).serializeArray();
+        var json = {};   
+        $.each(array, function() {
+            json[this.name] = this.value || '';
+        });   
+        return json;
+    }
 
-    $(".remove").click(function(){
-        let button = $(this);
-        let table = "users";
-        if (button.parents('.skills').length) { // ewi_info skill_info
-            table = "skill";
-        } else if (button.parents('.info').length) {
-            table = "info";
-        }
-        let data = $(this).closest(".info").attr("data");
-        console.log(data);
-        $.post( "/account", { type: "remove" , table: table , data: data })
-        .done(function( data ) {
-            console.log(data);
-            if (data){
-                button.closest(".info").remove();
-            }
+    $(".save").click(function(event){
+        event.preventDefault();
+        let form = $(this).closest("form");
+        let req = $(this).attr("info");
+        console.log(req);
+        console.log(form)
+        let json = FormToJSON(form);
+        console.log(json);
+        $.ajax({
+            type: "POST",
+            url: `/${req}/add`,
+            data: json,
+            dataType: "json"
+        }).done(function(res) { 
+            console.log(res);
+        }).fail(function(err) { 
+            console.log(err);
         });
     })
+
+
     $(".change").click(function(){
-        let data = $(this).closest(".info").attr("data");
-        // let button = $(this);
-        // let table = "users";
-        // if (button.parents('.skills').length) { // ewi_info skill_info
-        //     table = "skill";
-        // } else if (button.parents('.info').length) {
-        //     table = "info";
-        // }
         let info = $(this).closest(".info");
         let form = $("#change").find("form");
+
         form.find("input[name='name']").val(info.children(".sub-heading").text());
         form.find("input[name='profession']").val(info.children("p").eq(2).text());
         form.find("input[name='start']").val(info.children(".duration").text().split(" - ")[0]);
         form.find("input[name='finish']").val(info.children(".duration").text().split(" - ")[1]);
-        form.find("input[name='id']").val(data);
-        // console.log(info.children(".duration").text().split(" - "));
+        form.find("input[name='id']").val(info.attr("data"));
+        form.find('button.update').attr("info", info.attr("info"));
     })
 
-    function ConvertFormToJSON(form){
-        var array = $(form).serializeArray();
-        var json = {type: "change"};
-        
-        $.each(array, function() {
-            json[this.name] = this.value || '';
-        });
-        
-        return json;
-    }
-
-    $(".change-save").click(function(event){
+    $(".update").click(function(event){
         event.preventDefault();
-        
-        let json = ConvertFormToJSON($("#change").find("form"));
-        json["table"] = "info";
+        let json = FormToJSON($("#change").find("form"));
+        let req = $(this).attr("info");
         console.log(json);
         $.ajax({
             type: "POST",
-            url: "/account",
+            url: `/${req}/update/${json['id']}`,
             data: json,
             dataType: "json"
         }).done(function(res) { 
@@ -84,6 +77,22 @@ $( document ).ready(function(){
         });
     });
 
-})
 
-// user=user[0], edu=edu_info, inter=intership_info, work=work_info, prof=prof_skill, pers=pers_skill, hobby=hobby_skill
+
+    $(".remove").click(function(){
+        let info = $(this);
+        let id = info.closest(".info").attr("data");
+        let req = info.closest(".info").attr("info");
+        $.ajax({
+            type: "GET",
+            url: `/${req}/delete/${id}`,
+            success: function () {
+                info.closest(".info").remove();
+            },
+            error: function (data) {
+              console.error('Error:', data);
+            }
+        });
+    })
+
+})

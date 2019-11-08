@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
-    <link rel="stylesheet" href="https://allyoucan.cloud/cdn/icofont/1.0.1/icofont.css" integrity="sha384-jbCTJB16Q17718YM9U22iJkhuGbS0Gd2LjaWb4YJEZToOPmnKDjySVa323U+W7Fv" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://allyoucan.cloud/cdn/icofont/1.0.1/icofont.css" integrity="sha384-jbCTJB16Q17718YM9U22iJkhuGbS0Gd2LjaWb4YJEZToOPmnKDjySVa323U+W7Fv" crossorigin="anonymous"> -->
     
 
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -38,21 +38,12 @@
                     </div>
                     <div class="col-lg-8 col-sm-9">
                         <div class="menu">
-                            <!-- <ul class="nav navbar-nav">
-                                                    <li class="active"><a href="#">Home</a></li>
-                                                    <li><a href="#">Service</a></li>
-                                                    <li><a href="#">Extension</a></li>
-                                                    <li><a href="#">Pricing</a></li>
-                                                    <li><a href="#">Help</a></li>
-                                        </ul> -->
                             <div class="sign_up">
                                 {% if session.user_id %}
-                                <p><a href="/account"><i class="fas fa-address-card" aria-hidden="true"></i> Account</a></p>
+                                <p><a href="#" data-toggle="modal" data-target="#add"><i class="fas fa-plus" aria-hidden="true"></i>Add</a></p>
+                                <!-- <p><a href="/account"><i class="fas fa-address-card" aria-hidden="true"></i> Account</a></p> -->
                                 <p><a href="/logout"><i class="fas fa-sign-out-alt" aria-hidden="true"></i> Log Out</a></p>
                                 {% else %}
-                                <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                                        <i class="fa fa-user" aria-hidden="true"></i> Log In
-                                      </button> -->
                                 <p><a href="#" data-toggle="modal" data-target="#login"><i class="fa fa-user"
                                             aria-hidden="true"></i> Log In</a></p>
                                 <p><a href="#" data-toggle="modal" data-target="#register"><i class="fa fa-sign-in-alt"
@@ -60,7 +51,6 @@
                                 {% endif %}
 
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -122,8 +112,6 @@
                                     <p><a href="#"><i class="fab fa-facebook-square" aria-hidden="true"></i></a>
                                         <a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a>
                                         <a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
-                                        <!--  <a href="#"><i class="fab fa-dribbble" aria-hidden="true"></i></a>
-                                        <a href="#"><i class="fag fa-behance" aria-hidden="true"></i></a> -->
                                     </p>
                                 </div>
                             </div>
@@ -138,8 +126,6 @@
 
 
     <script src="/static/js/jquery-3.1.1.min.js"></script>
-    <script src="/static/js/formcheck.js"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
