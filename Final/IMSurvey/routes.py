@@ -197,8 +197,8 @@ def addNew(info):
         db.session.add(new_info)
         db.session.commit()
     except ValueError:
-        return jsonify(False), 500
-    return jsonify(True), 200
+        return jsonify({status: False}), 500
+    return jsonify({"status" : True, "id" : new_info.id}), 200
 
 
 @app.route("/<info>/update/<id>", methods=["POST"])
@@ -379,7 +379,7 @@ def pdf_converter(version):
            os.path.join(app.config['APP_STATIC_ROOT'], f'static/resume/{version}.css')]
 
     pdf = pdfkit.from_string(rendered, False, css=css,
-                             configuration=config, options=options)
+                             configuration=Account, options=options)
 
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'

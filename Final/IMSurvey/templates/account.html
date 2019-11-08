@@ -43,10 +43,10 @@ My Account
 
 				<div class="sidebar">
 					{% if pers %}
-					<div class="profile-info skills">
+					<div class="profile-info skills comunication">
 						<h2>Personal Skills</h2>
 						{% for item in pers %}
-						<div class="skill-alone" data="{{ item.id }}" info="skill">
+						<div class="skill-alone info" data="{{ item.id }}" info="skill">
 							{{ item.skill }}<div class="edit"><i class="fa fa-remove remove"></i></div>
 						</div>
 						{% endfor %}
@@ -54,12 +54,10 @@ My Account
 					{% endif %}
 
 					{% if hobby %}
-					<div class="profile-info skills">
-						<div class="edit"><i class="fa fa-edit change " data-toggle="modal" data-target="#change"></i>
-						</div>
+					<div class="profile-info skills hobby">
 						<h2>Hobbies</h2>
 						{% for item in hobby %}
-						<div class="skill-alone" data="hobby" info="skill">{{ item.skill }}<div class="edit"><i
+						<div class="skill-alone info" data="{{ item.id }}" info="skill">{{ item.skill }}<div class="edit"><i
 									class="fa fa-remove remove"></i></div>
 						</div>
 						{% endfor %}
@@ -79,8 +77,15 @@ My Account
 
 			<div class="col-lg-8 col-12">
 				<div class="content">
+
+					{% if not (work or inter or edu or prof) %}
+					<h2>Already filled in ?</h2>
+					<h4>You can now review your CV in Add section and download the PDF out of 2 versions</h4>
+					<h6>Click the Account button in header to view PDF</h6>
+					{% endif %}
+
 					{% if work %}
-					<div class="block">
+					<div class="block work">
 						<h1 class="heading"> Work Experience</h1>
 						{% for item in work %}
 						<div class="info" data="{{ item.id }}" info="info">
@@ -96,7 +101,7 @@ My Account
 
 
 					{% if inter %}
-					<div class="block">
+					<div class="block internship">
 						<h1 class="heading">Intership</h1>
 						{% for item in inter %}
 						<div class="info" data="{{ item.id }}" info="info">
@@ -112,7 +117,7 @@ My Account
 
 
 					{% if edu %}
-					<div class="block">
+					<div class="block education">
 						<h1 class="heading">Education</h1>
 						{% for item in edu %}
 						<div class="info" data="{{ item.id }}" info="info">
@@ -130,9 +135,9 @@ My Account
 					{% if prof %}
 					<div class="block">
 						<h1 class="heading">Professional Skills</h1>
-						<div class="skills">
+						<div class="skills profession">
 							{% for item in prof %}
-							<div class="skill-alone" data="{{ item.id }}" info="skill">{{ item.skill }}
+							<div class="skill-alone info" data="{{ item.id }}" info="skill">{{ item.skill }}
 								<div class="edit"><i class="fa fa-remove remove "></i></div>
 							</div>
 							{% endfor %}
@@ -146,48 +151,6 @@ My Account
 		</div>
 	</div>
 </section>
-
-
-<section class="project" id="section-project">
-	<div class="text">
-	  <h2>How to use</h2>
-	  <h4>Curriculum Vitae Free application tool</h4>
-	  <p>The site provides easy and quick way to create CV for your job/training application for the below topics</p>
-	</div>
-	<div class="container">
-	  <div class="row">
-		<div class="col-md-4 project_icon">
-		  <div class="single_project">
-			<i class="icofont icofont-tasks-alt"></i>
-			<h3><a href="#">Finance</a></h3>
-			<p>The place to start your finance career</p>
-		  </div>
-		</div>
-		<div class="col-md-4 project_icon">
-		  <div class="single_project">
-			<i class="icofont icofont-team"></i>
-			<h3><a href="#">HR</a></h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-			  labore et dolore magna aliqua.</p>
-		  </div>
-		</div>
-		<div class="col-md-4 project_icon">
-		  <div class="single_project">
-			<i class="icofont icofont-worker"></i>
-			<h3><a href="#">Quality Assurance</a></h3>
-			<p>Beginner in QA? <br> Your starting point can start here.</p>
-		  </div>
-		</div>
-		<!-- <div class="col-md-12">
-		  <p class="button"><a class="button" href="#" data-toggle="modal" data-target="#register">Get started</a>
-		  </p>
-		</div> -->
-	  </div>
-	  <h2>Already filled in ?</h2>
-	  <h4>You can now review your CV in Account section and download the PDF out of 2 versions</h4>
-	  <h6>Click the Account button in header to view PDF</h6>
-	</div>
-  </section>
 
 
 <div class="modal fade" id="change" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"

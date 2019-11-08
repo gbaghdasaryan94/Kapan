@@ -78,6 +78,7 @@ body {
 	padding: 10px 10px;
 	margin: 5px;
 	display: inline-block;
+    position: relative;
 	background-color: #fff;
 	color: #767270;
 }
@@ -96,6 +97,7 @@ body {
 .info {
 	padding: 2% 1%;
 	border-bottom: 1px solid #bdbdbd;
+    position: relative;
 }
 
 
@@ -119,6 +121,7 @@ font-weight: bold;
 .block .skills .skill-alone{
 	background-color: #15a27f;
 	background-image: linear-gradient(to right top, #25e3b3, #21e1b6, #1edfba, #1dddbc, #1edbbf);
+	border-bottom: 0;
 	color: #fff;
 }
 
@@ -206,7 +209,8 @@ font-weight: bold;
 .edit {
     display: none;
     position: absolute;
-    right: 5%;
+	right: 3%;
+	top: 0;
 }
 
 

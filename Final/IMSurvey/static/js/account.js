@@ -23,12 +23,26 @@ $( document ).ready(function(){
         return json;
     }
 
+    function renderSave(req, json){   
+        return {
+            info : `<div class="info" data="${json["id"]}" info="info">
+                            <div class="edit"><i class="fa fa-edit change " data-toggle="modal"
+                                    data-target="#change"></i>&nbsp;<i class="fa fa-remove remove"></i></div>
+                            <p class="sub-heading">${json["name"]}</p>
+                            <p class="duration">${json["start"]} - ${json["finish"]}</p>
+                            <p>${json["profession"]}</p>
+                        </div>`,
+            skill : `<div class="skill-alone" data="${json["id"]}" info="skill">${json["skill"]}
+                        <div class="edit"><i class="fa fa-remove remove "></i></div>
+                    </div>`
+        }[req];    
+    }
+
     $(".save").click(function(event){
         event.preventDefault();
         let form = $(this).closest("form");
         let req = $(this).attr("info");
         console.log(req);
-        console.log(form)
         let json = FormToJSON(form);
         console.log(json);
         $.ajax({
@@ -38,6 +52,13 @@ $( document ).ready(function(){
             dataType: "json"
         }).done(function(res) { 
             console.log(res);
+            let className = form.attr("id");
+            json["id"] = res.id;
+            let block = renderSave(req, json);
+            let section = $(".container").find(`.${className}`);
+            console.log(section);
+            if (section)
+                section.append(block);
         }).fail(function(err) { 
             console.log(err);
         });
