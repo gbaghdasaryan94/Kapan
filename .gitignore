@@ -299,3 +299,6 @@ dmypy.json
 
 
 .DS_Store
+
+survey.db
+uploads
