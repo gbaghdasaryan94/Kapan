@@ -32,7 +32,7 @@ $( document ).ready(function(){
                             <p class="duration">${json["start"]} - ${json["finish"]}</p>
                             <p>${json["profession"]}</p>
                         </div>`,
-            skill : `<div class="skill-alone" data="${json["id"]}" info="skill">${json["skill"]}
+            skill : `<div class="skill-alone info" data="${json["id"]}" info="skill">${json["skill"]}
                         <div class="edit"><i class="fa fa-remove remove "></i></div>
                     </div>`
         }[req];    
@@ -81,7 +81,7 @@ $( document ).ready(function(){
         event.preventDefault();
         let json = FormToJSON($("#change").find("form"));
         let req = $(this).attr("info");
-        console.log(json);
+        
         $.ajax({
             type: "POST",
             url: `/${req}/update/${json['id']}`,
@@ -94,7 +94,7 @@ $( document ).ready(function(){
             info.children(".duration").text(json["start"] + " - " + json["finish"]);
             $(".close").click();
         }).fail(function(err) { 
-            console.log(err);
+            
         });
     });
 
@@ -111,7 +111,7 @@ $( document ).ready(function(){
                 info.closest(".info").remove();
             },
             error: function (data) {
-              console.error('Error:', data);
+              
             }
         });
     })

@@ -25,7 +25,6 @@ def after_request(response):
 
 
 @app.route('/', methods=['GET'])
-# @login_required
 def home():
 
     if not session.get("user_id"):
@@ -107,7 +106,7 @@ def register():
 
         return redirect("/onboarding")
 
-    return render_template("register.html")
+    return redirect("/")
 
 
 @app.route("/onboarding", methods=["GET", "POST"])
@@ -142,53 +141,12 @@ def onboarding():
     return render_template("onboarding.html", fullname=user[0].fullname)
 
 
-#***********************************************************************
-# @app.route("/fill-info", methods=["GET", "POST"])
-# @login_required
-# def fill_EWIinfo():
-
-#     if request.method == "POST":
-#         data = request.form.to_dict(flat=True)
-#         data["uid"] = session["user_id"]
-#         try:
-#             data["start"] = datetime.strptime(data["start"], "%Y-%m-%d").date()
-#             data["finish"] = datetime.strptime(
-#                 data["finish"], "%Y-%m-%d").date()
-#         except ValueError:
-#             flash("You need to spicify the dates", "danger")
-#             return redirect("/")
-#         new_info = EWIinfo(**data)
-
-#         db.session.add(new_info)
-#         db.session.commit()
-
-#     return redirect("/")
-#***********************************************************************
-
-#***********************************************************************
-# @app.route("/fill-skill", methods=["GET", "POST"])
-# @login_required
-# def fill_Skillinfo():
-
-#     if request.method == "POST":
-#         data = request.form.to_dict(flat=True)
-#         data["uid"] = session["user_id"]
-#         new_skill = Skillinfo(**data)
-
-#         db.session.add(new_skill)
-#         db.session.commit()
-
-#     return redirect("/")
-#***********************************************************************
-
-
 @app.route("/<info>/add", methods=["POST"])
 @login_required
 def addNew(info):
     table = {"info": EWIinfo, "skill": Skillinfo}
     data = request.form.to_dict(flat=True)
     data["uid"] = session["user_id"]
-    print(data)
     try:
         for key in ("start", "finish"):
             if key in data:
@@ -197,7 +155,7 @@ def addNew(info):
         db.session.add(new_info)
         db.session.commit()
     except ValueError:
-        return jsonify({status: False}), 500
+        return jsonify({"status": False}), 500
     return jsonify({"status" : True, "id" : new_info.id}), 200
 
 
@@ -206,7 +164,6 @@ def addNew(info):
 def update(info, id):
     table = {"info": EWIinfo, "skill": Skillinfo}
     data = request.form.to_dict(flat=True)
-    print(data)
     try:
         for key in ("start", "finish"):
             if key in data:
@@ -237,87 +194,6 @@ def logout():
     return redirect("/")
 
 
-# @app.route('/account', methods=["GET", "POST"])
-# @login_required
-# def my_account():
-#     user = User.query.filter_by(id=session.get("user_id"))
-#     if not user[0].isComplete:
-#         return redirect("/")
-
-#     if request.method == "POST":
-#         if request.form.get("type"):
-#             if request.form.get("type") == "remove":
-#                 table = request.form.get("table")
-#                 if table == "info":
-#                     EWIinfo.query.filter_by(id=request.form.get(
-#                         "data"), uid=session.get("user_id")).delete()
-#                 elif table == "skill":
-#                     Skillinfo.query.filter_by(id=request.form.get(
-#                         "data"), uid=session.get("user_id")).delete()
-#                 else:
-#                     User.query.filter_by(id=request.form.get(
-#                         "data"), uid=session.get("user_id")).delete()
-#                 db.session.commit()
-#                 return jsonify(True), 200
-#             elif request.form.get("type") == "change":
-
-#                 table = request.form.get("table")
-#                 data = request.form.to_dict(flat=True)
-
-#                 try:
-#                     data["start"] = datetime.strptime(
-#                         data["start"], "%Y-%m-%d").date()
-#                     data["finish"] = datetime.strptime(
-#                         data["finish"], "%Y-%m-%d").date()
-#                 except ValueError:
-#                     return jsonify(False), 500
-
-#                 del data["type"]
-#                 del data["table"]
-#                 del data["id"]
-#                 print(data)
-#                 if table == "info":
-#                     db.session.query(EWIinfo).filter_by(id=request.form.get(
-#                         "id"), uid=session.get("user_id")).update(data)
-#                 # elif table == "skill":
-#                 #     Skillinfo.update(data)
-#                 # else:
-#                 #     User.update(data)
-#                 db.session.commit()
-#                 return jsonify(True), 200
-#                 # for item in request.form:
-#                 #     print(item)
-#             return jsonify(False), 500
-#         # data = request.form.to_dict(flat=True)
-
-#         # if not re.search(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", data["email"]):
-#         #     flash("Email is incorrect", "warning")
-#         #     return redirect(request.url)
-#         # if not re.search(r"([a-z]|[A-Z]+[/s])", data["fullname"]):
-#         #     flash("Fullname is incorrect", "danger")
-#         #     return redirect("/")
-
-#         # data["birth"] = datetime.strptime(data["birth"], "%Y-%m-%d").date()
-#         # user.update(data)
-#         # db.session.commit()
-
-#     edu_info = EWIinfo.query.filter_by(
-#         uid=session.get("user_id"), info="education").all()
-#     intership_info = EWIinfo.query.filter_by(
-#         uid=session.get("user_id"), info="intership").all()
-#     work_info = EWIinfo.query.filter_by(
-#         uid=session.get("user_id"), info="work").all()
-
-#     prof_skill = Skillinfo.query.filter_by(
-#         uid=session.get("user_id"), info="prof").all()
-#     pers_skill = Skillinfo.query.filter_by(
-#         uid=session.get("user_id"), info="pers").all()
-#     hobby_skill = Skillinfo.query.filter_by(
-#         uid=session.get("user_id"), info="hobby").all()
-
-#     return render_template("account.html", user=user[0], edu=edu_info, inter=intership_info, work=work_info, prof=prof_skill, pers=pers_skill, hobby=hobby_skill)
-
-
 @app.route('/contact', methods=["GET", "POST"])
 def contact():
     if request.method == "POST":
@@ -343,7 +219,6 @@ def contact():
 @app.route('/topdf/<int:version>', methods=["GET"])
 @login_required
 def pdf_converter(version):
-    print(version)
     config = pdfkit.configuration(wkhtmltopdf="./wkhtmltopdf")
 
     options = {
@@ -379,7 +254,7 @@ def pdf_converter(version):
            os.path.join(app.config['APP_STATIC_ROOT'], f'static/resume/{version}.css')]
 
     pdf = pdfkit.from_string(rendered, False, css=css,
-                             configuration=Account, options=options)
+                             configuration=config, options=options)
 
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
