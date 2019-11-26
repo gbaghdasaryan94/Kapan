@@ -11,6 +11,5 @@ for i in arr:
             ar.append(i)
         else:
             ar1.append(i)
-for j in ar1:
-    ar.append(j)
-print(ar)
+
+print(ar + ar1)
