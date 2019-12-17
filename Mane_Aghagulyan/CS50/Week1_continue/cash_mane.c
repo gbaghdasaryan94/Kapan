@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <cs50.h>
-#include<math.h>
+#include <math.h>
 
 int main(){
     float coin_f ;
     int count=0, count1, coin_i;
 
-    do{
-    coin_f=get_float("Input dollars and cents ");
+    do
+    {
+        coin_f=get_float("Input dollars and cents ");
     } while (coin_f<0);
     
     coin_i=round(coin_f*100);

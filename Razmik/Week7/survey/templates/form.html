@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+<main class="container-fluid p-5">
+
+
+    <!-- http://getbootstrap.com/docs/4.1/content/typography/ -->
+    <h1 class="mb-3">Form</h1>
+
+    <!-- http://getbootstrap.com/docs/4.1/components/forms/ -->
+    <form action="/form" method="post">
+
+        <div class="form-group">
+            <input autocomplete="off" autofocus="" class="form-control" name="name" placeholder="Name" type="text">
+        </div>
+
+        <div class="form-group">
+            <select class="form-control" name="house">
+                <option disabled="" selected="" value="">House</option>
+                <option value="Gryffindor">Gryffindor</option>
+                <option value="Hufflepuff">Hufflepuff</option>
+                <option value="Ravenclaw">Ravenclaw</option>
+                <option value="Slytherin">Slytherin</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+
+            <div class="form-check">
+                <input class="form-check-input" id="Beater" name="position" type="radio" value="Beater">
+                <label class="form-check-label" for="Beater">
+                    Beater
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" id="Chaser" name="position" type="radio" value="Chaser">
+                <label class="form-check-label" for="Chaser">
+                    Chaser
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" id="Keeper" name="position" type="radio" value="Keeper">
+                <label class="form-check-label" for="Keeper">
+                    Keeper
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" id="Seeker" name="position" type="radio" value="Seeker">
+                <label class="form-check-label" for="Seeker">
+                    Seeker
+                </label>
+            </div>
+
+        </div>
+
+        <!-- http://getbootstrap.com/docs/4.1/components/buttons/ -->
+        <button class="btn btn-primary" type="submit">Submit</button>
+
+    </form>
+
+    <script>
+
+        // Validate submission
+        var _0x48ff = ['querySelector', 'form', 'onsubmit', 'value', 'focus', 'select[name=house]', 'You\x20must\x20specify\x20your\x20house.', 'input[name=position]:checked', 'You\x20must\x20specify\x20your\x20position.']; (function (_0x48a344, _0x1368ce) { var _0x5c6c50 = function (_0xa7ce10) { while (--_0xa7ce10) { _0x48a344['push'](_0x48a344['shift']()); } }; _0x5c6c50(++_0x1368ce); }(_0x48ff, 0x1ef)); var _0x1e94 = function (_0x2469a7, _0x19f112) { _0x2469a7 = _0x2469a7 - 0x0; var _0x262c0c = _0x48ff[_0x2469a7]; return _0x262c0c; }; document[_0x1e94('0x0')](_0x1e94('0x1'))[_0x1e94('0x2')] = function () { let _0x3ff4b2 = document[_0x1e94('0x0')]('input[name=name]'); if (!_0x3ff4b2[_0x1e94('0x3')]) { alert('You\x20must\x20specify\x20your\x20name.'); _0x3ff4b2[_0x1e94('0x4')](); return ![]; } let _0x122809 = document[_0x1e94('0x0')](_0x1e94('0x5')); if (!_0x122809['value']) { alert(_0x1e94('0x6')); _0x122809[_0x1e94('0x4')](); return ![]; } let _0x568d99 = document[_0x1e94('0x0')](_0x1e94('0x7')); if (!_0x568d99 || !_0x568d99[_0x1e94('0x3')]) { alert(_0x1e94('0x8')); return ![]; } return !![]; };
+
+    </script>
+
+
+</main>
+
+<script>
+
+    /* TODO */
+
+</script>
+
+{% endblock %}

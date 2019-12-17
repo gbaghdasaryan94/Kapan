@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <!-- http://getbootstrap.com/docs/4.1/content/typography/ -->
+    <h1 class="mb-3">Աղյուսակ</h1>
+
+    <!-- http://getbootstrap.com/docs/4.1/components/forms/ -->
+
+    <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4">
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table dataTable table-dark" id="DataTables_Table_0" role="grid">
+                    <thead>
+                        <tr role="row">
+                            <th class="sorting_asc" aria-sort="ascending">Անուն</th>
+                            <th class="sorting">Ազգանուն</th>
+                            <th class="sorting">Քաղաք</th>
+                            <th class="sorting">Գույն</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table">
+                        {% for sheet in sheets %}
+                        <tr role="row">
+                            <td class="sorting_1">{{ sheet.name }}</td>
+                            <td>{{ sheet.lastname }}</td>
+                            <td>{{ sheet.city }}</td>
+                            <td>{{ sheet.color }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $('table')['DataTable']({ 'info': ![], 'ordering': !![], 'paging': ![], 'searching': ![] });
+        $(document).ready(function () {
+            let t = $("#table").children();
+            let color = ["bg-primary", "bg-success", "bg-warning", "bg-danger", "bg-info"];
+            for (let i = 0; i < t.length; i++) {
+                t.eq(i).addClass(color[i % 5]);
+            }
+        });
+    </script>
+
+{% endblock %}

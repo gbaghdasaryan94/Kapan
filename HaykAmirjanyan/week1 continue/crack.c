@@ -15,13 +15,13 @@ int main(int argc, string argv[])
             printf("%s\n", str);
             return 0;
         }
-        str[0]=str[0] + 1;   
+        str[0] = str[0] + 1;   
         int n = strlen(str);
         for(int i = 0; i < n; i++)
         {
         if (str[i] == '[' )
         {
-            str[i]= 'a';
+            str[i] = 'a';
         }
         if (str[i] == '{')
         {

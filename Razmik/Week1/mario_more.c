@@ -7,12 +7,13 @@ int main()
     do
     {
         a = get_int("Height: ");
-    }while (a < 1 || a > 8);
+    }
+    while (a < 1 || a > 8);
     for (int i = 1; i <= a; i++)
     {
         for (int j = 1; j <= a; j++)
         {
-            if (j < a-i+1) 
+            if (j < a - i + 1) 
             {
                 printf(" ");
             }
@@ -22,16 +23,9 @@ int main()
             }
         }
         printf("  ");
-        for (int j = 1; j <= a; j++)
+        for (int j = 1; j <= i; j++)
         {
-            if (j > i) 
-            {
-                printf(" ");
-            }
-            else
-            {
-                printf("#");
-            }
+            printf("#");
         }
         printf("\n");
     }

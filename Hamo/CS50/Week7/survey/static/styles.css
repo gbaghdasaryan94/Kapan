@@ -1,0 +1,104 @@
+TODO
+
+.navbar-dark .navbar-nav .active>.nav-link, .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .nav-link.show, .navbar-dark .navbar-nav .show>.nav-link{
+    cursor: default;
+}
+input.form-control{
+    display: block;
+    margin-bottom: 20px;
+    width: 250px;
+}
+
+select.form-control{
+    width: 250px;
+    margin-bottom: 20px;
+}
+ a{
+    color:#ccc;
+    transition: all 0.25 ease;
+    margin-right: 5px;    
+}
+
+
+a:hover{
+    color: #fff;
+    text-decoration: none;
+}
+.checkbox-block input{
+    display: inline-block;
+    
+}
+
+.checkbox-block p{
+    margin-bottom: 0;
+}
+
+.radio {
+    margin: 0.5rem;
+}
+.radio input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+.radio input[type="radio"] + .radio-label:before {
+    content: '';
+    background: #f4f4f4;
+    border-radius: 100%;
+    border: 1px solid #b4b4b4;
+    display: inline-block;
+    width: 1.4em;
+    height: 1.4em;
+    position: relative;
+    top: -0.2em;
+    margin-right: 1em;
+    vertical-align: top;
+    cursor: pointer;
+    text-align: center;
+    transition: all 250ms ease;
+}
+.radio input[type="radio"]:checked + .radio-label:before {
+    background-color: #3197ee;
+    box-shadow: inset 0 0 0 4px #f4f4f4;
+}
+.radio input[type="radio"]:focus + .radio-label:before {
+    outline: none;
+    border-color: #3197ee;
+}
+.radio input[type="radio"]:disabled + .radio-label:before {
+    box-shadow: inset 0 0 0 4px #f4f4f4;
+    border-color: #b4b4b4;
+    background: #b4b4b4;
+}
+.radio input[type="radio"] + .radio-label:empty:before {
+    margin-right: 0;
+}
+
+
+.radio input[type="radio"] + .radio-label:before {
+    top: 0.1em;
+    margin-right: 10px;
+}
+
+
+input.str-num {
+    display: inline-block; 
+    margin-left: 20px;
+    padding-left: 8px;
+}
+input[type=submit]{
+    margin-left: 50px;
+}
+
+form{
+    margin-left: 30px;
+}
+
+.btn{
+    width: 250px;
+    text-align: center;
+}
+
+
+div.dataTables_wrapper div.dataTables_length select{
+    margin-bottom: 0;
+}

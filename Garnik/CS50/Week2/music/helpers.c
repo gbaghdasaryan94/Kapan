@@ -20,7 +20,7 @@ int frequency(string note)
     // Base frequency of A4 is 440hz
     double freq = 440.0;
     
-    // Adjust for letter
+    // Adjust for letter {C, D, E, F, G, A, B}
     switch (note[0])
     {
         case 'C':

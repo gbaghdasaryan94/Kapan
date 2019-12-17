@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <!-- http://getbootstrap.com/docs/4.1/content/typography/ -->
+    <h1 class="mb-3">Form</h1>
+
+    <!-- http://getbootstrap.com/docs/4.1/components/forms/ -->
+    <form id="fm" action="/form" method="post">
+      <div class="form-row">
+    <div class="col-2">
+      <input autocomplete="off" autofocus name="first" placeholder="First Name" type="text" id = "fname">
+    </div>
+    <div class="col-2">
+      <input autocomplete="off" autofocus name="last" placeholder="Last Name" type="text" id = "lname">
+    </div>
+  </div>
+  <br>
+  <div class="col-6">
+  <b><h6>Which week is the most dificult to study ? </h6></b>
+  <div class="form-inline">
+  <select class="custom-select my-1 mr-sm-2" name = "dropdown" id="dd">
+    <option selected >Choose... </option>
+    <option style="font-family: Apple Chancery">Week 1</option>
+    <option>Week 2</option>
+    <option>Week 3</option>
+    <option>Week 4</option>
+    <option>Week 5</option>
+    <option>Week 6</option>
+    <option>Week 7</option>
+    <option>Week 8</option>
+    <option>Week 9</option>
+    <option>Week 10</option>
+    <option>Week 11</option>
+  </select>
+  </div>
+  <br>
+  <legend class="col-form-label col-sm-25 pt-0"><b><h6>Who explains the shorts clearly ?</h6></b></legend>
+      <div class="col-sm-12">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value= "Doug Loyd" checked>
+          <label class="form-check-label" for="gridRadios1">
+            Doug Loyd
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value= "Zmayla Chan">
+          <label class="form-check-label" for="gridRadios2">
+            Zmayla Chan
+          </label>
+        </div>
+  </div>
+</form>
+<br>
+
+        <!-- http://getbootstrap.com/docs/4.1/components/buttons/ -->
+        <button class="btn btn-primary" type="submit" id = "sm" >Submit</button>
+
+    </form>
+
+    <script src = "/static/validation.js"></script>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <!-- http://getbootstrap.com/docs/4.1/content/typography/ -->
+    <h1 class="mb-3">Form</h1>
+
+    <!-- http://getbootstrap.com/docs/4.1/components/forms/ -->
+    <form name="myform" action="/form" method="post" onsubmit="return validate()">
+
+        
+            
+        <input type="text" name="name" class="form-control" placeholder="Name" >
+        <input type="number" min = "5" name="age" class="form-control" placeholder="Age"  >             
+        
+        <select  name="house" class="form-control" >
+            <option value="" selected="" disabled="">House</option>
+            <option value="Gryffindor">Gryffindor</option>
+            <option value="Hufflepuff">Hufflepuff</option>
+            <option value="Ravenclaw">Ravenclaw</option>
+            <option value="Slytherin">Slytherin</option>
+        </select>
+        
+        <div class="checkbox-block">
+            <div class="radio">
+            <input id="radio-1" name="position" type="radio" value="Beater">
+            <label for="radio-1" class="radio-label">Beater</label>
+          </div>
+        
+          <div class="radio">
+            <input id="radio-2" name="position" type="radio" value="Chaser">
+            <label  for="radio-2" class="radio-label">Chaser</label>
+          </div>
+        
+          <div class="radio">
+            <input id="radio-3" name="position" type="radio" value="Keeper">
+            <label for="radio-3" class="radio-label">Keeper</label>
+        </div>
+
+        <div class="radio">
+                <input id="radio-4" name="position" type="radio" value="Seeker">
+                <label for="radio-4" class="radio-label">Seeker</label>
+        </div>    
+        
+        <!-- http://getbootstrap.com/docs/4.1/components/buttons/ -->
+        <button id="submit" class="btn btn-primary" type="submit">Submit</button>
+            </form>
+
+    <script>
+
+        /* TODO */
+
+    </script>
+
+{% endblock %}
