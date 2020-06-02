@@ -145,6 +145,7 @@ def onboarding():
 @login_required
 def addNew(info):
     table = {"info": EWIinfo, "skill": Skillinfo}
+    print(EWIinfo)
     data = request.form.to_dict(flat=True)
     data["uid"] = session["user_id"]
     try:
@@ -156,7 +157,7 @@ def addNew(info):
         db.session.commit()
     except ValueError:
         return jsonify({"status": False}), 500
-    return jsonify({"status" : True, "id" : new_info.id}), 200
+    return jsonify({"status" : True}), 200
 
 
 @app.route("/<info>/update/<id>", methods=["POST"])
@@ -254,7 +255,7 @@ def pdf_converter(version):
            os.path.join(app.config['APP_STATIC_ROOT'], f'static/resume/{version}.css')]
 
     pdf = pdfkit.from_string(rendered, False, css=css,
-                             configuration=config, options=options)
+                            options=options)
 
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'

@@ -4,6 +4,7 @@
 class Rectangle:
 
     def __init__ (self, length, width):
+        self.test = "Hello"
         self._length = length
         self._width = width
 
@@ -32,5 +33,7 @@ class Rectangle:
 if __name__ == "__main__":
     
     rectangle = Rectangle(6, 9)
+    rectangle.test = "word"
+    print(rectangle.test)
     print(repr(rectangle))
     print(str(rectangle))
