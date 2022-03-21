@@ -1,3 +1,4 @@
+from codecs import ignore_errors
 from flask import flash, jsonify, redirect, render_template, request, session, make_response
 
 from datetime import datetime
@@ -229,7 +230,9 @@ def pdf_converter(version):
         'margin-bottom': '0.5in',
         'margin-left': '0.5in',
         'encoding': "UTF-8",
-        'dpi': 300
+        'dpi': 300,
+        'enable-local-file-access': True,
+        '--load-media-error-handling':'ignore'
     }
 
     user = User.query.filter_by(id=session.get("user_id")).first()
@@ -251,12 +254,14 @@ def pdf_converter(version):
 
     rendered = render_template(f"resume/{version}.html", user=user, edu=edu_info,
                                inter=intership_info, work=work_info, prof=prof_skill, pers=pers_skill, hobby=hobby_skill)
+    
     css = [os.path.join(app.config['APP_STATIC_ROOT'], 'static/resume/grid4.css'),
            os.path.join(app.config['APP_STATIC_ROOT'], f'static/resume/{version}.css')]
+    
 
     pdf = pdfkit.from_string(rendered, False, css=css,
                             options=options)
-
+    
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
     # response.headers['Content-Disposition'] = f'attachment; filename=CV({user.fullname}).pdf'
