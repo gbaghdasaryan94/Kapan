@@ -236,6 +236,7 @@ def pdf_converter(version):
     }
 
     user = User.query.filter_by(id=session.get("user_id")).first()
+    print("--------------", user)
     user.avatar = os.path.join(app.config['APP_STATIC_ROOT'], user.avatar)
 
     edu_info = EWIinfo.query.filter_by(
@@ -251,6 +252,8 @@ def pdf_converter(version):
         uid=session.get("user_id"), info="pers").all()
     hobby_skill = Skillinfo.query.filter_by(
         uid=session.get("user_id"), info="hobby").all()
+    # about_info = User.query.filter_by(uid=session.get("user_id", info="about")).all()
+    # print(about_info)
 
     rendered = render_template(f"resume/{version}.html", user=user, edu=edu_info,
                                inter=intership_info, work=work_info, prof=prof_skill, pers=pers_skill, hobby=hobby_skill)
